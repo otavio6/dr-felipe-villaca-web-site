@@ -1,0 +1,15 @@
+{
+  "routes": [
+    { "route": "/lp", "rewrite": "/lp.html" },
+    { "route": "/links", "rewrite": "/links.html" },
+    { "route": "/defesa-alteracoes-lp", "rewrite": "/defesa-alteracoes-lp.html" },
+    { "route": "/links-embed-builder", "rewrite": "/links-embed-builder.html" }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/*.{png,jpg,jpeg,gif,webp,svg,ico,css,js,woff,woff2,ttf,eot,map,pdf,mp4}"]
+  },
+  "mimeTypes": {
+    ".webp": "image/webp"
+  }
+}
