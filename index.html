@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Felipe Villaça — Cirurgia de Contorno Corporal de Alta Performance | Belo Horizonte</title>
+<meta name="description" content="Dr. Felipe Villaça: mais de 15.000 cirurgias, fundador da FVG Cirurgia Plástica e do Hospital São Rafael. Especialista em Contorno Corporal de Alta Performance em Belo Horizonte.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0B0B0C;
+  --graphite:#141416;
+  --ink:#1A1A1C;
+  --cream:#FBF9F4;
+  --white:#FFFFFF;
+  --gold:#B79B69;
+  --gold-soft:#D6C39A;
+  --gold-deep:#8C7347;
+  --muted:#6E675C;
+  --line:rgba(183,155,105,.28);
+  --grad-gold:linear-gradient(120deg,#8C7347 0%,#B79B69 35%,#CDB88C 55%,#B79B69 75%,#8C7347 100%);
+  --serif:'Cormorant',Georgia,serif;
+  --sans:'Montserrat',Helvetica,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.wrap{width:min(1180px,92%);margin:0 auto}
+.serif{font-family:var(--serif)}
+/* Destaque de headline: itálico serifado em champagne fosco — sem gradiente */
+.gold-text{color:var(--gold);font-style:italic}
+.dark .gold-text,.hero .gold-text{color:var(--gold-soft)}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--gold-deep)}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+.sec{padding:clamp(4.5rem,9vw,7.5rem) 0}
+.sec-head{max-width:720px;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,4.4vw,3.3rem);line-height:1.12;margin:.9rem 0 1rem}
+.sec-head p{color:var(--muted);font-size:1.02rem;max-width:600px}
+.dark{background:var(--black);color:#F4F0E6}
+.dark .sec-head p{color:#B7B0A2}
+.dark .eyebrow{color:var(--gold-soft)}
+.center{text-align:center}
+.center .sec-head{margin-left:auto;margin-right:auto}
+.center .eyebrow::before{display:none}
+.center .sec-head p{margin-left:auto;margin-right:auto}
+
+/* ===== Buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--sans);font-weight:600;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;padding:1.05rem 2.1rem;border:1px solid transparent;border-radius:2px;cursor:pointer;transition:all .35s ease;white-space:nowrap}
+.btn-gold{background:var(--gold);color:#14100A;box-shadow:0 8px 22px -12px rgba(140,115,71,.35)}
+.btn-gold:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(140,115,71,.45)}
+.btn-ghost{border-color:var(--line);color:var(--gold-deep);background:transparent}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(183,155,105,.07)}
+.dark .btn-ghost{color:var(--gold-soft)}
+.btn svg{width:15px;height:15px;flex:none}
+
+/* ===== Topbar ===== */
+.topbar{background:var(--black);color:#CFC7B4;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:.55rem 1rem;border-bottom:1px solid rgba(183,155,105,.18)}
+.topbar b{color:var(--gold-soft);font-weight:600}
+.topbar .dot{margin:0 .8rem;color:var(--gold)}
+
+/* ===== Header ===== */
+header{position:sticky;top:0;z-index:90;background:rgba(11,11,12,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(183,155,105,.14);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 12px 40px -18px rgba(0,0,0,.8)}
+.nav{display:flex;align-items:center;gap:2rem;padding:.9rem 0}
+.nav .logo img{height:52px;width:auto}
+.nav-links{display:flex;gap:1.9rem;margin-left:auto}
+.nav-links a{color:#D8D2C4;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;position:relative;padding:.3rem 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold-soft)}
+.nav-links a:hover::after{width:100%}
+.nav-rating{display:flex;flex-direction:column;align-items:flex-end;line-height:1.3;font-size:.7rem;color:#B7B0A2;letter-spacing:.05em}
+.nav-rating .stars{color:var(--gold);font-size:.8rem;letter-spacing:.12em}
+.nav .btn{padding:.8rem 1.5rem;font-size:.72rem}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--gold-soft);width:44px;height:44px;border-radius:2px;cursor:pointer;font-size:1.1rem;margin-left:auto}
+.mobile-menu{display:none;background:var(--graphite);border-top:1px solid rgba(183,155,105,.14);padding:1.2rem 0 1.8rem}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:.75rem 0;color:#E4DECF;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.05)}
+.mobile-menu .btn{margin-top:1.2rem;width:100%}
+
+/* ===== Hero ===== */
+.hero{background:var(--black);color:#F4F0E6;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 78% 30%,rgba(183,155,105,.16),transparent 65%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(2rem,5vw,4.5rem);align-items:center;position:relative;padding:clamp(3rem,6vw,5.5rem) 0 clamp(3.5rem,7vw,6rem)}
+.hero-photo{position:relative}
+.hero-photo .frame{position:absolute;inset:-16px 16px 16px -16px;border:1px solid var(--line);border-radius:2px;pointer-events:none}
+.hero-photo img{width:100%;height:auto;border-radius:2px;filter:contrast(1.04) saturate(.94);box-shadow:0 40px 80px -30px rgba(0,0,0,.9)}
+.hero-photo .badge{position:absolute;right:-10px;bottom:26px;background:rgba(11,11,12,.92);border:1px solid var(--line);backdrop-filter:blur(8px);padding:.9rem 1.2rem;border-radius:2px;display:flex;align-items:center;gap:.8rem}
+.hero-photo .badge .num{font-family:var(--serif);font-size:1.7rem;font-weight:700;line-height:1}
+.hero-photo .badge small{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#B7B0A2;line-height:1.5}
+.hero-copy h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,4.8vw,3.9rem);line-height:1.08;margin:1.1rem 0 1.3rem}
+.hero-copy .sub{color:#C6BFAF;font-size:1.03rem;font-weight:300;max-width:560px;margin-bottom:1.8rem}
+.hero-copy .sub b{color:#EFE9DA;font-weight:600}
+.cred{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-bottom:2.2rem}
+.cred li{display:flex;align-items:center;gap:.55rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#CFC7B4}
+.cred li::before{content:"";width:6px;height:6px;transform:rotate(45deg);background:var(--grad-gold);flex:none}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem}
+
+/* ===== Stats strip ===== */
+.stats{background:var(--graphite);border-top:1px solid rgba(183,155,105,.16);border-bottom:1px solid rgba(183,155,105,.16)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:2.6rem 0}
+.stat{text-align:center;padding:0 1rem;position:relative}
+.stat + .stat::before{content:"";position:absolute;left:0;top:12%;height:76%;width:1px;background:rgba(183,155,105,.18)}
+.stat .num{font-family:var(--serif);font-weight:700;font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.1}
+.stat .lbl{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#B7B0A2;margin-top:.4rem}
+
+/* ===== About ===== */
+.about-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(2.5rem,6vw,5rem);align-items:center}
+.about-photo{position:relative}
+.about-photo img{border-radius:2px;box-shadow:0 30px 70px -30px rgba(20,16,5,.45)}
+.about-photo::after{content:"";position:absolute;inset:18px -18px -18px 18px;border:1px solid var(--line);border-radius:2px;z-index:-1}
+.about-copy h2{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,4vw,3rem);line-height:1.12;margin:.9rem 0 1.2rem}
+.about-copy p{color:var(--muted);margin-bottom:1.1rem;max-width:560px}
+.about-quote{border-left:2px solid var(--gold);padding:.4rem 0 .4rem 1.4rem;margin:1.8rem 0 2.2rem}
+.about-quote p{font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.4;color:var(--ink);margin:0}
+.about-quote cite{display:block;font-family:var(--sans);font-style:normal;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);margin-top:.7rem}
+/* ===== Procedures ===== */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.proc-card{position:relative;background:var(--graphite);border:1px solid rgba(183,155,105,.16);border-radius:2px;padding:2.2rem 1.6rem 1.8rem;min-height:250px;display:flex;flex-direction:column;overflow:hidden;transition:transform .35s ease,border-color .35s ease}
+.proc-card::before{content:attr(data-n);position:absolute;top:.6rem;right:1rem;font-family:var(--serif);font-size:3.4rem;font-weight:600;color:rgba(183,155,105,.14);line-height:1;transition:color .35s}
+.proc-card::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--grad-gold);transform:scaleX(0);transform-origin:left;transition:transform .45s ease}
+.proc-card:hover{transform:translateY(-6px);border-color:rgba(183,155,105,.45)}
+.proc-card:hover::before{color:rgba(183,155,105,.32)}
+.proc-card:hover::after{transform:scaleX(1)}
+.proc-card h3{font-family:var(--serif);font-weight:600;font-size:1.35rem;line-height:1.2;color:#F4F0E6;margin-bottom:.7rem;max-width:85%}
+.proc-card p{font-size:.85rem;color:#A8A192;font-weight:300;flex:1}
+.proc-card a{margin-top:1.2rem;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);display:inline-flex;align-items:center;gap:.4rem}
+.proc-card a::after{content:"→";transition:transform .3s}
+.proc-card a:hover::after{transform:translateX(4px)}
+.proc-ctas{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2.8rem}
+
+/* ===== Results / Before-After ===== */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.2rem}
+.filters button{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.6rem 1.2rem;background:transparent;border:1px solid rgba(110,103,92,.3);border-radius:2px;color:var(--muted);cursor:pointer;transition:all .3s}
+.filters button:hover{border-color:var(--gold);color:var(--gold-deep)}
+.filters button.active{background:var(--black);border-color:var(--black);color:var(--gold-soft)}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.result-card{background:var(--white);border:1px solid rgba(110,103,92,.14);border-radius:2px;overflow:hidden;transition:opacity .35s,transform .35s;box-shadow:0 18px 44px -28px rgba(20,16,5,.35)}
+.result-card.hidden{display:none}
+.result-card .meta{padding:1.1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.result-card .meta h4{font-family:var(--serif);font-size:1.15rem;font-weight:600}
+.result-card .meta span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
+.ba{position:relative;overflow:hidden;user-select:none;aspect-ratio:4/4.6;background:#ddd}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba .before{filter:grayscale(1) contrast(.95) brightness(.92);clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
+.ba .divider{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--gold-soft);transform:translateX(-1px);pointer-events:none}
+.ba .divider::after{content:"◂ ▸";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--black);color:var(--gold-soft);border:1px solid var(--gold);border-radius:999px;font-size:.65rem;letter-spacing:.05em;padding:.5rem .7rem;white-space:nowrap}
+.ba input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba .tag{position:absolute;top:.8rem;font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .7rem;background:rgba(11,11,12,.72);color:#EFE9DA;border-radius:2px;pointer-events:none}
+.ba .tag.b{left:.8rem}
+.ba .tag.a{right:.8rem;background:rgba(183,155,105,.9);color:#141005}
+.results-note{margin-top:1.6rem;font-size:.78rem;color:var(--muted);font-style:italic}
+.results-ctas{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2.6rem}
+
+/* ===== Differentials ===== */
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem}
+.diff{border:1px solid rgba(183,155,105,.18);border-radius:2px;padding:2.4rem 2.2rem;background:linear-gradient(160deg,rgba(183,155,105,.05),transparent 45%);transition:border-color .35s,background .35s}
+.diff:hover{border-color:rgba(183,155,105,.5)}
+.diff .ic{width:52px;height:52px;border:1px solid var(--line);border-radius:2px;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem}
+.diff .ic svg{width:24px;height:24px;stroke:var(--gold-soft);fill:none;stroke-width:1.4}
+.diff h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:#F4F0E6;margin-bottom:.7rem}
+.diff p{font-size:.92rem;color:#A8A192;font-weight:300}
+
+/* ===== Journey ===== */
+.journey{counter-reset:step}
+.j-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-top:1rem}
+.j-steps::before{content:"";position:absolute;top:26px;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 12%,var(--gold) 88%,transparent)}
+.j-step{padding:0 1.1rem;position:relative;text-align:center}
+.j-step .n{counter-increment:step;width:52px;height:52px;margin:0 auto 1.3rem;border-radius:50%;background:var(--cream);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--gold-deep);position:relative;z-index:1;transition:all .35s}
+.j-step .n::before{content:counter(step,decimal-leading-zero)}
+.j-step:hover .n{background:var(--black);color:var(--gold-soft);box-shadow:0 12px 26px -10px rgba(183,155,105,.5)}
+.j-step h3{font-family:var(--serif);font-size:1.22rem;font-weight:600;margin-bottom:.55rem}
+.j-step p{font-size:.82rem;color:var(--muted);font-weight:300}
+
+/* ===== Testimonials ===== */
+.testi-wrap{position:relative}
+.testi-track{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.testi{background:var(--white);border:1px solid rgba(110,103,92,.14);border-radius:2px;padding:2.2rem 2rem;display:flex;flex-direction:column;box-shadow:0 18px 44px -30px rgba(20,16,5,.4)}
+.testi .stars{color:var(--gold);letter-spacing:.18em;font-size:.85rem;margin-bottom:1.1rem}
+.testi p{font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.55;color:var(--ink);flex:1}
+.testi .who{display:flex;align-items:center;gap:.9rem;margin-top:1.6rem}
+.testi .who img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.testi .who b{display:block;font-size:.9rem}
+.testi .who small{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.testi-cta{text-align:center;margin-top:2.6rem}
+
+/* ===== Media ===== */
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.media-card{background:var(--white);border:1px solid rgba(110,103,92,.14);border-radius:2px;overflow:hidden;transition:transform .35s,box-shadow .35s}
+.media-card:hover{transform:translateY(-6px);box-shadow:0 26px 54px -26px rgba(20,16,5,.4)}
+.media-card .thumb{aspect-ratio:16/9;overflow:hidden}
+.media-card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.media-card:hover .thumb img{transform:scale(1.05)}
+.media-card .body{padding:1.4rem 1.5rem 1.6rem}
+.media-card .body small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+.media-card .body h3{font-family:var(--serif);font-size:1.28rem;font-weight:600;line-height:1.25;margin:.5rem 0 .4rem}
+.media-card .body p{font-size:.85rem;color:var(--muted)}
+.media-card .body .link{display:inline-block;margin-top:1rem;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
+
+/* ===== Blog ===== */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.blog-card{border:1px solid rgba(110,103,92,.16);border-radius:2px;padding:2rem 1.8rem;background:var(--white);display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
+.blog-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.blog-card .tag{align-self:flex-start;font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#141005;background:var(--grad-gold);padding:.3rem .7rem;border-radius:2px}
+.blog-card h3{font-family:var(--serif);font-size:1.4rem;font-weight:600;line-height:1.25;margin:1.1rem 0 .6rem}
+.blog-card p{font-size:.88rem;color:var(--muted);flex:1}
+.blog-card .meta{margin-top:1.4rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);display:flex;justify-content:space-between}
+
+/* ===== FAQ ===== */
+.faq-cats{display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem 3rem}
+.faq-cat h3{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;margin-bottom:1.1rem}
+.faq-item{border-bottom:1px solid rgba(110,103,92,.18)}
+.faq-item button{width:100%;background:none;border:none;text-align:left;font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--ink);padding:1.05rem 2.4rem 1.05rem 0;cursor:pointer;position:relative}
+.faq-item button::after{content:"+";position:absolute;right:.2rem;top:50%;transform:translateY(-50%);font-family:var(--sans);font-weight:300;font-size:1.5rem;color:var(--gold);transition:transform .3s}
+.faq-item.open button::after{transform:translateY(-50%) rotate(45deg)}
+.faq-item .ans{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-item .ans p{font-size:.9rem;color:var(--muted);padding:0 1rem 1.2rem 0}
+
+/* ===== Form ===== */
+.form-sec{position:relative;overflow:hidden}
+.form-sec::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 18% 40%,rgba(183,155,105,.14),transparent 60%)}
+.form-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(2.5rem,6vw,5rem);align-items:center;position:relative}
+.form-copy h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,4vw,3.1rem);line-height:1.12;margin:.9rem 0 1.1rem}
+.form-copy p{color:#B7B0A2;max-width:480px;margin-bottom:1.8rem}
+.form-copy .ret{display:flex;align-items:center;gap:.8rem;font-size:.8rem;color:#CFC7B4}
+.form-copy .ret svg{width:18px;height:18px;stroke:var(--gold-soft);fill:none;stroke-width:1.5;flex:none}
+form.lead{background:rgba(20,20,22,.75);backdrop-filter:blur(10px);border:1px solid rgba(183,155,105,.22);border-radius:2px;padding:clamp(1.6rem,3vw,2.6rem)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f-field{margin-bottom:1rem}
+.f-field label{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#B7B0A2;margin-bottom:.45rem;font-weight:600}
+.f-field input,.f-field select{width:100%;background:rgba(11,11,12,.6);border:1px solid rgba(183,155,105,.2);border-radius:2px;color:#F4F0E6;font-family:var(--sans);font-size:.92rem;padding:.85rem 1rem;transition:border-color .3s;appearance:none}
+.f-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23B79B69' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.f-field input[type=date]{color-scheme:dark}
+.f-field input:focus,.f-field select:focus{outline:none;border-color:var(--gold)}
+.f-field input::placeholder{color:#5E594F}
+form.lead .btn{width:100%;margin-top:.4rem}
+.microcopy{margin-top:1rem;font-size:.72rem;color:#8C8577;text-align:center;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.microcopy svg{width:13px;height:13px;stroke:var(--gold-soft);fill:none;stroke-width:1.6;flex:none}
+
+/* ===== Community ===== */
+.comm{background:linear-gradient(160deg,#F4EDDC,#FBF9F4 60%)}
+.comm-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(2rem,5vw,4rem);align-items:center}
+.comm h2{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,3.8vw,2.9rem);line-height:1.15;margin:.9rem 0 1rem}
+.comm p{color:var(--muted);max-width:560px;margin-bottom:1.8rem}
+.comm-perks{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:2rem}
+.comm-perks li{display:flex;gap:.6rem;align-items:flex-start;font-size:.86rem;color:var(--ink)}
+.comm-perks li::before{content:"✦";color:var(--gold);flex:none;line-height:1.6}
+.comm-visual{background:var(--black);border-radius:2px;padding:2.6rem 2.2rem;text-align:center;border:1px solid var(--line);box-shadow:0 30px 70px -34px rgba(20,16,5,.55)}
+.comm-visual .wa{width:64px;height:64px;margin:0 auto 1.3rem;border-radius:50%;background:var(--grad-gold);display:flex;align-items:center;justify-content:center}
+.comm-visual .wa svg{width:30px;height:30px;fill:#141005}
+.comm-visual h3{font-family:var(--serif);color:#F4F0E6;font-size:1.5rem;font-weight:600;margin-bottom:.4rem}
+.comm-visual p{color:#A8A192;font-size:.82rem;margin-bottom:1.4rem}
+
+/* ===== Footer ===== */
+footer{background:var(--black);color:#A8A192;padding:4.5rem 0 2rem;border-top:1px solid rgba(183,155,105,.16)}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem}
+.foot-grid img{height:72px;width:auto;margin-bottom:1.2rem}
+.foot-grid p{font-size:.84rem;font-weight:300;max-width:300px}
+footer h4{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;margin-bottom:1.1rem}
+footer li{margin-bottom:.55rem;font-size:.86rem;font-weight:300}
+footer a:hover{color:var(--gold-soft)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.6rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;font-size:.72rem;color:#6E675C}
+
+/* ===== WhatsApp float ===== */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:95;width:58px;height:58px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -10px rgba(140,115,71,.45);transition:transform .3s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:28px;height:28px;fill:#141005}
+
+/* ===== Barra fixa mobile (CTA sempre a um toque) ===== */
+.mobile-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:96;background:rgba(11,11,12,.96);backdrop-filter:blur(12px);border-top:1px solid rgba(183,155,105,.3);padding:.65rem .9rem calc(.65rem + env(safe-area-inset-bottom))}
+.mobile-bar .btn{width:100%;padding:.95rem 1rem;font-size:.78rem}
+
+/* ===== Reveal ===== */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ===== Sem palavras viúvas ===== */
+h1,h2,h3,h4{text-wrap:balance}
+p{text-wrap:pretty}
+.stat .lbl,.faq-item button{text-wrap:balance}
+
+/* ===== Tipografia refinada: serif leve, nada de bold ===== */
+.sec-head h2,.hero-copy h1,.about-copy h2,.form-copy h2,.comm h2{font-weight:400;letter-spacing:.005em}
+.proc-card h3,.diff h3,.j-step h3,.media-card .body h3,.blog-card h3,.comm-visual h3,.result-card .meta h4{font-weight:500}
+.faq-item button{font-weight:500}
+.hero-photo .badge .num,.stat .num{font-weight:500}
+.proc-card::before{font-weight:400}
+.j-step .n{font-weight:500}
+.about-quote p,.testi p{font-weight:400}
+
+/* ===== Responsive ===== */
+@media(max-width:1024px){
+  .proc-grid{grid-template-columns:repeat(2,1fr)}
+  .results-grid,.media-grid,.blog-grid,.testi-track{grid-template-columns:repeat(2,1fr)}
+  .j-steps{grid-template-columns:repeat(2,1fr);gap:2rem 0}
+  .j-steps::before{display:none}
+  .nav-links,.nav-rating{display:none}
+  .nav .btn{display:none}
+  .burger{display:block}
+}
+@media(max-width:720px){
+  .hero-grid{grid-template-columns:1fr;padding-top:2.4rem}
+  .hero-photo{max-width:420px;margin:0 auto}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:2rem 0;padding:2.2rem 0}
+  .stat + .stat::before{display:none}
+  .about-grid,.form-grid,.comm-grid{grid-template-columns:1fr}
+  .about-photo{max-width:440px}
+  .proc-grid,.results-grid,.media-grid,.blog-grid,.testi-track{grid-template-columns:1fr}
+  .j-steps{grid-template-columns:1fr}
+  .faq-cats{grid-template-columns:1fr}
+  .f-row{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .topbar{font-size:.6rem}
+  .mobile-bar{display:block}
+  .wa-float{display:none}
+  body{padding-bottom:72px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Micro-barra ===== -->
+<div class="topbar">Fundador do Hospital São Rafael <span class="dot">•</span> <b>+15.000 cirurgias</b> <span class="dot">•</span> Belo Horizonte, MG</div>
+
+<!-- ===== Header ===== -->
+<header id="header">
+  <div class="wrap nav">
+    <a class="logo" href="#"><img src="assets/fv%20logo%20full.png" alt="Felipe Villaça — Cirurgia Plástica"></a>
+    <nav class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#hospital">Hospital</a>
+      <a href="#procedimentos">Procedimentos</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#blog">Blog</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <!-- TODO: trocar href pelo link real do perfil no Google Business e confirmar os números -->
+    <a class="nav-rating" href="https://www.google.com/search?q=Dr.+Felipe+Villa%C3%A7a+cirurgi%C3%A3o+pl%C3%A1stico+Belo+Horizonte+avalia%C3%A7%C3%B5es" target="_blank" rel="noopener" title="Ver avaliações no Google">
+      <span class="stars">★★★★★ <b style="color:#F4F0E6">4.9</b></span>
+      <span>+1.200 avaliações no Google</span>
+    </a>
+    <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener">Agendar Consulta</a>
+    <button class="burger" id="burger" aria-label="Abrir menu">☰</button>
+  </div>
+  <div class="mobile-menu wrap" id="mobileMenu">
+    <a href="#sobre">Sobre</a>
+    <a href="#hospital">Hospital</a>
+    <a href="#procedimentos">Procedimentos</a>
+    <a href="#resultados">Resultados</a>
+    <a href="#depoimentos">Depoimentos</a>
+    <a href="#blog">Blog</a>
+    <a href="#contato">Contato</a>
+    <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener">Agendar Consulta</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-photo reveal">
+      <span class="frame"></span>
+      <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=903,fit=crop/A0xVxN8yeVtL78n1/felipe-mnl9lvRVnbCMQ51D.png" alt="Dr. Felipe Villaça, cirurgião plástico">
+      <div class="badge">
+        <span class="num gold-text">15mil+</span>
+        <small>cirurgias<br>realizadas</small>
+      </div>
+    </div>
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Cirurgia Plástica · Contorno Corporal de Alta Performance</span>
+      <h1>Onde tecnologia, arte cirúrgica e <span class="gold-text">cuidado humano</span> se&nbsp;encontram.</h1>
+      <p class="sub"><b>Felipe Villaça Guimarães</b> é fundador da FVG Cirurgia Plástica e do Hospital São Rafael, em Belo Horizonte. São mais de 15.000 cirurgias e duas décadas dedicadas ao contorno corporal — e à formação de cirurgiões no Brasil e no&nbsp;exterior.</p>
+      <ul class="cred">
+        <li>+15.000 cirurgias realizadas</li>
+        <li>Membro da SBCP</li>
+        <li>Fundador do Hospital São Rafael</li>
+      </ul>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener">Agendar Consulta</a>
+        <a class="btn btn-ghost" href="#sobre">Conheça o Dr. Felipe</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Faixa de números -->
+  <div class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat"><div class="num gold-text"><span class="count" data-target="15000">0</span>+</div><div class="lbl">Cirurgias Realizadas</div></div>
+      <div class="stat"><div class="num gold-text"><span class="count" data-target="20">0</span>+</div><div class="lbl">Anos de Experiência</div></div>
+      <div class="stat"><div class="num gold-text">Hospital</div><div class="lbl">Próprio — São Rafael</div></div>
+      <!-- "98% de satisfação" removido até existir fonte verificável (pesquisa interna documentada) -->
+      <div class="stat"><div class="num gold-text">SBCP</div><div class="lbl">Membro da Sociedade Brasileira de Cirurgia Plástica</div></div>
+    </div>
+  </div>
+</section>
+<!-- ===== SOBRE ===== -->
+<section class="sec" id="sobre">
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">
+      <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=789,fit=crop/A0xVxN8yeVtL78n1/felipe_formulario-dJo4lK2a5aS7wEqk.png" alt="Dr. Felipe Villaça em seu consultório">
+    </div>
+    <div class="about-copy reveal">
+      <span class="eyebrow">Quem é o Dr. Felipe Villaça</span>
+      <h2>Duas décadas dedicadas à <span class="gold-text">arte do contorno&nbsp;corporal</span></h2>
+      <p>Um dos cirurgiões plásticos mais experientes do Brasil em Contorno Corporal de Alta Performance, Felipe construiu sua trajetória unindo um volume cirúrgico raro — mais de 15.000 procedimentos — ao rigor de quem também ensina a técnica.</p>
+      <p>Fundador e responsável técnico do Hospital São Rafael, instituição referência em tecnologia e segurança cirúrgica, Dr. Felipe também ministra cursos de aperfeiçoamento para cirurgiões plásticos e médicos do Brasil e do exterior.</p>
+      <blockquote class="about-quote">
+        <p>"Cada resultado é uma história de coragem. A sua começa agora."</p>
+        <cite>Dr. Felipe Villaça</cite>
+      </blockquote>
+      <a class="btn btn-ghost" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20quero%20conhecer%20melhor%20o%20trabalho%20do%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener">Conheça minha história</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOSPITAL SÃO RAFAEL (a instituição, logo após quem a fundou) ===== -->
+<section class="sec dark" id="hospital">
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">
+      <!-- TODO: substituir por fotos reais da estrutura do Hospital São Rafael (centro cirúrgico, equipe, hiperbárica) -->
+      <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024,h=550,fit=crop/A0xVxN8yeVtL78n1/hiperbarica-mxB7zVV126Ur3eDX.png" alt="Terapia hiperbárica no Hospital São Rafael" style="box-shadow:0 30px 70px -30px rgba(0,0,0,.8)">
+    </div>
+    <div class="about-copy reveal">
+      <span class="eyebrow">Hospital São Rafael</span>
+      <h2 style="color:#F4F0E6">Seu procedimento em um <span class="gold-text">hospital próprio</span>, criado para&nbsp;isso.</h2>
+      <p style="color:#A8A192">O Hospital São Rafael foi fundado pelo Dr. Felipe Villaça — que também é seu responsável técnico — com um único padrão: o mais alto rigor de segurança cirúrgica. Você não é operada em uma clínica adaptada; é cuidada em uma estrutura hospitalar completa, em Belo Horizonte.</p>
+      <ul class="cred" style="margin:1.4rem 0 2rem">
+        <li>Estrutura hospitalar completa</li>
+        <li>Anestesia por médico dedicado</li>
+        <li>Terapia hiperbárica para acelerar a cicatrização</li>
+        <li>Equipe treinada nos protocolos do hospital</li>
+      </ul>
+      <div class="hero-ctas">
+        <a class="btn btn-ghost" href="https://felipevillaca.com/terapia-hiperbarica-acelera-cicatrizacoes-de-cirurgias" target="_blank" rel="noopener">Ver matéria sobre a hiperbárica</a>
+        <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20a%20estrutura%20do%20Hospital%20S%C3%A3o%20Rafael." target="_blank" rel="noopener">Falar com a equipe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCEDIMENTOS ===== -->
+<section class="sec dark" id="procedimentos">
+  <div class="wrap">
+    <div class="sec-head center" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow">Procedimentos</span>
+      <h2>Precisão técnica, <span class="gold-text">desenhada para o seu&nbsp;corpo</span></h2>
+      <p>Cada procedimento é planejado com precisão técnica e personalizado para o seu corpo e objetivo.</p>
+    </div>
+    <div class="proc-grid">
+      <article class="proc-card reveal" data-n="01">
+        <h3>Lipoescultura Ultrassônica HD</h3>
+        <p>Definição muscular com tecnologia SAFER Deep Plane.</p>
+        <a href="https://felipevillaca.com/lipoescultura" target="_blank" rel="noopener">Saiba mais</a>
+      </article>
+      <article class="proc-card reveal" data-n="02">
+        <h3>Remodelamento Glúteo</h3>
+        <p>Curvas naturais com lipoenxertia de precisão.</p>
+        <a href="https://felipevillaca.com/remodelamento-gluteo" target="_blank" rel="noopener">Saiba mais</a>
+      </article>
+      <article class="proc-card reveal" data-n="03">
+        <h3>Ugraft — Lipoenxertia Intramuscular</h3>
+        <p>Volume onde você quer. Guiado por ultrassom.</p>
+        <a href="#contato">Saiba mais</a>
+      </article>
+      <article class="proc-card reveal" data-n="04">
+        <h3>Retração de Pele com Árgon Plasma</h3>
+        <p>Adeus, flacidez. Pele firme sem grande cicatriz.</p>
+        <a href="#contato">Saiba mais</a>
+      </article>
+      <article class="proc-card reveal" data-n="05">
+        <h3>Abdominoplastia / MILA</h3>
+        <p>Abdômen plano por videocirurgia.</p>
+        <a href="https://felipevillaca.com/abdominoplastia" target="_blank" rel="noopener">Saiba mais</a>
+      </article>
+      <article class="proc-card reveal" data-n="06">
+        <h3>Remodelamento Costal</h3>
+        <p>A cintura que você sempre quis.</p>
+        <a href="https://felipevillaca.com/remodelamento-costal-conheca-a-tecnica-que-ajuda-a-afinar-a-cintura" target="_blank" rel="noopener">Saiba mais</a>
+      </article>
+      <article class="proc-card reveal" data-n="07">
+        <h3>Mamoplastia Completa</h3>
+        <p>Naturalidade e proporção com técnica retromuscular.</p>
+        <a href="https://felipevillaca.com/aumento-dos-seios" target="_blank" rel="noopener">Saiba mais</a>
+      </article>
+      <article class="proc-card reveal" data-n="08">
+        <h3>Lipedema</h3>
+        <p>Tratamento especializado com resultado estético e saúde.</p>
+        <a href="https://felipevillaca.com/lipedema" target="_blank" rel="noopener">Saiba mais</a>
+      </article>
+    </div>
+    <div class="proc-ctas">
+      <a class="btn btn-ghost" href="https://felipevillaca.com/" target="_blank" rel="noopener">Ver todos os procedimentos</a>
+      <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20quero%20descobrir%20qual%20procedimento%20%C3%A9%20ideal%20para%20mim." target="_blank" rel="noopener">Quero saber qual é ideal para mim</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIFERENCIAIS ===== -->
+<section class="sec dark" id="diferenciais">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Diferenciais Técnicos</span>
+      <h2>Por que os resultados do Dr. Felipe <span class="gold-text">são&nbsp;diferentes?</span></h2>
+      <p>Não é sorte. É método, tecnologia e anos de aperfeiçoamento.</p>
+    </div>
+    <div class="diff-grid">
+      <article class="diff reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></div>
+        <h3>Tecnologia SAFER Deep Plane</h3>
+        <p>Lipoescultura ultrassônica que preserva estruturas e entrega definição máxima, sem riscos desnecessários.</p>
+      </article>
+      <article class="diff reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 7 6 7 11a7 7 0 1 1-14 0c0-5 4-7 7-11z"/></svg></div>
+        <h3>Árgon Plasma para Retração de Pele</h3>
+        <p>Tecnologia que promove retração cutânea progressiva, tratando a flacidez sem grandes incisões.</p>
+      </article>
+      <article class="diff reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21v-1a7 7 0 0 1 7-7h0a7 7 0 0 1 7 7v1M19 8v6M22 11h-6"/></svg></div>
+        <h3>Equipe e anestesia dedicadas</h3>
+        <p>Anestesia conduzida por médico dedicado ao seu procedimento e equipe treinada nos protocolos do Hospital São Rafael.</p>
+      </article>
+      <article class="diff reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M22 9L12 4 2 9l10 5 10-5zM6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5M22 9v5"/></svg></div>
+        <h3>Formação e Didática Internacional</h3>
+        <p>Dr. Felipe forma e aperfeiçoa cirurgiões do Brasil e do exterior — você está nas mãos de quem ensina os melhores.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== JORNADA ===== -->
+<section class="sec journey" id="jornada">
+  <div class="wrap">
+    <div class="sec-head center" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow">Jornada da Paciente</span>
+      <h2>Do primeiro contato à <span class="gold-text">sua&nbsp;transformação</span></h2>
+      <p>Cada etapa foi pensada para que você se sinta segura, informada e cuidada.</p>
+    </div>
+    <div class="j-steps">
+      <div class="j-step reveal">
+        <div class="n"></div>
+        <h3>Consulta Personalizada</h3>
+        <p>Entendemos seu objetivo, avaliamos seu histórico e desenhamos o procedimento ideal para o seu corpo.</p>
+      </div>
+      <div class="j-step reveal">
+        <div class="n"></div>
+        <h3>Planejamento Cirúrgico</h3>
+        <p>Tecnologia de mapeamento corporal, definição de técnicas e protocolo de segurança individualizados.</p>
+      </div>
+      <div class="j-step reveal">
+        <div class="n"></div>
+        <h3>Cirurgia com Segurança Máxima</h3>
+        <p>Procedimento no Hospital São Rafael, com equipe especializada e anestesia por médico dedicado.</p>
+      </div>
+      <div class="j-step reveal">
+        <div class="n"></div>
+        <h3>Acompanhamento Pós-Operatório</h3>
+        <p>Protocolos de recuperação acelerada, retornos agendados e suporte contínuo.</p>
+      </div>
+      <div class="j-step reveal">
+        <div class="n"></div>
+        <h3>Seu Resultado Final</h3>
+        <p>A transformação que você buscava, com o cuidado que você merece.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== RESULTADOS (institucional: prova como sustentação, caráter educativo) ===== -->
+<section class="sec" id="resultados">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Antes &amp; Depois</span>
+      <h2>Resultados que <span class="gold-text">falam por&nbsp;si</span></h2>
+      <p>Mais de 15.000 histórias de transformação. Veja resultados reais de pacientes reais — arraste o divisor para comparar.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="active" data-f="all">Todos</button>
+      <button data-f="lipohd">Lipo HD</button>
+      <button data-f="gluteo">Glúteo</button>
+      <button data-f="costal">Remodelamento Costal</button>
+      <button data-f="mamo">Mamoplastia</button>
+      <button data-f="lipedema">Lipedema</button>
+      <button data-f="abdomino">Abdominoplastia</button>
+    </div>
+    <div class="results-grid" id="resultsGrid">
+      <!-- cards gerados via JS a partir de RESULTS -->
+    </div>
+    <p class="results-note">* Imagens ilustrativas de demonstração — substituir pelas fotos reais autorizadas pelas pacientes (termo de consentimento). Conteúdo de caráter educativo, conforme Resolução CFM nº 2.336/2023. Resultados variam de pessoa para pessoa.</p>
+    <div class="results-ctas">
+      <a class="btn btn-ghost" href="https://www.instagram.com/drfelipevillacaoficial/" target="_blank" rel="noopener">Ver galeria completa</a>
+      <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20os%20resultados%20no%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Quero minha avaliação</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEPOIMENTOS ===== -->
+<section class="sec" id="depoimentos" style="background:#F6F2E9">
+  <div class="wrap">
+    <div class="sec-head center" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow">Depoimentos</span>
+      <h2>Mais de 15.000 <span class="gold-text">histórias de&nbsp;transformação</span></h2>
+      <p>Ouça quem passou pela experiência.</p>
+    </div>
+    <div class="testi-track">
+      <article class="testi reveal">
+        <div class="stars">★★★★★</div>
+        <p>"O Felipe chega num ponto de excelência tão bom, é tão perfeito o que ele faz, que a sua manutenção é mínima. A autoestima e a confiança que você ganha após o procedimento é absurdo!"</p>
+        <div class="who">
+          <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=364,fit=crop/A0xVxN8yeVtL78n1/bella_simoes-mePn3DV1a6hbX4WO.jpg" alt="Isabela Simões">
+          <div><b>Isabela Simões</b><small>Paciente FVG</small></div>
+        </div>
+      </article>
+      <article class="testi reveal">
+        <div class="stars">★★★★★</div>
+        <p>"De todo o processo — antes, durante e depois — eu vi a importância de confiar nele, e isso não tem preço. Tudo isso é válido quando se trata do seu corpo e da sua vida."</p>
+        <div class="who">
+          <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=375,fit=crop/A0xVxN8yeVtL78n1/deborah_zandonna-YD04jPK8MkiQ6ggX.jpg" alt="Deborah Zandonna">
+          <div><b>Deborah Zandonna</b><small>Paciente FVG</small></div>
+        </div>
+      </article>
+      <article class="testi reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Sem dúvidas eu escolheria o Dr. Felipe Villaça para fazer outra cirurgia. Tive uma experiência maravilhosa, tanto no resultado quanto no cuidado, zelo e capricho, dele e da equipe."</p>
+        <div class="who">
+          <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=375,fit=crop/A0xVxN8yeVtL78n1/sharon-YX4bZqp1oBTX4Qjv.jpg" alt="Sharon Morais">
+          <div><b>Sharon Morais</b><small>Paciente FVG</small></div>
+        </div>
+      </article>
+    </div>
+    <div class="testi-cta">
+      <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20quero%20ser%20a%20pr%C3%B3xima%20hist%C3%B3ria%20de%20transforma%C3%A7%C3%A3o%20do%20Dr.%20Felipe." target="_blank" rel="noopener">Quero ser a próxima história</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NA MÍDIA ===== -->
+<section class="sec" id="midia">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Na Mídia</span>
+      <h2>Dr. Felipe Villaça <span class="gold-text">na mídia</span></h2>
+    </div>
+    <div class="media-grid">
+      <article class="media-card reveal">
+        <a href="https://felipevillaca.com/remodelamento-costal-conheca-a-tecnica-que-ajuda-a-afinar-a-cintura" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024,h=550,fit=crop/A0xVxN8yeVtL78n1/remodelamento_costal-AQEp3w8o5RfPkGxA.png" alt="Remodelamento costal" loading="lazy"></div>
+          <div class="body">
+            <small>Imprensa</small>
+            <h3>Remodelamento Costal</h3>
+            <p>Conheça a técnica que ajuda a afinar a cintura.</p>
+            <span class="link">Ler matéria →</span>
+          </div>
+        </a>
+      </article>
+      <article class="media-card reveal">
+        <a href="https://felipevillaca.com/a-medicina-e-para-os-humanos" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024,h=550,fit=crop/A0xVxN8yeVtL78n1/medicina_para_humanos-mjE9z1W5vetlwW8e.png" alt="A medicina é para os humanos" loading="lazy"></div>
+          <div class="body">
+            <small>Imprensa</small>
+            <h3>A medicina é para os humanos</h3>
+            <p>A Medicina do Amor: humanismo na era da tecnologia.</p>
+            <span class="link">Ler matéria →</span>
+          </div>
+        </a>
+      </article>
+      <article class="media-card reveal">
+        <a href="https://felipevillaca.com/terapia-hiperbarica-acelera-cicatrizacoes-de-cirurgias" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024,h=550,fit=crop/A0xVxN8yeVtL78n1/hiperbarica-mxB7zVV126Ur3eDX.png" alt="Terapia hiperbárica" loading="lazy"></div>
+          <div class="body">
+            <small>Imprensa</small>
+            <h3>Terapia Hiperbárica acelera cicatrização</h3>
+            <p>Tratamento está entre os mais indicados para a redução de riscos.</p>
+            <span class="link">Ler matéria →</span>
+          </div>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG (institucional — para desativar, adicione o atributo "hidden" na section) ===== -->
+<section class="sec" id="blog" style="background:#F6F2E9">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Blog</span>
+      <h2>Informação <span class="gold-text">antes da&nbsp;decisão</span></h2>
+      <p>Entenda cada procedimento, tire suas dúvidas e tome a melhor decisão para o seu corpo.</p>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card reveal">
+        <span class="tag">Lipo HD</span>
+        <h3>O que é Lipoescultura HD e por que ela é diferente da lipo tradicional?</h3>
+        <p>Entenda a tecnologia ultrassônica, a definição muscular e para quem o procedimento é indicado.</p>
+        <div class="meta"><span>Em breve</span><span>6 min de leitura</span></div>
+      </article>
+      <article class="blog-card reveal">
+        <span class="tag">Lipedema</span>
+        <h3>Lipedema: como saber se tenho e qual é o tratamento?</h3>
+        <p>Sintomas, diagnóstico e como a cirurgia especializada devolve estética e saúde.</p>
+        <div class="meta"><span>Em breve</span><span>7 min de leitura</span></div>
+      </article>
+      <article class="blog-card reveal">
+        <span class="tag">Pós-operatório</span>
+        <h3>Recuperação pós-cirurgia: o que esperar nos primeiros 30 dias?</h3>
+        <p>Um guia realista de cada semana da recuperação, do primeiro retorno à liberação para exercícios.</p>
+        <div class="meta"><span>Em breve</span><span>5 min de leitura</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Perguntas <span class="gold-text">frequentes</span></h2>
+    </div>
+    <div class="faq-cats">
+      <div class="faq-cat">
+        <h3>Sobre os procedimentos</h3>
+        <div class="faq-item"><button>Qual procedimento é indicado para mim?</button><div class="ans"><p>Isso é definido na consulta, a partir da avaliação do seu corpo, do seu histórico de saúde e do seu objetivo. Muitas pacientes combinam procedimentos em um único plano cirúrgico personalizado.</p></div></div>
+        <div class="faq-item"><button>Os resultados são permanentes?</button><div class="ans"><p>Os resultados são duradouros quando associados a hábitos saudáveis. Na consulta, o Dr. Felipe explica o que esperar de cada técnica no curto e no longo prazo.</p></div></div>
+        <div class="faq-item"><button>Quais tecnologias são utilizadas?</button><div class="ans"><p>Entre elas, lipoaspiração ultrassônica com técnica SAFER Deep Plane, árgon plasma para retração de pele, lipoenxertia guiada por ultrassom e videocirurgia (MILA).</p></div></div>
+      </div>
+      <div class="faq-cat">
+        <h3>Sobre segurança</h3>
+        <div class="faq-item"><button>Onde as cirurgias são realizadas?</button><div class="ans"><p>No Hospital São Rafael, em Belo Horizonte — instituição fundada pelo Dr. Felipe e da qual é responsável técnico, referência em tecnologia e segurança cirúrgica.</p></div></div>
+        <div class="faq-item"><button>Quais são os riscos?</button><div class="ans"><p>Toda cirurgia tem riscos, e eles são discutidos com transparência na consulta. O protocolo inclui exames pré-operatórios completos, equipe dedicada e estrutura hospitalar própria para minimizá-los.</p></div></div>
+        <div class="faq-item"><button>O Hospital São Rafael é seguro?</button><div class="ans"><p>Sim. Foi criado com padrões cirúrgicos rigorosos, conta com equipe especializada, anestesista dedicado e recursos como terapia hiperbárica para acelerar a cicatrização.</p></div></div>
+      </div>
+      <div class="faq-cat">
+        <h3>Sobre o processo</h3>
+        <div class="faq-item"><button>Como funciona a consulta?</button><div class="ans"><p>É uma avaliação personalizada: você conta seu objetivo, o Dr. Felipe avalia seu caso e apresenta o plano cirúrgico ideal, com todas as orientações e etapas.</p></div></div>
+        <div class="faq-item"><button>Qual é o tempo de recuperação?</button><div class="ans"><p>Varia conforme o procedimento. Os protocolos de recuperação acelerada e o acompanhamento próximo da equipe encurtam esse período — a previsão exata é dada na consulta.</p></div></div>
+        <div class="faq-item"><button>Em quanto tempo retorno ao trabalho?</button><div class="ans"><p>Depende do procedimento e da sua rotina. Na consulta você recebe uma estimativa realista para o seu caso, incluindo prazos para atividades físicas.</p></div></div>
+      </div>
+      <div class="faq-cat">
+        <h3>Sobre investimento</h3>
+        <div class="faq-item"><button>Como funciona o agendamento?</button><div class="ans"><p>Preencha o formulário abaixo ou chame no WhatsApp. Nossa equipe retorna em até 24 horas para agendar a sua consulta.</p></div></div>
+        <div class="faq-item"><button>O procedimento tem financiamento?</button><div class="ans"><p>As condições de pagamento e parcelamento são apresentadas pela equipe após a consulta, junto com o plano cirúrgico. Fale com a equipe pelo WhatsApp para saber mais.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORMULÁRIO ===== -->
+<section class="sec dark form-sec" id="contato">
+  <div class="wrap form-grid">
+    <div class="form-copy reveal">
+      <span class="eyebrow">Agende sua consulta</span>
+      <h2>Dê o primeiro passo para a <span class="gold-text">sua&nbsp;transformação</span></h2>
+      <p>Agende sua consulta e receba uma avaliação personalizada com o Dr. Felipe Villaça.</p>
+      <div class="ret"><svg viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10zM12 6v6l4 2"/></svg> Retornaremos em até 24 horas pelo WhatsApp.</div>
+    </div>
+    <form class="lead reveal" id="leadForm">
+      <div class="f-row">
+        <div class="f-field"><label for="nome">Nome completo *</label><input id="nome" name="nome" type="text" placeholder="Seu nome" required></div>
+        <div class="f-field"><label for="zap">WhatsApp *</label><input id="zap" name="zap" type="tel" placeholder="(31) 9 0000-0000" required></div>
+      </div>
+      <!-- Formulário reduzido a 3 campos (HubSpot, 40k LPs). Qualificação extra (cidade, origem, e-mail) migra para a conversa no WhatsApp. -->
+      <div class="f-field">
+        <label for="nasc">Data de nascimento *</label>
+        <input id="nasc" name="nasc" type="date" required>
+      </div>
+      <div class="f-field">
+        <label for="proc">Qual procedimento tem interesse?</label>
+        <select id="proc" name="proc">
+          <option>Ainda não sei</option>
+          <option>Lipoescultura HD</option>
+          <option>Remodelamento Glúteo</option>
+          <option>Abdominoplastia</option>
+          <option>Mamoplastia</option>
+          <option>Lipedema</option>
+          <option>Remodelamento Costal</option>
+        </select>
+      </div>
+      <button class="btn btn-gold" type="submit">Quero Agendar Minha Consulta</button>
+      <p class="microcopy"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Seus dados são protegidos. Retornaremos em até 24 horas pelo WhatsApp.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== COMUNIDADE (institucional) ===== -->
+<section class="sec comm" id="comunidade">
+  <div class="wrap comm-grid">
+    <div class="reveal">
+      <span class="eyebrow">Comunidade Exclusiva FVG</span>
+      <h2>Entre para a comunidade e veja tudo <span class="gold-text">em primeira&nbsp;mão</span></h2>
+      <p>Acesse antes e depois em primeira mão, conteúdos exclusivos sobre procedimentos, ofertas e muito mais. Junte-se a milhares de pessoas que já transformaram seus corpos.</p>
+      <ul class="comm-perks">
+        <li>Antes e depois exclusivos</li>
+        <li>Conteúdos sobre procedimentos</li>
+        <li>Ofertas exclusivas</li>
+        <li>Enquetes e bastidores</li>
+      </ul>
+      <a class="btn btn-gold" href="https://sendflow.pro/i/as1QBRQig8LfYSUA2sYc" target="_blank" rel="noopener">Entrar na Comunidade VIP</a>
+    </div>
+    <div class="comm-visual reveal">
+      <div class="wa"><svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a9.9 9.9 0 0 0 1.5 5.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1a16 16 0 0 1-1.6-.6 12.6 12.6 0 0 1-4.8-4.3 5.5 5.5 0 0 1-1.1-2.9A3.1 3.1 0 0 1 7.2 7.3a1 1 0 0 1 .8-.4h.6c.2 0 .4 0 .6.5s.8 1.9.8 2-.1.4-.2.5l-.4.6c-.1.2-.3.4-.1.7a8.9 8.9 0 0 0 1.6 2 8 8 0 0 0 2.3 1.4c.3.2.5.1.6-.1l.7-.9c.2-.3.4-.2.7-.1l1.8.8c.3.2.5.2.6.4a2.7 2.7 0 0 1-.1 1.4z"/></svg></div>
+      <h3>Comunidade FVG no WhatsApp</h3>
+      <p>Milhares de mulheres já participam. Conteúdo real, sem filtro.</p>
+      <a class="btn btn-ghost" href="https://sendflow.pro/i/as1QBRQig8LfYSUA2sYc" target="_blank" rel="noopener">Clique e acesse</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img src="assets/fv%20logo%20full.png" alt="Felipe Villaça">
+        <p>FVG Cirurgia Plástica — Contorno Corporal de Alta Performance. Fundador do Hospital São Rafael, Belo Horizonte.</p>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#hospital">Hospital São Rafael</a></li>
+          <li><a href="#procedimentos">Procedimentos</a></li>
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="https://sendflow.pro/i/as1QBRQig8LfYSUA2sYc" target="_blank" rel="noopener">Comunidade VIP</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Endereço</h4>
+        <ul>
+          <li>Av. dos Bandeirantes, 694 — Anchieta</li>
+          <li>Belo Horizonte — MG, 30315-382</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="tel:+553130904488">+55 (31) 3090-4488</a></li>
+          <li><a href="https://wa.me/5531997714488" target="_blank" rel="noopener">+55 (31) 9 9771-4488 (Agendamento)</a></li>
+          <li><a href="https://www.instagram.com/drfelipevillaca?igsh=MTI1dHA4M2NwN3hiMw%3D%3D&utm_source=qr" target="_blank" rel="noopener">Instagram — @drfelipevillaca</a></li>
+          <li><a href="https://youtube.com/@drfelipevillaca?si=kmwTZJXtDaRdthzn" target="_blank" rel="noopener">YouTube — @drfelipevillaca</a></li>
+          <li><a href="https://www.tiktok.com/@drfelipevillaca?_r=1&_t=ZS-97VpeZrwUau" target="_blank" rel="noopener">TikTok — @drfelipevillaca</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Dr. Felipe Villaça — Todos os direitos reservados.</span>
+      <span style="color:var(--gold-soft)">Dr. Felipe Villaça Guimarães — CRM-MG 48463 · RQE 32245</span>
+      <span>Resultados variam de pessoa para pessoa. Consulte sempre um médico.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Barra fixa de CTA no mobile -->
+<div class="mobile-bar">
+  <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener">Agendar Consulta pelo WhatsApp</a>
+</div>
+
+<!-- WhatsApp flutuante -->
+<a class="wa-float" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a9.9 9.9 0 0 0 1.5 5.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1a16 16 0 0 1-1.6-.6 12.6 12.6 0 0 1-4.8-4.3 5.5 5.5 0 0 1-1.1-2.9A3.1 3.1 0 0 1 7.2 7.3a1 1 0 0 1 .8-.4h.6c.2 0 .4 0 .6.5s.8 1.9.8 2-.1.4-.2.5l-.4.6c-.1.2-.3.4-.1.7a8.9 8.9 0 0 0 1.6 2 8 8 0 0 0 2.3 1.4c.3.2.5.1.6-.1l.7-.9c.2-.3.4-.2.7-.1l1.8.8c.3.2.5.2.6.4a2.7 2.7 0 0 1-.1 1.4z"/></svg>
+</a>
+
+<script>
+/* ===== Header / menu ===== */
+const header=document.getElementById('header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10));
+const burger=document.getElementById('burger'),mm=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>mm.classList.toggle('open'));
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.remove('open')));
+document.getElementById('year').textContent=new Date().getFullYear();
+
+/* ===== Contadores animados ===== */
+const fmt=n=>n.toLocaleString('pt-BR');
+const counters=document.querySelectorAll('.count');
+const cObs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,target=+el.dataset.target,dur=1800,t0=performance.now();
+  const tick=t=>{const p=Math.min((t-t0)/dur,1),ease=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(target*ease));
+    if(p<1)requestAnimationFrame(tick)};
+  requestAnimationFrame(tick);cObs.unobserve(el);
+}),{threshold:.4});
+counters.forEach(c=>cObs.observe(c));
+
+/* ===== Galeria de resultados (cards + slider antes/depois) ===== */
+const IMG='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=690,fit=crop/A0xVxN8yeVtL78n1/mulher-YNqrqvwDMqU2Vo2z.png';
+const RESULTS=[
+  {cat:'lipohd',nome:'Lipoescultura HD',rec:'Recuperação: definida na consulta'},
+  {cat:'gluteo',nome:'Remodelamento Glúteo',rec:'Recuperação: definida na consulta'},
+  {cat:'costal',nome:'Remodelamento Costal',rec:'Recuperação: definida na consulta'},
+  {cat:'mamo',nome:'Mamoplastia',rec:'Recuperação: definida na consulta'},
+  {cat:'lipedema',nome:'Lipedema',rec:'Recuperação: definida na consulta'},
+  {cat:'abdomino',nome:'Abdominoplastia',rec:'Recuperação: definida na consulta'}
+];
+const grid=document.getElementById('resultsGrid');
+grid.innerHTML=RESULTS.map(r=>`
+  <div class="result-card reveal" data-cat="${r.cat}">
+    <div class="ba" style="--pos:50%">
+      <img class="after" src="${IMG}" alt="Depois — ${r.nome}" loading="lazy">
+      <img class="before" src="${IMG}" alt="Antes — ${r.nome}" loading="lazy">
+      <span class="tag b">Antes</span><span class="tag a">Depois</span>
+      <span class="divider"></span>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois — ${r.nome}">
+    </div>
+    <div class="meta"><h4>${r.nome}</h4><span>${r.rec}</span></div>
+  </div>`).join('');
+grid.querySelectorAll('.ba input').forEach(r=>{
+  r.addEventListener('input',()=>r.parentElement.style.setProperty('--pos',r.value+'%'));
+});
+
+/* ===== Filtros ===== */
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const f=b.dataset.f;
+  grid.querySelectorAll('.result-card').forEach(c=>{
+    c.classList.toggle('hidden',f!=='all'&&c.dataset.cat!==f);
+  });
+});
+
+/* ===== FAQ acordeão ===== */
+document.querySelectorAll('.faq-item button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement,ans=item.querySelector('.ans'),open=item.classList.contains('open');
+    item.parentElement.querySelectorAll('.faq-item.open').forEach(o=>{o.classList.remove('open');o.querySelector('.ans').style.maxHeight=0});
+    if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px'}
+  });
+});
+
+/* ===== Formulário → WhatsApp ===== */
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  const nascBR=v('nasc')?v('nasc').split('-').reverse().join('/'):'';
+  const msg=`Olá! Quero agendar minha consulta com o Dr. Felipe Villaça.%0A%0A`+
+    `*Nome:* ${encodeURIComponent(v('nome'))}%0A`+
+    `*WhatsApp:* ${encodeURIComponent(v('zap'))}%0A`+
+    `*Data de nascimento:* ${encodeURIComponent(nascBR)}%0A`+
+    `*Procedimento de interesse:* ${encodeURIComponent(v('proc'))}`;
+  window.open(`https://wa.me/5531997714488?text=${msg}`,'_blank');
+});
+
+/* ===== Reveal on scroll ===== */
+const rObs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');rObs.unobserve(e.target)}
+}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+</script>
+</body>
+</html>
