@@ -67,7 +67,8 @@ ul{list-style:none}
 header{position:sticky;top:0;z-index:90;background:rgba(11,11,12,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(183,155,105,.14);transition:box-shadow .3s}
 header.scrolled{box-shadow:0 12px 40px -18px rgba(0,0,0,.8)}
 .nav{display:flex;align-items:center;gap:2rem;padding:.9rem 0}
-.nav .logo img{height:52px;width:auto}
+.nav .logo{flex:none}
+.nav .logo img{width:auto;height:auto;max-height:34px;max-width:min(230px,52vw);object-fit:contain}
 .nav-links{display:flex;gap:1.9rem;margin-left:auto}
 .nav-links a{color:#D8D2C4;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;position:relative;padding:.3rem 0}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .3s}
@@ -258,7 +259,7 @@ form.lead .btn{width:100%;margin-top:.4rem}
 /* ===== Footer ===== */
 footer{background:var(--black);color:#A8A192;padding:4.5rem 0 2rem;border-top:1px solid rgba(183,155,105,.16)}
 .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem}
-.foot-grid img{height:72px;width:auto;margin-bottom:1.2rem}
+.foot-grid img{width:auto;height:auto;max-height:38px;max-width:220px;object-fit:contain;margin-bottom:1.2rem}
 .foot-grid p{font-size:.84rem;font-weight:300;max-width:300px}
 footer h4{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;margin-bottom:1.1rem}
 footer li{margin-bottom:.55rem;font-size:.86rem;font-weight:300}
@@ -277,6 +278,25 @@ footer a:hover{color:var(--gold-soft)}
 /* ===== Reveal ===== */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
 .reveal.in{opacity:1;transform:none}
+
+/* ===== Ajustes de revisão ===== */
+.topbar{text-align:left}
+.nav-rating{flex:none}
+.nav-rating span{white-space:nowrap}
+.sec-head.center p{margin-left:auto;margin-right:auto}
+.form-light{background:#F6F2E9;color:var(--ink)}
+.form-light::before{background:radial-gradient(ellipse 50% 60% at 18% 40%,rgba(183,155,105,.12),transparent 60%)}
+.form-light .eyebrow{color:var(--gold-deep)}
+.form-light .form-copy p{color:var(--muted)}
+.form-light .ret{color:var(--muted)}
+.form-light .ret svg{stroke:var(--gold-deep)}
+.form-light form.lead{background:#FFFFFF;border-color:rgba(140,115,71,.3);box-shadow:0 24px 60px -32px rgba(20,16,5,.3)}
+.form-light .f-field label{color:#7A7264}
+.form-light .f-field input,.form-light .f-field select{background:#FBF9F4;border-color:rgba(140,115,71,.3);color:var(--ink)}
+.form-light .f-field input::placeholder{color:#A79F90}
+.form-light .f-field input[type=date]{color-scheme:light}
+.form-light .microcopy{color:#8C8577}
+.form-light .microcopy svg{stroke:var(--gold-deep)}
 
 /* ===== Sem palavras viúvas ===== */
 h1,h2,h3,h4{text-wrap:balance}
@@ -324,7 +344,7 @@ p{text-wrap:pretty}
 <body>
 
 <!-- ===== Micro-barra ===== -->
-<div class="topbar">Fundador do Hospital São Rafael <span class="dot">•</span> <b>+15.000 cirurgias</b> <span class="dot">•</span> Belo Horizonte, MG</div>
+<div class="topbar"><div class="wrap">Fundador do Hospital São Rafael <span class="dot">•</span> <b>+15.000 cirurgias</b> <span class="dot">•</span> Belo Horizonte, MG</div></div>
 
 <!-- ===== Header ===== -->
 <header id="header">
@@ -381,7 +401,6 @@ p{text-wrap:pretty}
       </ul>
       <div class="hero-ctas">
         <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener">Agendar Consulta</a>
-        <a class="btn btn-ghost" href="#sobre">Conheça o Dr. Felipe</a>
       </div>
     </div>
   </div>
@@ -435,8 +454,8 @@ p{text-wrap:pretty}
         <li>Equipe treinada nos protocolos do hospital</li>
       </ul>
       <div class="hero-ctas">
-        <a class="btn btn-ghost" href="https://felipevillaca.com/terapia-hiperbarica-acelera-cicatrizacoes-de-cirurgias" target="_blank" rel="noopener">Ver matéria sobre a hiperbárica</a>
         <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20a%20estrutura%20do%20Hospital%20S%C3%A3o%20Rafael." target="_blank" rel="noopener">Falar com a equipe</a>
+        <a class="btn btn-ghost" href="https://felipevillaca.com/terapia-hiperbarica-acelera-cicatrizacoes-de-cirurgias" target="_blank" rel="noopener">Ver matéria sobre a hiperbárica</a>
       </div>
     </div>
   </div>
@@ -592,7 +611,7 @@ p{text-wrap:pretty}
     <p class="results-note">* Imagens ilustrativas de demonstração — substituir pelas fotos reais autorizadas pelas pacientes (termo de consentimento). Conteúdo de caráter educativo, conforme Resolução CFM nº 2.336/2023. Resultados variam de pessoa para pessoa.</p>
     <div class="results-ctas">
       <a class="btn btn-ghost" href="https://www.instagram.com/drfelipevillacaoficial/" target="_blank" rel="noopener">Ver galeria completa</a>
-      <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20os%20resultados%20no%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Quero minha avaliação</a>
+      <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20os%20resultados%20no%20site%20e%20quero%20agendar%20uma%20consulta." target="_blank" rel="noopener">Agendar minha consulta</a>
     </div>
   </div>
 </section>
@@ -602,7 +621,7 @@ p{text-wrap:pretty}
   <div class="wrap">
     <div class="sec-head center" style="margin-left:auto;margin-right:auto;text-align:center">
       <span class="eyebrow">Depoimentos</span>
-      <h2>Mais de 15.000 <span class="gold-text">histórias de&nbsp;transformação</span></h2>
+      <h2>Mais de 15.000 <span class="gold-text">histórias de transformação</span></h2>
       <p>Ouça quem passou pela experiência.</p>
     </div>
     <div class="testi-track">
@@ -749,7 +768,7 @@ p{text-wrap:pretty}
 </section>
 
 <!-- ===== FORMULÁRIO ===== -->
-<section class="sec dark form-sec" id="contato">
+<section class="sec form-sec form-light" id="contato">
   <div class="wrap form-grid">
     <div class="form-copy reveal">
       <span class="eyebrow">Agende sua consulta</span>
