@@ -144,18 +144,24 @@ header.scrolled{box-shadow:0 12px 40px -18px rgba(0,0,0,.8)}
 .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
 .result-card{background:var(--white);border:1px solid rgba(110,103,92,.14);border-radius:2px;overflow:hidden;transition:opacity .35s,transform .35s;box-shadow:0 18px 44px -28px rgba(20,16,5,.35)}
 .result-card.hidden{display:none}
-.result-card .meta{padding:1.1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.result-card .meta{padding:1.1rem 1.3rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.35rem 1rem}
 .result-card .meta h4{font-family:var(--serif);font-size:1.15rem;font-weight:600}
-.result-card .meta span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
+.result-card .meta span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
 .ba{position:relative;overflow:hidden;user-select:none;aspect-ratio:4/4.6;background:#ddd}
 .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.ba .before{filter:grayscale(1) contrast(.95) brightness(.92);clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
+.ba .before{clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
 .ba .divider{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--gold-soft);transform:translateX(-1px);pointer-events:none}
 .ba .divider::after{content:"◂ ▸";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--black);color:var(--gold-soft);border:1px solid var(--gold);border-radius:999px;font-size:.65rem;letter-spacing:.05em;padding:.5rem .7rem;white-space:nowrap}
 .ba input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
 .ba .tag{position:absolute;top:.8rem;font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .7rem;background:rgba(11,11,12,.72);color:#EFE9DA;border-radius:2px;pointer-events:none}
 .ba .tag.b{left:.8rem}
 .ba .tag.a{right:.8rem;background:rgba(183,155,105,.9);color:#141005}
+/* Pares fotografados em enquadramentos/fundos diferentes nao suportam o wipe:
+   o corpo e o fundo saltam ao arrastar. Esses vao lado a lado. */
+.ba.sbs{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gold-soft)}
+.ba.sbs picture{position:relative;display:block;overflow:hidden}
+.ba.sbs .before{clip-path:none}
+.ba.sbs .divider,.ba.sbs input[type=range]{display:none}
 .results-note{margin-top:1.6rem;font-size:.78rem;color:var(--muted);font-style:italic}
 .results-ctas{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2.6rem}
 
@@ -596,13 +602,12 @@ p{text-wrap:pretty}
     <div class="sec-head">
       <span class="eyebrow">Antes &amp; Depois</span>
       <h2>Resultados que <span class="gold-text">falam por&nbsp;si</span></h2>
-      <p>Mais de 15.000 histórias de transformação. Veja resultados reais de pacientes reais — arraste o divisor para comparar.</p>
+      <p>Mais de 15.000 histórias de transformação. Veja resultados reais de pacientes reais.</p>
     </div>
     <div class="filters" id="filters">
       <button class="active" data-f="all">Todos</button>
       <button data-f="lipohd">Lipo HD</button>
       <button data-f="gluteo">Glúteo</button>
-      <button data-f="costal">Remodelamento Costal</button>
       <button data-f="mamo">Mamoplastia</button>
       <button data-f="lipedema">Lipedema</button>
       <button data-f="abdomino">Abdominoplastia</button>
@@ -610,7 +615,7 @@ p{text-wrap:pretty}
     <div class="results-grid" id="resultsGrid">
       <!-- cards gerados via JS a partir de RESULTS -->
     </div>
-    <p class="results-note">* Imagens ilustrativas de demonstração — substituir pelas fotos reais autorizadas pelas pacientes (termo de consentimento). Conteúdo de caráter educativo, conforme Resolução CFM nº 2.336/2023. Resultados variam de pessoa para pessoa.</p>
+    <p class="results-note">* Fotos de pacientes reais, publicadas mediante autorização por escrito. Imagens sem edição de contorno ou retoque. Conteúdo de caráter educativo, conforme Resolução CFM nº 2.336/2023. Resultados variam de pessoa para pessoa.</p>
     <div class="results-ctas">
       <a class="btn btn-ghost" href="https://www.instagram.com/drfelipevillacaoficial/" target="_blank" rel="noopener">Ver galeria completa</a>
       <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20os%20resultados%20no%20site%20e%20quero%20agendar%20uma%20consulta." target="_blank" rel="noopener">Agendar minha consulta</a>
@@ -908,22 +913,28 @@ const cObs=new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.4});
 counters.forEach(c=>cObs.observe(c));
 
-/* ===== Galeria de resultados (cards + slider antes/depois) ===== */
-const IMG='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=690,fit=crop/A0xVxN8yeVtL78n1/mulher-YNqrqvwDMqU2Vo2z.png';
+/* ===== Galeria de resultados (cards antes/depois) =====
+   modo 'wipe'  = par fotografado no mesmo enquadramento; o divisor arrasta.
+   modo 'lado'  = par com fundo/enquadramento diferentes; wipe faria o corpo saltar. */
 const RESULTS=[
-  {cat:'lipohd',nome:'Lipoescultura HD',rec:'Recuperação: definida na consulta'},
-  {cat:'gluteo',nome:'Remodelamento Glúteo',rec:'Recuperação: definida na consulta'},
-  {cat:'costal',nome:'Remodelamento Costal',rec:'Recuperação: definida na consulta'},
-  {cat:'mamo',nome:'Mamoplastia',rec:'Recuperação: definida na consulta'},
-  {cat:'lipedema',nome:'Lipedema',rec:'Recuperação: definida na consulta'},
-  {cat:'abdomino',nome:'Abdominoplastia',rec:'Recuperação: definida na consulta'}
+  {cat:'lipohd',  slug:'lipo-hd',         nome:'Lipoescultura HD',      modo:'wipe', rec:'Recuperação: definida na consulta'},
+  {cat:'mamo',    slug:'mamoplastia',     nome:'Mamoplastia',           modo:'wipe', rec:'Recuperação: definida na consulta'},
+  {cat:'abdomino',slug:'abdominoplastia', nome:'Abdominoplastia',       modo:'lado', rec:'Recuperação: definida na consulta'},
+  {cat:'gluteo',  slug:'gluteo',          nome:'Remodelamento Glúteo',  modo:'lado', rec:'Recuperação: definida na consulta'},
+  {cat:'lipedema',slug:'lipedema',        nome:'Lipedema',              modo:'lado', rec:'Recuperação: definida na consulta'}
 ];
+const pic=(slug,fase,alt)=>`
+      <picture>
+        <source srcset="assets/img/resultados/${slug}-${fase}.webp" type="image/webp">
+        <img class="${fase==='antes'?'before':'after'}" src="assets/img/resultados/${slug}-${fase}.jpg" alt="${alt}" loading="lazy" decoding="async">
+      </picture>`;
 const grid=document.getElementById('resultsGrid');
 grid.innerHTML=RESULTS.map(r=>`
   <div class="result-card reveal" data-cat="${r.cat}">
-    <div class="ba" style="--pos:50%">
-      <img class="after" src="${IMG}" alt="Depois — ${r.nome}" loading="lazy">
-      <img class="before" src="${IMG}" alt="Antes — ${r.nome}" loading="lazy">
+    <div class="ba${r.modo==='lado'?' sbs':''}" style="--pos:50%">
+      ${r.modo==='lado'
+        ? pic(r.slug,'antes',`Antes — ${r.nome}`)+pic(r.slug,'depois',`Depois — ${r.nome}`)
+        : pic(r.slug,'depois',`Depois — ${r.nome}`)+pic(r.slug,'antes',`Antes — ${r.nome}`)}
       <span class="tag b">Antes</span><span class="tag a">Depois</span>
       <span class="divider"></span>
       <input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois — ${r.nome}">

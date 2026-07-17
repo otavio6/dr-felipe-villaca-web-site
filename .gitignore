@@ -1,1 +1,7 @@
 qr-cartao.html
+
+# Fotos originais das pacientes (HEIC/JPEG de camera, com EXIF: GPS, data, device).
+# Sao os masters, ficam apenas locais. Para o site vao as versoes tratadas e sem
+# metadados em assets/img/resultados/.
+assets/img/*
+!assets/img/resultados/
