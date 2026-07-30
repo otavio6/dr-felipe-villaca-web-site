@@ -914,19 +914,26 @@ const cObs=new IntersectionObserver(es=>es.forEach(e=>{
 counters.forEach(c=>cObs.observe(c));
 
 /* ===== Galeria de resultados (cards antes/depois) =====
-   modo 'wipe'  = par com mesmo fundo e enquadramento casado (800x920); o divisor arrasta.
-   modo 'lado'  = par com FUNDO diferente entre antes e depois; o wipe trocaria a cor do
-                  fundo no meio do arrasto. Nao adianta recortar: o fundo aparece ao lado
-                  das pernas em qualquer enquadramento. So um reshoot padronizado resolve.
-                    - gluteo:   antes fundo escuro  / depois fundo branco
-                    - lipedema: antes fundo escuro  / depois fundo creme
-   Fotos de 'lado' sao cortadas em 400x920 (metade do card); as de 'wipe' em 800x920. */
+   modo 'wipe'  = fotos 800x920, mesmo fundo e enquadramento casado; o divisor arrasta.
+   modo 'lado'  = fallback lado-a-lado, fotos 400x920 (metade do card), sem divisor.
+
+   Todos os pares estao em 'wipe'. Requisito para um par novo entrar como 'wipe':
+     1. mesmo fundo nas duas fotos (senao a cor do fundo salta no meio do arrasto);
+     2. mesma escala do corpo, alinhado por marco anatomico (umbigo, sulco gluteo)
+        com a largura do quadril como referencia de escala;
+     3. exportar 800x920. Trocar so a flag sem regerar a foto quebra: um 400x920
+        entra no object-fit: cover do card e sai com zoom de 2x.
+
+   gluteo e lipedema foram fotografados com fundos diferentes entre antes e depois
+   (escuro vs branco/creme). O fundo foi uniformizado no pre-processamento: varredura
+   por linha a partir das bordas, que para na silhueta, e substituicao por #18181b nas
+   duas fotos. Nenhum pixel do corpo e alterado - o contorno vem da foto original. */
 const RESULTS=[
   {cat:'lipohd',  slug:'lipo-hd',         nome:'Lipoescultura HD',      modo:'wipe', rec:'Recuperação: definida na consulta'},
   {cat:'mamo',    slug:'mamoplastia',     nome:'Mamoplastia',           modo:'wipe', rec:'Recuperação: definida na consulta'},
   {cat:'abdomino',slug:'abdominoplastia', nome:'Abdominoplastia',       modo:'wipe', rec:'Recuperação: definida na consulta'},
-  {cat:'gluteo',  slug:'gluteo',          nome:'Remodelamento Glúteo',  modo:'lado', rec:'Recuperação: definida na consulta'},
-  {cat:'lipedema',slug:'lipedema',        nome:'Lipedema',              modo:'lado', rec:'Recuperação: definida na consulta'}
+  {cat:'gluteo',  slug:'gluteo',          nome:'Remodelamento Glúteo',  modo:'wipe', rec:'Recuperação: definida na consulta'},
+  {cat:'lipedema',slug:'lipedema',        nome:'Lipedema',              modo:'wipe', rec:'Recuperação: definida na consulta'}
 ];
 const pic=(slug,fase,alt)=>`
       <picture>
