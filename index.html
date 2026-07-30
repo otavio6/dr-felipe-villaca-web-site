@@ -914,12 +914,17 @@ const cObs=new IntersectionObserver(es=>es.forEach(e=>{
 counters.forEach(c=>cObs.observe(c));
 
 /* ===== Galeria de resultados (cards antes/depois) =====
-   modo 'wipe'  = par fotografado no mesmo enquadramento; o divisor arrasta.
-   modo 'lado'  = par com fundo/enquadramento diferentes; wipe faria o corpo saltar. */
+   modo 'wipe'  = par com mesmo fundo e enquadramento casado (800x920); o divisor arrasta.
+   modo 'lado'  = par com FUNDO diferente entre antes e depois; o wipe trocaria a cor do
+                  fundo no meio do arrasto. Nao adianta recortar: o fundo aparece ao lado
+                  das pernas em qualquer enquadramento. So um reshoot padronizado resolve.
+                    - gluteo:   antes fundo escuro  / depois fundo branco
+                    - lipedema: antes fundo escuro  / depois fundo creme
+   Fotos de 'lado' sao cortadas em 400x920 (metade do card); as de 'wipe' em 800x920. */
 const RESULTS=[
   {cat:'lipohd',  slug:'lipo-hd',         nome:'Lipoescultura HD',      modo:'wipe', rec:'Recuperação: definida na consulta'},
   {cat:'mamo',    slug:'mamoplastia',     nome:'Mamoplastia',           modo:'wipe', rec:'Recuperação: definida na consulta'},
-  {cat:'abdomino',slug:'abdominoplastia', nome:'Abdominoplastia',       modo:'lado', rec:'Recuperação: definida na consulta'},
+  {cat:'abdomino',slug:'abdominoplastia', nome:'Abdominoplastia',       modo:'wipe', rec:'Recuperação: definida na consulta'},
   {cat:'gluteo',  slug:'gluteo',          nome:'Remodelamento Glúteo',  modo:'lado', rec:'Recuperação: definida na consulta'},
   {cat:'lipedema',slug:'lipedema',        nome:'Lipedema',              modo:'lado', rec:'Recuperação: definida na consulta'}
 ];
