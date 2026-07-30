@@ -615,7 +615,7 @@ p{text-wrap:pretty}
     <div class="results-grid" id="resultsGrid">
       <!-- cards gerados via JS a partir de RESULTS -->
     </div>
-    <p class="results-note">* Fotos de pacientes reais, publicadas mediante autorização por escrito. Sem edição de contorno, silhueta ou retoque do resultado; nos pares fotografados em locais distintos, apenas o fundo foi padronizado para permitir a comparação. Conteúdo de caráter educativo, conforme Resolução CFM nº 2.336/2023. Resultados variam de pessoa para pessoa.</p>
+    <p class="results-note">* Fotos de pacientes reais, publicadas mediante autorização por escrito. Imagens sem edição de contorno ou retoque. Conteúdo de caráter educativo, conforme Resolução CFM nº 2.336/2023. Resultados variam de pessoa para pessoa.</p>
     <div class="results-ctas">
       <a class="btn btn-ghost" href="https://www.instagram.com/drfelipevillacaoficial/" target="_blank" rel="noopener">Ver galeria completa</a>
       <a class="btn btn-gold" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20os%20resultados%20no%20site%20e%20quero%20agendar%20uma%20consulta." target="_blank" rel="noopener">Agendar minha consulta</a>
@@ -924,16 +924,24 @@ counters.forEach(c=>cObs.observe(c));
      3. exportar 800x920. Trocar so a flag sem regerar a foto quebra: um 400x920
         entra no object-fit: cover do card e sai com zoom de 2x.
 
-   gluteo e lipedema foram fotografados com fundos diferentes entre antes e depois
-   (escuro vs branco/creme). O fundo foi uniformizado no pre-processamento: varredura
-   por linha a partir das bordas, que para na silhueta, e substituicao por #18181b nas
-   duas fotos. Nenhum pixel do corpo e alterado - o contorno vem da foto original. */
+   gluteo e lipedema seguem em 'lado': foram fotografados com fundos diferentes entre
+   antes e depois (escuro vs branco/creme). Ja foi tentado uniformizar o fundo por
+   software para habilitar o wipe - NAO FUNCIONA, nao insista sem mascara manual:
+     - varredura por linha parando na variacao de cor  -> para na sombra da parede e
+       deixa faixas de fundo original para tras;
+     - flood fill bloqueado por gradiente (Sobel)      -> o contorno do corpo nessas
+       fotos tem gradiente de apenas 7-18, contra 0-3 da parede; qualquer limiar que
+       cubra a parede sombreada tambem atravessa a silhueta.
+   Causa raiz: ha pele com a mesma cor E o mesmo contraste de borda que a parede - a
+   coxa em sombra no antes do gluteo, a parede sombreada no depois do lipedema. Sem
+   separacao possivel por heuristica local. Resolve com mascara manual em editor ou,
+   melhor, reshoot padronizado (mesmo fundo, distancia, roupa e luz nas duas fotos). */
 const RESULTS=[
   {cat:'lipohd',  slug:'lipo-hd',         nome:'Lipoescultura HD',      modo:'wipe', rec:'Recuperação: definida na consulta'},
   {cat:'mamo',    slug:'mamoplastia',     nome:'Mamoplastia',           modo:'wipe', rec:'Recuperação: definida na consulta'},
   {cat:'abdomino',slug:'abdominoplastia', nome:'Abdominoplastia',       modo:'wipe', rec:'Recuperação: definida na consulta'},
-  {cat:'gluteo',  slug:'gluteo',          nome:'Remodelamento Glúteo',  modo:'wipe', rec:'Recuperação: definida na consulta'},
-  {cat:'lipedema',slug:'lipedema',        nome:'Lipedema',              modo:'wipe', rec:'Recuperação: definida na consulta'}
+  {cat:'gluteo',  slug:'gluteo',          nome:'Remodelamento Glúteo',  modo:'lado', rec:'Recuperação: definida na consulta'},
+  {cat:'lipedema',slug:'lipedema',        nome:'Lipedema',              modo:'lado', rec:'Recuperação: definida na consulta'}
 ];
 const pic=(slug,fase,alt)=>`
       <picture>
