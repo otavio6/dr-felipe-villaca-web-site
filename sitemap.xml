@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- So entram aqui URLs que devem rankear. /lp e LP de trafego pago e carrega
+     noindex no proprio HTML; listar uma pagina noindex no sitemap e sinal
+     contraditorio para o Google. /links e hub de bio, sem intencao de busca. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://drfelipevillaca.com.br/</loc>
     <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://drfelipevillaca.com.br/lp</loc>
-    <lastmod>2026-07-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://drfelipevillaca.com.br/links</loc>
-    <lastmod>2026-07-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
   </url>
 </urlset>
