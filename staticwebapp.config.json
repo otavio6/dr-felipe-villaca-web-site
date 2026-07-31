@@ -2,6 +2,7 @@
   "routes": [
     { "route": "/lp", "rewrite": "/lp.html" },
     { "route": "/links", "rewrite": "/links.html" },
+    { "route": "/privacidade", "rewrite": "/privacidade.html" },
     {
       "route": "/defesa-alteracoes-lp",
       "rewrite": "/defesa-alteracoes-lp.html",
