@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Documento interno de trabalho, nao deve ser indexado
+Disallow: /defesa-alteracoes-lp
+Disallow: /defesa-alteracoes-lp.html
+Disallow: /links-embed-builder
+Disallow: /links-embed-builder.html
+
+Sitemap: https://drfelipevillaca.com.br/sitemap.xml

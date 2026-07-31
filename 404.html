@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#0B0B0C">
+<meta name="robots" content="noindex,follow">
+<title>Página não encontrada — Dr. Felipe Villaça</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0B0B0C; --cream:#FBF9F4; --gold:#B79B69; --gold-soft:#D6C39A;
+  --serif:'Cormorant',Georgia,serif; --sans:'Montserrat',Helvetica,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:var(--sans);background:var(--black);color:var(--cream);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:2rem;text-align:center;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:560px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;letter-spacing:.28em;
+  text-transform:uppercase;font-weight:600;color:var(--gold);margin-bottom:1.4rem;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,6vw,3.2rem);line-height:1.15;margin-bottom:1rem}
+h1 em{color:var(--gold-soft);font-style:italic}
+p{color:#B7B0A2;font-size:1rem;line-height:1.7;margin-bottom:2.4rem}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;font-weight:600;
+  font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;padding:1rem 2rem;
+  border:1px solid transparent;border-radius:2px;text-decoration:none;transition:all .35s ease;
+}
+.btn-gold{background:var(--gold);color:#14100A}
+.btn-gold:hover{background:var(--gold-soft);transform:translateY(-2px)}
+.btn-ghost{border-color:rgba(183,155,105,.4);color:var(--gold-soft)}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(183,155,105,.08)}
+.links{margin-top:2.6rem;font-size:.82rem;color:#6E675C}
+.links a{color:var(--gold-soft);text-decoration:none;margin:0 .5rem}
+.links a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <span class="eyebrow">Erro 404</span>
+    <h1>Esta página não <em>existe</em>.</h1>
+    <p>O endereço que você acessou não corresponde a nenhuma página do site. Pode ter sido removido ou digitado incorretamente.</p>
+    <div class="actions">
+      <a class="btn btn-gold" href="/">Ir para a página inicial</a>
+      <a class="btn btn-ghost" href="https://wa.me/5531997714488?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Felipe%20Villa%C3%A7a." target="_blank" rel="noopener">Falar no WhatsApp</a>
+    </div>
+    <p class="links">
+      <a href="/#procedimentos">Procedimentos</a>·
+      <a href="/#resultados">Resultados</a>·
+      <a href="/#sobre">Sobre o Dr. Felipe</a>
+    </p>
+  </main>
+</body>
+</html>

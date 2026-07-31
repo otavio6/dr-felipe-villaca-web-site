@@ -2,14 +2,23 @@
   "routes": [
     { "route": "/lp", "rewrite": "/lp.html" },
     { "route": "/links", "rewrite": "/links.html" },
-    { "route": "/defesa-alteracoes-lp", "rewrite": "/defesa-alteracoes-lp.html" },
-    { "route": "/links-embed-builder", "rewrite": "/links-embed-builder.html" }
+    {
+      "route": "/defesa-alteracoes-lp",
+      "rewrite": "/defesa-alteracoes-lp.html",
+      "headers": { "X-Robots-Tag": "noindex, nofollow" }
+    },
+    {
+      "route": "/links-embed-builder",
+      "rewrite": "/links-embed-builder.html",
+      "headers": { "X-Robots-Tag": "noindex, nofollow" }
+    }
   ],
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/*.{png,jpg,jpeg,gif,webp,svg,ico,css,js,woff,woff2,ttf,eot,map,pdf,mp4}"]
+  "responseOverrides": {
+    "404": { "rewrite": "/404.html" }
   },
   "mimeTypes": {
-    ".webp": "image/webp"
+    ".webp": "image/webp",
+    ".xml": "application/xml",
+    ".txt": "text/plain"
   }
 }
