@@ -1194,7 +1194,7 @@ grid.innerHTML=RESULTS.map(r=>`
         : pic(r.slug,'depois',`Depois — ${r.nome}`)+pic(r.slug,'antes',`Antes — ${r.nome}`)}
       <span class="tag b">Antes</span><span class="tag a">Depois</span>
       <span class="divider"></span>
-      <input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois — ${r.nome}">
+      <input type="range" min="0" max="100" value="50" autocomplete="off" aria-label="Comparar antes e depois — ${r.nome}">
     </div>
     <div class="meta"><h4>${r.nome}</h4><span>${r.rec}</span></div>
   </div>`).join('');

@@ -551,7 +551,7 @@ grid.innerHTML=RESULTS.map(r=>`
       <img class="before" src="${IMG}" alt="Antes — ${r.nome}" loading="lazy">
       <span class="tag b">Antes</span><span class="tag a">Depois</span>
       <span class="divider"></span>
-      <input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois — ${r.nome}">
+      <input type="range" min="0" max="100" value="50" autocomplete="off" aria-label="Comparar antes e depois — ${r.nome}">
     </div>
     <div class="meta"><h4>${r.nome}</h4><span>Caso real na consulta</span></div>
   </div>`).join('');

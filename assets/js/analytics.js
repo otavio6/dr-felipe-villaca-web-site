@@ -82,11 +82,20 @@
       });
     }
 
-    // comparador antes/depois: conta uma vez por card, nao a cada pixel arrastado
+    /* Comparador antes/depois: conta uma vez por card, nao a cada pixel arrastado.
+       Exige gesto real antes de contar - no reload o Chrome restaura o valor dos
+       input[type=range] e dispara 'input' sozinho, o que inflava a metrica. */
     var usados = {};
+    var gesto = false;
     var grid = document.getElementById('resultsGrid');
     if (grid) {
+      ['pointerdown', 'touchstart', 'keydown'].forEach(function (ev) {
+        grid.addEventListener(ev, function (e) {
+          if (e.target.matches('input[type=range]')) gesto = true;
+        }, { passive: true });
+      });
       grid.addEventListener('input', function (e) {
+        if (!gesto) return;
         if (!e.target.matches('input[type=range]')) return;
         var card = e.target.closest('.result-card');
         var cat = card ? card.dataset.cat : 'desconhecido';
