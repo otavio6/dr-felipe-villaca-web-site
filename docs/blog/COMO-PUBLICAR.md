@@ -1,0 +1,92 @@
+# Como publicar um artigo
+
+Guia para quem escreve. Não precisa saber nada de programação.
+
+---
+
+## Primeira vez: criar o acesso
+
+Você recebeu um link de convite. Antes de abrir esse link, faça o cadastro abaixo —
+**nesta ordem**, senão o processo se perde no meio.
+
+1. Entre em **signup.live.com**
+2. Clique em **"Usar um e-mail existente"** (não crie um endereço novo)
+3. Digite o seu e-mail de trabalho
+4. Crie uma senha — é a senha desta conta de acesso, **não** a do seu e-mail
+5. Confirme o código que chega na sua caixa de entrada
+6. Só agora abra o link do convite que te enviaram
+
+Isso **não muda nada no seu e-mail**. Ele continua funcionando igual, no mesmo
+lugar. É apenas um cadastro de login.
+
+Depois disso, o endereço do painel é **drfelipevillaca.com.br/admin**.
+
+---
+
+## Escrevendo
+
+Clique em **Novo artigo**. Os campos:
+
+**Título** — o que aparece grande no topo e no resultado do Google. O contador
+avisa quando passa de 70 caracteres, porque o Google costuma cortar por volta dos
+60.
+
+**Resumo** — aparece no card da listagem e embaixo do título no Google. O ideal
+fica entre 120 e 160 caracteres; o contador te avisa.
+
+**Data de publicação** — aqui está o agendamento. Data de hoje ou passada publica
+assim que você salvar. **Data futura deixa o artigo invisível no site até chegar a
+hora.** O painel te diz qual dos dois vai acontecer, embaixo do campo.
+
+**Imagem de capa** — opcional, mas recomendada. É ela que aparece quando o link é
+compartilhado no WhatsApp e no Instagram. Sem capa, o link vai sem imagem. Aceita
+JPG, PNG ou WEBP até 5 MB.
+
+**Texto** — escreva normalmente. Os botões acima da caixa formatam:
+
+| Botão | Para quê |
+|---|---|
+| Título | divide o artigo em seções |
+| Subtítulo | divisão menor, dentro de uma seção |
+| Negrito / Itálico | destaque no meio da frase |
+| Lista | itens com marcador |
+| Citação | destaca uma frase importante |
+| Link | aponta para outra página |
+
+Selecione o texto antes de clicar no botão. À direita, a **prévia** mostra
+exatamente como vai ficar publicado.
+
+**Link do Instagram** — opcional. Vira um botão no fim do artigo.
+
+---
+
+## Publicando
+
+Clique em **Salvar**.
+
+- Se a data for hoje ou passada: o artigo entra no ar em **1 a 2 minutos**. Não é
+  instantâneo porque o site é reconstruído a cada publicação.
+- Se a data for futura: aparece "Agendado". O artigo entra sozinho na data. A
+  precisão é de hora — marcado para 8h, ele sai entre 8h e 9h.
+
+Não precisa deixar o computador ligado nem voltar no horário.
+
+---
+
+## Coisas que valem saber
+
+**Cada save guarda uma versão.** Nada se perde. Dá para recuperar qualquer versão
+anterior de qualquer artigo — é só pedir para quem cuida do site.
+
+**Editar um artigo publicado** é só abrir, alterar e salvar de novo. Ele se
+atualiza no ar em 1 a 2 minutos.
+
+**Se aparecer "sua sessão expirou"**, copie seu texto antes de fazer qualquer coisa.
+Clique em "Entrar novamente", faça login e cole de volta. O aviso existe justamente
+para você não perder o trabalho achando que salvou.
+
+**Artigo bom para o Google** tem 400 palavras ou mais. O contador embaixo da caixa
+de texto te mostra quantas você já escreveu.
+
+**Se algo der errado** e a mensagem não fizer sentido, tire um print da tela inteira
+e mande para quem cuida do site — a mensagem de erro diz exatamente onde travou.

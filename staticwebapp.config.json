@@ -8,6 +8,8 @@
     { "route": "/api/*", "allowedRoles": ["editor", "administrator"] },
 
     { "route": "/content/*", "statusCode": 404 },
+    { "route": "/docs/*", "statusCode": 404 },
+    { "route": "/tools/build-blog.mjs", "statusCode": 404 },
     { "route": "/.auth/login/github", "statusCode": 404 },
 
     {
