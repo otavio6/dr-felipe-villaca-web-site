@@ -1,16 +1,19 @@
-/* ===== GA4 + Consent Mode v2 + eventos =====
-   Carregado por index.html e lp.html. Arquivo unico de proposito: o site nao tem
-   build nem includes, entao duplicar isso nas duas paginas garantiria divergencia.
+/* ===== Consent Mode v2 + eventos para o GTM =====
+   Carregado por index.html, lp.html e pelas paginas do blog. Arquivo unico de
+   proposito: o site nao tem build nem includes, entao duplicar isso em cada
+   pagina garantiria divergencia com o tempo.
 
-   LGPD: analytics_storage comeca NEGADO. Enquanto o visitante nao aceita, o GA4
-   opera em modo cookieless (pings sem identificador persistente) - e o proprio
-   Consent Mode do Google que trata isso, nao um hack. So apos o aceite o gtag
-   recebe 'update' e passa a gravar cookie. */
+   O GA4 NAO e carregado aqui. Toda a medicao e configurada no container do Tag
+   Manager (GTM-PGQZNSJS); este arquivo apenas empurra os eventos para o dataLayer
+   e cuida do consentimento. Ter GA4 aqui e no GTM contaria cada visita duas vezes.
+
+   LGPD: analytics_storage comeca NEGADO. Enquanto o visitante nao aceita, as tags
+   do GTM operam em modo cookieless - e o proprio Consent Mode do Google que trata
+   isso, nao um contorno. So apos o aceite vem o 'update'. */
 
 (function () {
   'use strict';
 
-  var GA_ID = 'G-F5MHSH1SJ6';
   var STORE = 'fv-consent';      // 'granted' | 'denied'
   var POLITICA = '/privacidade';
 
@@ -24,9 +27,9 @@
   /* ---- 1. Consent Mode v2 ----
      Em index.html e lp.html isso ja roda inline no topo do <head>, antes do GTM -
      tem que ser antes, senao o GTM dispara tag sem consentimento. Aqui fica so
-     como reserva, para pagina que nao tenha aquele bloco: sem isso o GA4 assumiria
-     consentimento concedido. Redeclarar o padrao apos um 'update' apagaria um
-     aceite ja dado, por isso a checagem. */
+     como reserva, para pagina que nao tenha aquele bloco: sem isso as tags
+     assumiriam consentimento concedido. Redeclarar o padrao apos um 'update'
+     apagaria um aceite ja dado, por isso a checagem. */
   var escolha = lido();
   if (!window.__fvConsentInit) {
     gtag('consent', 'default', {
@@ -44,18 +47,17 @@
     window.__fvConsentInit = true;
   }
 
-  /* ---- 2. Carrega o GA4 ---- */
-  gtag('js', new Date());
-  gtag('config', GA_ID, { anonymize_ip: true });
+  /* ---- 2. Eventos ----
+     A conversao deste site e um clique que leva o visitante para FORA, para o
+     WhatsApp. Sem rastreio explicito so a visita seria registrada, e nenhuma
+     conversao.
 
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-  document.head.appendChild(s);
-
-  /* ---- 3. Eventos ----
-     A conversao deste site e um clique que leva o visitante para fora (WhatsApp).
-     Sem rastreio explicito o GA4 registraria apenas a visita e nenhuma conversao. */
+     Formato de dataLayer.push com a chave "event", que e o que o GTM escuta num
+     acionador de Evento Personalizado. NAO usar gtag('event', ...) aqui: aquele
+     formato serve ao GA4 direto e o GTM nao o reconhece como acionador. */
+  function enviar(nome, dados) {
+    dataLayer.push(Object.assign({ event: nome }, dados || {}));
+  }
 
   function origemDoLink(a) {
     if (a.closest('.mobile-bar')) return 'barra-fixa-mobile';
@@ -71,7 +73,7 @@
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="wa.me"]');
     if (!a) return;
-    gtag('event', 'click_whatsapp', {
+    enviar('click_whatsapp', {
       origem: origemDoLink(a),
       pagina: location.pathname
     });
@@ -82,7 +84,7 @@
     if (form) {
       form.addEventListener('submit', function () {
         var proc = document.getElementById('proc');
-        gtag('event', 'submit_lead', {
+        enviar('submit_lead', {
           procedimento: proc ? proc.value : '(nao informado)',
           pagina: location.pathname
         });
@@ -108,7 +110,7 @@
         var cat = card ? card.dataset.cat : 'desconhecido';
         if (usados[cat]) return;
         usados[cat] = 1;
-        gtag('event', 'usa_comparador', { procedimento: cat });
+        enviar('usa_comparador', { procedimento: cat });
       });
     }
 
@@ -116,14 +118,14 @@
     if (filtros) {
       filtros.addEventListener('click', function (e) {
         var b = e.target.closest('button');
-        if (b) gtag('event', 'filtro_resultados', { categoria: b.dataset.f || '(sem)' });
+        if (b) enviar('filtro_resultados', { categoria: b.dataset.f || '(sem)' });
       });
     }
 
     if (!escolha) banner();
   });
 
-  /* ---- 4. Banner de consentimento ---- */
+  /* ---- 3. Banner de consentimento ---- */
   function banner() {
     var css = document.createElement('style');
     css.textContent =
@@ -160,7 +162,7 @@
     function decide(v) {
       grava(v);
       if (v === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' });
-      gtag('event', 'consentimento', { escolha: v });
+      enviar('consentimento', { escolha: v });
       box.remove();
     }
     box.querySelector('.ok').addEventListener('click', function () { decide('granted'); });

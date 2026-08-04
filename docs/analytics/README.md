@@ -58,29 +58,43 @@ fica **sem GTM**. Para o blog isso já está resolvido: o gerador
 
 ---
 
-## Eventos medidos hoje
+## Eventos enviados ao dataLayer
 
-| Evento | Parâmetro | Responde |
+O site **empurra**, o GTM **decide o que fazer**. Cada evento precisa de um
+acionador de *Evento Personalizado* no container, com o nome exato abaixo, e de uma
+tag de evento do GA4 ligada a ele. **Sem isso, o evento sai do site e não chega a
+lugar nenhum.**
+
+| Evento | Parâmetros | Responde |
 |---|---|---|
-| `click_whatsapp` | `origem` | qual CTA converte — hero, card, barra fixa, flutuante, rodapé |
-| `submit_lead` | `procedimento` | quem preenche o formulário e o que busca |
+| `click_whatsapp` | `origem`, `pagina` | qual CTA converte — hero, card, barra fixa, flutuante, rodapé |
+| `submit_lead` | `procedimento`, `pagina` | quem preenche o formulário e o que busca |
 | `usa_comparador` | `procedimento` | se a galeria antes/depois engaja |
 | `filtro_resultados` | `categoria` | qual cirurgia desperta mais curiosidade |
 | `consentimento` | `escolha` | taxa de aceite do banner |
 
 A conversão deste site é um clique que leva o visitante **para fora**, para o
-WhatsApp. Sem rastreio explícito, o GA4 registraria apenas a visita e nenhuma
-conversão.
+WhatsApp. Sem rastreio explícito, só a visita seria registrada e nenhuma conversão.
+
+### Formato importa
+
+O código usa `dataLayer.push({event: 'nome', ...})`, que é o que um acionador de
+Evento Personalizado escuta. **Não trocar por `gtag('event', ...)`** — aquele
+formato serve ao GA4 direto e o GTM não o reconhece como acionador. Os eventos
+sumiriam sem nenhum erro visível.
 
 ---
 
 ## Armadilhas
 
-**Não configurar GA4 dentro do GTM.** O GA4 já está no código com o mesmo
-`G-F5MHSH1SJ6`. Colocar de novo no GTM faz o site **contar cada visita duas vezes**,
-e todos os números dobram sem aviso. O GTM foi instalado vazio, para pixel de
-anúncio e tags de terceiros. Se um dia a decisão for centralizar tudo nele, remover
-o GA4 do `analytics.js` no mesmo passo.
+**Não reinstalar GA4 no código.** O `G-F5MHSH1SJ6` vive dentro do container do GTM.
+Se alguém colocar de volta no `analytics.js` ou inline no HTML, o site passa a
+**contar cada visita duas vezes** — e como todos os números sobem juntos, parece
+crescimento, não erro.
+
+Houve uma janela curta em que isso aconteceu de fato: entre o deploy do GTM e a
+remoção do GA4 do código, ambos estavam ativos. Os números do GA4 nesse intervalo
+estão inflados e devem ser desconsiderados.
 
 **Falso `503` nos envios do GA4.** A extensão do Chrome reporta HTTP 503 nas
 chamadas para `google-analytics.com/g/collect`. É artefato de como ela observa
