@@ -1,0 +1,7 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "API do painel do blog. Sem dependencias: Node 20 ja tem fetch nativo.",
+  "private": true,
+  "main": "index.js"
+}

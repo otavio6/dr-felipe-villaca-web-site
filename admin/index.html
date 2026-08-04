@@ -346,17 +346,26 @@ $('fCapa').addEventListener('change', async e => {
   }
   aviso($('avisoEditor'), 'Enviando imagem…', 'info');
   try {
-    const fd = new FormData();
-    fd.append('arquivo', arq);
-    fd.append('slug', gerarSlug($('fTitulo').value || 'capa'));
-    const r = await fetch(`${API}/upload`, { method: 'POST', body: fd });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const j = await r.json();
+    // base64 em JSON: ler multipart na Function exigiria biblioteca, e o projeto
+    // nao tem nenhuma dependencia.
+    const dadosBase64 = await new Promise((ok, falha) => {
+      const fr = new FileReader();
+      fr.onload = () => ok(String(fr.result).split(',')[1]);
+      fr.onerror = () => falha(fr.error);
+      fr.readAsDataURL(arq);
+    });
+    const r = await fetch(`${API}/upload`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dadosBase64, tipo: arq.type, slug: gerarSlug($('fTitulo').value || 'capa') }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.erro || 'HTTP ' + r.status);
     capaAtual = j.caminho;
     atualizarCapa(); atualizarPrevia();
-    aviso($('avisoEditor'), 'Imagem enviada.', 'ok');
-  } catch {
-    aviso($('avisoEditor'), 'Não consegui enviar a imagem. A API de upload ainda não está configurada.', 'err');
+    aviso($('avisoEditor'), 'Imagem enviada. Ela entra no site junto com o artigo.', 'ok');
+  } catch (err) {
+    aviso($('avisoEditor'), 'Não consegui enviar a imagem. ' + (err.message || ''), 'err');
   }
   e.target.value = '';
 });
@@ -382,12 +391,14 @@ $('btnSalvar').addEventListener('click', async () => {
     const r = await fetch(`${API}/salvar-post`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corpo),
     });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    aviso($('avisoEditor'),
-      'Salvo. O site está sendo republicado — o artigo aparece em 1 a 2 minutos.', 'ok');
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.erro || 'HTTP ' + r.status);
+    aviso($('avisoEditor'), j.agendado
+      ? 'Agendado. O artigo entra no ar sozinho na data escolhida.'
+      : 'Salvo. O site está sendo republicado — o artigo aparece em 1 a 2 minutos.', 'ok');
     editando = corpo;
-  } catch {
-    aviso($('avisoEditor'), 'Não consegui salvar. A API ainda não está configurada.', 'err');
+  } catch (err) {
+    aviso($('avisoEditor'), 'Não consegui salvar. ' + (err.message || ''), 'err');
   }
   btn.disabled = false; btn.textContent = 'Salvar';
 });

@@ -29,5 +29,8 @@
     ".xml": "application/xml",
     ".txt": "text/plain",
     ".mjs": "text/javascript"
+  },
+  "platform": {
+    "apiRuntime": "node:20"
   }
 }
