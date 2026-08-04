@@ -70,10 +70,29 @@ const FONTES = `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">`;
 
+/* Consentimento antes do GTM, igual ao index.html e ao lp.html. Sem isso as
+   paginas do blog ficariam sem medicao, criando um buraco justamente no conteudo
+   que atrai visita organica. */
+const CONSENTIMENTO_E_GTM = `
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+try{if(localStorage.getItem('fv-consent')==='granted')gtag('consent','update',{analytics_storage:'granted'})}catch(e){}
+window.__fvConsentInit=true;
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PGQZNSJS');</script>
+<!-- End Google Tag Manager -->`;
+
+const NOSCRIPT_GTM = `<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGQZNSJS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->`;
+
 const layout = ({ titulo, descricao, canonical, og, jsonld, conteudo }) => `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+${CONSENTIMENTO_E_GTM}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#0B0B0C">
@@ -88,6 +107,7 @@ ${jsonld ? `<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 
 <script src="/assets/js/analytics.js" charset="utf-8" defer></script>
 </head>
 <body>
+${NOSCRIPT_GTM}
 <header class="topo"><div class="wrap-l">
   <a class="marca" href="/">Dr. Felipe Villaça</a>
   <a class="voltar" href="/#contato">Agendar consulta</a>

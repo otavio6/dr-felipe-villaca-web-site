@@ -21,20 +21,27 @@
   function lido() { try { return localStorage.getItem(STORE); } catch (e) { return null; } }
   function grava(v) { try { localStorage.setItem(STORE, v); } catch (e) {} }
 
-  /* ---- 1. Consent Mode v2: nega por padrao ---- */
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    functionality_storage: 'granted',
-    security_storage: 'granted',
-    wait_for_update: 500
-  });
-
+  /* ---- 1. Consent Mode v2 ----
+     Em index.html e lp.html isso ja roda inline no topo do <head>, antes do GTM -
+     tem que ser antes, senao o GTM dispara tag sem consentimento. Aqui fica so
+     como reserva, para pagina que nao tenha aquele bloco: sem isso o GA4 assumiria
+     consentimento concedido. Redeclarar o padrao apos um 'update' apagaria um
+     aceite ja dado, por isso a checagem. */
   var escolha = lido();
-  if (escolha === 'granted') {
-    gtag('consent', 'update', { analytics_storage: 'granted' });
+  if (!window.__fvConsentInit) {
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+    if (escolha === 'granted') {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    }
+    window.__fvConsentInit = true;
   }
 
   /* ---- 2. Carrega o GA4 ---- */
