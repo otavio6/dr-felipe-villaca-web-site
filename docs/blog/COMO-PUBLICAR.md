@@ -6,20 +6,33 @@ Guia para quem escreve. Não precisa saber nada de programação.
 
 ## Primeira vez: criar o acesso
 
-Você recebeu um link de convite. Antes de abrir esse link, faça o cadastro abaixo —
-**nesta ordem**, senão o processo se perde no meio.
+O login é feito com conta Microsoft. O que você precisa fazer depende do seu e-mail.
+
+### Se o seu e-mail é `@hotmail.com`, `@outlook.com` ou `@live.com`
+
+Nada a fazer. Esses já são contas Microsoft. Abra o link de convite que te enviaram
+e entre com a senha que você já usa.
+
+### Se o seu e-mail é de outro provedor (Gmail, domínio da empresa, etc.)
+
+Faça o cadastro abaixo **antes** de abrir o link do convite — nesta ordem, senão o
+processo se perde no meio.
 
 1. Entre em **signup.live.com**
 2. Clique em **"Usar um e-mail existente"** (não crie um endereço novo)
-3. Digite o seu e-mail de trabalho
+3. Digite o seu e-mail
 4. Crie uma senha — é a senha desta conta de acesso, **não** a do seu e-mail
 5. Confirme o código que chega na sua caixa de entrada
-6. Só agora abra o link do convite que te enviaram
+6. Só agora abra o link do convite
 
 Isso **não muda nada no seu e-mail**. Ele continua funcionando igual, no mesmo
 lugar. É apenas um cadastro de login.
 
-Depois disso, o endereço do painel é **drfelipevillaca.com.br/admin**.
+---
+
+Depois de aceitar o convite, o endereço do painel é
+**drfelipevillaca.com.br/admin**. O link do convite vale 7 dias; o acesso, depois de
+aceito, não expira.
 
 ---
 
