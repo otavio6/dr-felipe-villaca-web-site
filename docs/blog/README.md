@@ -79,6 +79,11 @@ Ler multipart numa Function exigiria biblioteca. O limite de requisição do Azu
 | `tools/markdown.mjs` | conversor Markdown→HTML e leitura de frontmatter |
 | `admin/index.html` | painel |
 | `sem-acesso.html` | mostrada a quem entra sem o papel `editor` |
+
+O painel é alcançado por **"Área restrita"** no rodapé do `index.html` — discreto de
+propósito, em cinza apagado ao lado da Política de Privacidade, com `rel="nofollow"`.
+Não existe na `lp.html`: aquela página não leva link externo nenhum, por decisão de
+conversão registrada no próprio arquivo.
 | `api/posts-admin/` | lista artigos, inclusive agendados |
 | `api/salvar-post/` | grava ou remove o `.md` |
 | `api/upload/` | recebe a capa, grava em `assets/blog/` |

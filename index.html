@@ -1114,7 +1114,14 @@ p{text-wrap:pretty}
       <span>© <span id="year"></span> Dr. Felipe Villaça — Todos os direitos reservados.</span>
       <span style="color:var(--gold-soft)">Dr. Felipe Villaça Guimarães — CRM-MG 48463 · RQE 32245</span>
       <span>Resultados variam de pessoa para pessoa. Consulte sempre um médico.</span>
-      <span><a href="/privacidade" style="color:var(--gold-soft);text-decoration:underline">Política de Privacidade</a></span>
+      <span>
+        <a href="/privacidade" style="color:var(--gold-soft);text-decoration:underline">Política de Privacidade</a>
+        <!-- Atalho para a equipe chegar ao painel do blog. nofollow porque nao ha
+             motivo para buscador seguir: a rota exige o papel "editor" e devolve
+             401 para qualquer outra pessoa. -->
+        <span style="opacity:.45"> · </span>
+        <a href="/admin" rel="nofollow" style="color:var(--muted);text-decoration:none">Área restrita</a>
+      </span>
     </div>
   </div>
 </footer>
