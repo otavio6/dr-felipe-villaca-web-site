@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#0B0B0C">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel do Blog — Dr. Felipe Villaça</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0B0B0C;--graphite:#141416;--ink:#1A1A1C;--cream:#FBF9F4;--white:#fff;
+--gold:#B79B69;--gold-soft:#D6C39A;--gold-deep:#8C7347;--muted:#6E675C;
+--line:rgba(110,103,92,.2);--ok:#3F7D58;--alerta:#9A6B2F;--erro:#9B3B3B;
+--serif:'Cormorant',Georgia,serif;--sans:'Montserrat',Helvetica,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+img{max-width:100%;display:block}
+
+header{background:var(--black);color:#F4F0E6;padding:.9rem 0;position:sticky;top:0;z-index:40}
+header .in{width:min(1180px,94%);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+header .marca{font-family:var(--serif);font-size:1.15rem;color:var(--gold-soft)}
+header .quem{font-size:.75rem;color:#B7B0A2;display:flex;align-items:center;gap:.9rem}
+header a{color:var(--gold-soft);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;text-decoration:none}
+
+main{width:min(1180px,94%);margin:0 auto;padding:2rem 0 4rem}
+.centro{max-width:440px;margin:14vh auto;text-align:center}
+.centro h1{font-family:var(--serif);font-size:2rem;font-weight:600;margin-bottom:.6rem}
+.centro p{color:var(--muted);margin-bottom:1.8rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.76rem;
+letter-spacing:.12em;text-transform:uppercase;padding:.85rem 1.6rem;border:1px solid transparent;border-radius:2px;
+cursor:pointer;transition:all .25s;text-decoration:none}
+.btn-gold{background:var(--gold);color:#14100A}.btn-gold:hover{background:var(--gold-soft)}
+.btn-ghost{border-color:var(--line);color:var(--gold-deep);background:transparent}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(183,155,105,.07)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-sm{padding:.55rem 1rem;font-size:.68rem}
+
+.barra{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.barra h1{font-family:var(--serif);font-size:1.9rem;font-weight:600}
+
+table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);border-radius:2px}
+th,td{text-align:left;padding:.85rem 1rem;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:none}
+td.tit{font-weight:500}
+td.acoes{text-align:right;white-space:nowrap}
+.tag{display:inline-block;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+padding:.25rem .6rem;border-radius:2px}
+.tag.pub{background:rgba(63,125,88,.12);color:var(--ok)}
+.tag.age{background:rgba(154,107,47,.14);color:var(--alerta)}
+.tag.ras{background:rgba(110,103,92,.14);color:var(--muted)}
+
+.editor{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:2rem;align-items:start}
+@media(max-width:900px){.editor{grid-template-columns:1fr}}
+.campo{margin-bottom:1.2rem}
+label{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.45rem}
+label .dica{text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted);opacity:.8}
+input[type=text],input[type=url],input[type=datetime-local],textarea{
+width:100%;padding:.8rem .95rem;border:1px solid var(--line);border-radius:2px;background:var(--white)}
+input:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{min-height:420px;resize:vertical;line-height:1.7;font-size:.95rem}
+.conta{font-size:.72rem;color:var(--muted);margin-top:.3rem}
+.conta.ruim{color:var(--erro)}
+
+.ferramentas{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem}
+.ferramentas button{background:var(--white);border:1px solid var(--line);border-radius:2px;padding:.4rem .7rem;
+font-size:.72rem;font-weight:600;cursor:pointer;color:var(--ink)}
+.ferramentas button:hover{border-color:var(--gold);color:var(--gold-deep)}
+
+.capa-area{border:1px dashed var(--line);border-radius:2px;padding:1rem;text-align:center;background:var(--white)}
+.capa-area img{margin:0 auto .8rem;max-height:170px;object-fit:cover;border-radius:2px}
+.capa-area input[type=file]{display:none}
+
+.previa{background:var(--white);border:1px solid var(--line);border-radius:2px;padding:1.6rem;position:sticky;top:5rem}
+.previa .rot{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1rem}
+.previa h2{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.2;margin-bottom:.5rem}
+.previa .quando{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;margin-bottom:1.2rem}
+.previa .corpo h2{font-size:1.25rem;margin:1.4rem 0 .5rem}
+.previa .corpo h3{font-family:var(--serif);font-size:1.05rem;margin:1.1rem 0 .4rem}
+.previa .corpo p{font-size:.9rem;margin-bottom:.8rem;color:#3A3733}
+.previa .corpo ul,.previa .corpo ol{margin:0 0 .8rem 1.2rem;font-size:.9rem}
+.previa .corpo blockquote{border-left:2px solid var(--gold);padding-left:1rem;margin:1rem 0;font-family:var(--serif);font-style:italic;color:var(--gold-deep)}
+.previa .corpo img{margin:1rem 0;border-radius:2px}
+
+.aviso{padding:.9rem 1.1rem;border-radius:2px;margin-bottom:1.2rem;font-size:.86rem;border-left:2px solid}
+.aviso.ok{background:rgba(63,125,88,.08);border-color:var(--ok);color:var(--ok)}
+.aviso.err{background:rgba(155,59,59,.08);border-color:var(--erro);color:var(--erro)}
+.aviso.info{background:rgba(183,155,105,.1);border-color:var(--gold);color:var(--gold-deep)}
+.oculto{display:none!important}
+.rodape-acoes{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.girando{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.4);border-top-color:#14100A;border-radius:50%;animation:g .7s linear infinite}
+@keyframes g{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="in">
+    <span class="marca">Painel do Blog</span>
+    <span class="quem" id="quem"></span>
+  </div>
+</header>
+
+<!-- 1. não autenticado -->
+<section id="telaLogin" class="centro oculto">
+  <h1>Painel do Blog</h1>
+  <p>Entre com o e-mail autorizado para escrever e publicar artigos.</p>
+  <a class="btn btn-gold" href="/.auth/login/aad?post_login_redirect_uri=/admin">Entrar com e-mail</a>
+</section>
+
+<!-- 2. autenticado sem permissão -->
+<section id="telaSemAcesso" class="centro oculto">
+  <h1>Sem permissão</h1>
+  <p>Sua conta entrou, mas ainda não tem acesso de editor. Peça para o administrador liberar o seu e-mail.</p>
+  <a class="btn btn-ghost" href="/.auth/logout">Sair</a>
+</section>
+
+<main id="app" class="oculto">
+
+  <!-- lista -->
+  <section id="telaLista">
+    <div class="barra">
+      <h1>Artigos</h1>
+      <button class="btn btn-gold" id="btnNovo">Novo artigo</button>
+    </div>
+    <div id="avisoLista"></div>
+    <table id="tabela">
+      <thead><tr><th>Título</th><th>Situação</th><th>Data</th><th></th></tr></thead>
+      <tbody id="corpoTabela"></tbody>
+    </table>
+  </section>
+
+  <!-- editor -->
+  <section id="telaEditor" class="oculto">
+    <div class="barra">
+      <h1 id="tituloEditor">Novo artigo</h1>
+      <button class="btn btn-ghost btn-sm" id="btnVoltar">Voltar para a lista</button>
+    </div>
+    <div id="avisoEditor"></div>
+
+    <div class="editor">
+      <div>
+        <div class="campo">
+          <label for="fTitulo">Título</label>
+          <input type="text" id="fTitulo" maxlength="90" placeholder="Ex.: Lipoescultura HD: o que é e para quem é indicada">
+          <div class="conta" id="contaTitulo"></div>
+        </div>
+
+        <div class="campo">
+          <label for="fResumo">Resumo <span class="dica">— aparece no card e no Google</span></label>
+          <textarea id="fResumo" maxlength="200" style="min-height:80px"></textarea>
+          <div class="conta" id="contaResumo"></div>
+        </div>
+
+        <div class="campo">
+          <label for="fData">Data de publicação <span class="dica">— data futura agenda o artigo</span></label>
+          <input type="datetime-local" id="fData">
+          <div class="conta" id="dicaData"></div>
+        </div>
+
+        <div class="campo">
+          <label>Imagem de capa</label>
+          <div class="capa-area" id="areaCapa">
+            <img id="previaCapa" class="oculto" alt="Prévia da capa">
+            <p class="conta" id="textoCapa">Nenhuma imagem escolhida</p>
+            <div style="margin-top:.7rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">
+              <button type="button" class="btn btn-ghost btn-sm" id="btnCapa">Escolher imagem</button>
+              <button type="button" class="btn btn-ghost btn-sm oculto" id="btnRemoverCapa">Remover</button>
+            </div>
+            <input type="file" id="fCapa" accept="image/jpeg,image/png,image/webp">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="fTexto">Texto do artigo</label>
+          <div class="ferramentas">
+            <button type="button" data-fmt="h2">Título</button>
+            <button type="button" data-fmt="h3">Subtítulo</button>
+            <button type="button" data-fmt="b">Negrito</button>
+            <button type="button" data-fmt="i">Itálico</button>
+            <button type="button" data-fmt="ul">Lista</button>
+            <button type="button" data-fmt="quote">Citação</button>
+            <button type="button" data-fmt="link">Link</button>
+          </div>
+          <textarea id="fTexto" placeholder="Escreva o artigo aqui."></textarea>
+          <div class="conta" id="contaTexto"></div>
+        </div>
+
+        <div class="campo">
+          <label for="fInstagram">Link do Instagram <span class="dica">— botão no fim do artigo (opcional)</span></label>
+          <input type="url" id="fInstagram" placeholder="https://www.instagram.com/p/...">
+        </div>
+
+        <div class="rodape-acoes">
+          <button class="btn btn-gold" id="btnSalvar">Salvar</button>
+          <button class="btn btn-ghost" id="btnExcluir">Excluir artigo</button>
+        </div>
+      </div>
+
+      <aside class="previa">
+        <div class="rot">Prévia</div>
+        <h2 id="pvTitulo">Título do artigo</h2>
+        <div class="quando" id="pvData"></div>
+        <img id="pvCapa" class="oculto" alt="" style="margin-bottom:1rem;border-radius:2px">
+        <div class="corpo" id="pvCorpo"></div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<script type="module">
+import { markdownParaHtml, gerarSlug } from '/tools/markdown.mjs';
+
+const $ = id => document.getElementById(id);
+const API = '/api';
+
+let usuario = null;
+let editando = null;   // { slug, ... } quando editando existente
+let capaAtual = '';    // caminho da capa ja enviada
+
+/* ---------- utilidades ---------- */
+const mostrar = (el, sim) => el.classList.toggle('oculto', !sim);
+function aviso(alvo, texto, tipo = 'info') {
+  alvo.innerHTML = texto ? `<div class="aviso ${tipo}">${texto}</div>` : '';
+}
+const paraInputLocal = d => {
+  const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return z.toISOString().slice(0, 16);
+};
+const dataBR = d => d.toLocaleString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+/* ---------- autenticação ---------- */
+async function carregarUsuario() {
+  try {
+    const r = await fetch('/.auth/me');
+    const j = await r.json();
+    return j.clientPrincipal || null;
+  } catch { return null; }
+}
+
+/* ---------- lista ---------- */
+async function carregarLista() {
+  aviso($('avisoLista'), '');
+  let posts = [];
+  try {
+    const r = await fetch(`${API}/posts-admin`);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    posts = await r.json();
+  } catch (e) {
+    aviso($('avisoLista'),
+      'Não consegui carregar os artigos. A API ainda não está configurada ou está fora do ar. ' +
+      'O editor abaixo continua funcionando para escrever e pré-visualizar.', 'err');
+  }
+  const agora = new Date();
+  $('corpoTabela').innerHTML = posts.length ? posts.map(p => {
+    const d = new Date(p.data);
+    const st = p.rascunho ? ['ras', 'Rascunho'] : (d > agora ? ['age', 'Agendado'] : ['pub', 'Publicado']);
+    return `<tr>
+      <td class="tit">${p.titulo || '(sem título)'}</td>
+      <td><span class="tag ${st[0]}">${st[1]}</span></td>
+      <td>${isNaN(d) ? '—' : dataBR(d)}</td>
+      <td class="acoes"><button class="btn btn-ghost btn-sm" data-editar="${p.slug}">Editar</button></td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="4" style="color:var(--muted)">Nenhum artigo ainda. Clique em “Novo artigo”.</td></tr>`;
+
+  document.querySelectorAll('[data-editar]').forEach(b =>
+    b.addEventListener('click', () => abrirEditor(posts.find(p => p.slug === b.dataset.editar))));
+}
+
+/* ---------- editor ---------- */
+function abrirEditor(post) {
+  editando = post || null;
+  $('tituloEditor').textContent = post ? 'Editar artigo' : 'Novo artigo';
+  $('fTitulo').value = post?.titulo || '';
+  $('fResumo').value = post?.resumo || '';
+  $('fTexto').value = post?.corpo || '';
+  $('fInstagram').value = post?.instagram || '';
+  capaAtual = post?.capa || '';
+  $('fData').value = paraInputLocal(post?.data ? new Date(post.data) : new Date());
+  mostrar($('btnExcluir'), !!post);
+  aviso($('avisoEditor'), '');
+  atualizarCapa();
+  atualizarPrevia();
+  mostrar($('telaLista'), false);
+  mostrar($('telaEditor'), true);
+  scrollTo(0, 0);
+}
+
+function atualizarCapa() {
+  const tem = !!capaAtual;
+  mostrar($('previaCapa'), tem);
+  mostrar($('btnRemoverCapa'), tem);
+  if (tem) $('previaCapa').src = capaAtual;
+  $('textoCapa').textContent = tem ? capaAtual.split('/').pop() : 'Nenhuma imagem escolhida';
+}
+
+function atualizarPrevia() {
+  const t = $('fTitulo').value.trim();
+  $('pvTitulo').textContent = t || 'Título do artigo';
+  const d = $('fData').value ? new Date($('fData').value) : null;
+  const futuro = d && d > new Date();
+  $('pvData').textContent = d ? (futuro ? 'Agendado para ' + dataBR(d) : dataBR(d)) : '';
+  $('dicaData').textContent = futuro
+    ? 'Este artigo ficará invisível no site até essa data.'
+    : 'Publicado assim que você salvar.';
+  mostrar($('pvCapa'), !!capaAtual);
+  if (capaAtual) $('pvCapa').src = capaAtual;
+  $('pvCorpo').innerHTML = markdownParaHtml($('fTexto').value);
+
+  const ct = $('fTitulo').value.length, cr = $('fResumo').value.length;
+  $('contaTitulo').textContent = `${ct}/90 — o Google costuma exibir até ~60`;
+  $('contaTitulo').classList.toggle('ruim', ct > 70);
+  $('contaResumo').textContent = `${cr}/200 — ideal entre 120 e 160`;
+  $('contaResumo').classList.toggle('ruim', cr > 0 && (cr < 60 || cr > 170));
+  const palavras = $('fTexto').value.trim().split(/\s+/).filter(Boolean).length;
+  $('contaTexto').textContent = `${palavras} palavra(s) — artigos com 400+ costumam ranquear melhor`;
+}
+
+/* ---------- barra de formatação ---------- */
+document.querySelectorAll('.ferramentas button').forEach(b => b.addEventListener('click', () => {
+  const ta = $('fTexto');
+  const ini = ta.selectionStart, fim = ta.selectionEnd;
+  const sel = ta.value.slice(ini, fim) || 'texto';
+  const molde = {
+    h2: `\n## ${sel}\n`, h3: `\n### ${sel}\n`, b: `**${sel}**`, i: `*${sel}*`,
+    ul: `\n- ${sel}\n- \n`, quote: `\n> ${sel}\n`, link: `[${sel}](https://)`,
+  }[b.dataset.fmt];
+  ta.setRangeText(molde, ini, fim, 'end');
+  ta.focus();
+  atualizarPrevia();
+}));
+
+/* ---------- upload de capa ---------- */
+$('btnCapa').addEventListener('click', () => $('fCapa').click());
+$('btnRemoverCapa').addEventListener('click', () => { capaAtual = ''; atualizarCapa(); atualizarPrevia(); });
+$('fCapa').addEventListener('change', async e => {
+  const arq = e.target.files[0];
+  if (!arq) return;
+  if (arq.size > 5 * 1024 * 1024) {
+    aviso($('avisoEditor'), 'Imagem acima de 5 MB. Reduza antes de enviar.', 'err'); return;
+  }
+  aviso($('avisoEditor'), 'Enviando imagem…', 'info');
+  try {
+    const fd = new FormData();
+    fd.append('arquivo', arq);
+    fd.append('slug', gerarSlug($('fTitulo').value || 'capa'));
+    const r = await fetch(`${API}/upload`, { method: 'POST', body: fd });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    capaAtual = j.caminho;
+    atualizarCapa(); atualizarPrevia();
+    aviso($('avisoEditor'), 'Imagem enviada.', 'ok');
+  } catch {
+    aviso($('avisoEditor'), 'Não consegui enviar a imagem. A API de upload ainda não está configurada.', 'err');
+  }
+  e.target.value = '';
+});
+
+/* ---------- salvar ---------- */
+$('btnSalvar').addEventListener('click', async () => {
+  const titulo = $('fTitulo').value.trim();
+  if (!titulo) { aviso($('avisoEditor'), 'O título é obrigatório.', 'err'); return; }
+  if (!$('fData').value) { aviso($('avisoEditor'), 'Escolha a data de publicação.', 'err'); return; }
+
+  const btn = $('btnSalvar');
+  btn.disabled = true; btn.innerHTML = '<span class="girando"></span> Salvando';
+  const corpo = {
+    slug: editando?.slug || gerarSlug(titulo),
+    titulo,
+    resumo: $('fResumo').value.trim(),
+    data: new Date($('fData').value).toISOString(),
+    capa: capaAtual,
+    instagram: $('fInstagram').value.trim(),
+    corpo: $('fTexto').value,
+  };
+  try {
+    const r = await fetch(`${API}/salvar-post`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corpo),
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    aviso($('avisoEditor'),
+      'Salvo. O site está sendo republicado — o artigo aparece em 1 a 2 minutos.', 'ok');
+    editando = corpo;
+  } catch {
+    aviso($('avisoEditor'), 'Não consegui salvar. A API ainda não está configurada.', 'err');
+  }
+  btn.disabled = false; btn.textContent = 'Salvar';
+});
+
+$('btnExcluir').addEventListener('click', async () => {
+  if (!editando) return;
+  if (!confirm(`Excluir o artigo “${editando.titulo}”? Esta ação remove o artigo do site.`)) return;
+  try {
+    const r = await fetch(`${API}/salvar-post`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: editando.slug, excluir: true }),
+    });
+    if (!r.ok) throw new Error();
+    voltarLista();
+  } catch { aviso($('avisoEditor'), 'Não consegui excluir.', 'err'); }
+});
+
+function voltarLista() {
+  mostrar($('telaEditor'), false);
+  mostrar($('telaLista'), true);
+  carregarLista();
+}
+$('btnVoltar').addEventListener('click', voltarLista);
+$('btnNovo').addEventListener('click', () => abrirEditor(null));
+
+['fTitulo', 'fResumo', 'fTexto', 'fData'].forEach(id =>
+  $(id).addEventListener('input', atualizarPrevia));
+
+/* ---------- inicialização ---------- */
+(async () => {
+  usuario = await carregarUsuario();
+  if (!usuario) { mostrar($('telaLogin'), true); return; }
+
+  const papeis = usuario.userRoles || [];
+  if (!papeis.includes('editor') && !papeis.includes('administrator')) {
+    $('quem').innerHTML = `${usuario.userDetails} <a href="/.auth/logout">Sair</a>`;
+    mostrar($('telaSemAcesso'), true);
+    return;
+  }
+  $('quem').innerHTML = `${usuario.userDetails} <a href="/.auth/logout">Sair</a>`;
+  mostrar($('app'), true);
+  carregarLista();
+})();
+</script>
+</body>
+</html>

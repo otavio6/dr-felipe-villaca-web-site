@@ -3,6 +3,13 @@
     { "route": "/lp", "rewrite": "/lp.html" },
     { "route": "/links", "rewrite": "/links.html" },
     { "route": "/privacidade", "rewrite": "/privacidade.html" },
+
+    { "route": "/admin*", "allowedRoles": ["editor", "administrator"], "headers": { "Cache-Control": "no-store" } },
+    { "route": "/api/*", "allowedRoles": ["editor", "administrator"] },
+
+    { "route": "/content/*", "statusCode": 404 },
+    { "route": "/.auth/login/github", "statusCode": 404 },
+
     {
       "route": "/defesa-alteracoes-lp",
       "rewrite": "/defesa-alteracoes-lp.html",
@@ -20,6 +27,7 @@
   "mimeTypes": {
     ".webp": "image/webp",
     ".xml": "application/xml",
-    ".txt": "text/plain"
+    ".txt": "text/plain",
+    ".mjs": "text/javascript"
   }
 }

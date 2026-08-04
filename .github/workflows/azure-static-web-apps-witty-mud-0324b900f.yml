@@ -8,10 +8,16 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+  # Republica de hora em hora para que artigos agendados entrem no ar sozinhos.
+  # Site estatico nao tem relogio: o post com data futura so existe apos um build
+  # que rode depois da data dele.
+  schedule:
+    - cron: "5 * * * *"
+  workflow_dispatch:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
@@ -19,6 +25,11 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Gerar paginas do blog
+        run: node tools/build-blog.mjs
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

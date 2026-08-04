@@ -5,3 +5,6 @@ qr-cartao.html
 # metadados em assets/img/resultados/.
 assets/img/*
 !assets/img/resultados/
+
+# Saida do gerador do blog (tools/build-blog.mjs). Reconstruida a cada deploy.
+/blog/
