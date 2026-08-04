@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- Exibida quando a pessoa entrou com uma conta valida mas sem o papel "editor".
+     Sem esta pagina o Azure devolve o 403 padrao dele, que nao diz o que fazer. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#0B0B0C">
+<meta name="robots" content="noindex,nofollow">
+<title>Sem acesso — Painel do Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0B0B0C;--cream:#FBF9F4;--gold:#B79B69;--gold-soft:#D6C39A;
+--serif:'Cormorant',Georgia,serif;--sans:'Montserrat',Helvetica,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--black);color:#F4F0E6;min-height:100vh;
+display:flex;align-items:center;justify-content:center;padding:2rem;text-align:center;-webkit-font-smoothing:antialiased}
+.caixa{max-width:520px}
+.marca{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--gold);margin-bottom:1.2rem;display:block}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.15;margin-bottom:.9rem}
+h1 em{color:var(--gold-soft);font-style:italic}
+p{color:#B7B0A2;line-height:1.7;margin-bottom:1.6rem;font-size:.95rem}
+.passos{text-align:left;background:rgba(255,255,255,.03);border:1px solid rgba(183,155,105,.25);
+border-radius:2px;padding:1.2rem 1.4rem;margin-bottom:1.8rem}
+.passos li{color:#B7B0A2;font-size:.88rem;margin-bottom:.5rem;margin-left:1rem}
+.passos li:last-child{margin-bottom:0}
+.acoes{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.76rem;
+letter-spacing:.14em;text-transform:uppercase;padding:.9rem 1.7rem;border:1px solid transparent;
+border-radius:2px;text-decoration:none;transition:all .3s}
+.btn-gold{background:var(--gold);color:#14100A}.btn-gold:hover{background:var(--gold-soft)}
+.btn-ghost{border-color:rgba(183,155,105,.4);color:var(--gold-soft)}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(183,155,105,.08)}
+</style>
+</head>
+<body>
+  <main class="caixa">
+    <span class="marca">Painel do Blog</span>
+    <h1>Sua conta entrou, mas ainda <em>não tem acesso</em>.</h1>
+    <p>O login funcionou. O que falta é liberar essa conta como editora do blog — isso é feito uma única vez, por quem administra o site.</p>
+    <ol class="passos">
+      <li>Envie para o administrador o e-mail que você acabou de usar para entrar.</li>
+      <li>Ele gera um convite no painel da Azure e devolve um link para você.</li>
+      <li>Abra o link com esta mesma conta. O acesso passa a valer na hora.</li>
+    </ol>
+    <div class="acoes">
+      <a class="btn btn-gold" href="/admin">Tentar de novo</a>
+      <a class="btn btn-ghost" href="/.auth/logout">Sair desta conta</a>
+    </div>
+  </main>
+</body>
+</html>
