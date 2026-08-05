@@ -3,8 +3,8 @@
 Sistema para a social media escrever, agendar e publicar artigos pelo próprio site,
 sem depender de desenvolvedor.
 
-**Status:** construído e no ar. Aguarda o convite de acesso da editora para o teste
-de ponta a ponta. Ver [Pendências](#pendências).
+**Status:** no ar e validado de ponta a ponta em 05/08/2026 — a editora publicou
+artigo e imagem de capa pelo painel, com commits assinados com o e-mail dela.
 
 ---
 
@@ -179,6 +179,26 @@ editora perderia o texto achando que publicou. Toda chamada agora exige
 `content-type: application/json`; HTML vira erro de sessão expirada, com aviso para
 copiar o texto antes de sair.
 
+**`"main"` no `api/package.json` derrubava a API inteira.** Toda chamada a `/api/*`
+devolvia `500` em HTML — lista, salvar e upload — e nenhum artigo jamais chegou ao
+repositório. O `package.json` da API declarava `"main": "index.js"` e esse arquivo
+nunca existiu. No worker Node do Azure Functions esse campo é o ponto de entrada do
+**modelo de programação v4**: o worker tenta carregar o arquivo na inicialização e,
+não achando, falha **antes de registrar qualquer função**. Nada do nosso código
+roda, nenhum log nosso aparece, e o host responde 500 sozinho. Estas funções usam o
+modelo v3, com `function.json` em cada pasta, que não usa `main` — o campo entrou
+por hábito de `package.json` comum e passou despercebido porque o teste de ponta a
+ponta nunca tinha rodado.
+
+O sintoma engana: parece problema de token ou de permissão. O que descarta essas
+hipóteses de uma vez é o **content-type**. Os três handlers respondem JSON até nos
+erros; se o que volta não é JSON, o código não rodou e o problema está no host, não
+no GitHub. Antes de investigar token, confira isso.
+
+**Não confundir com falha de deploy.** Dois saves seguidos pelo painel disparam dois
+deploys, e o Azure cancela o anterior (`Deployment Canceled`). O run aparece
+vermelho no GitHub Actions e não é problema nenhum — o último vence.
+
 **"Sessão expirada" era o único diagnóstico possível — e quase sempre errado.**
 O `staticwebapp.config.json` transforma em HTML *todos* os erros de acesso: `401`
 vira redirect 302 para o login, `403` vira `/sem-acesso.html`, `404` vira
@@ -279,12 +299,13 @@ passada exibindo "publicado assim que salvar".
 
 ## Pendências
 
-- [ ] Camila criar a conta Microsoft com o e-mail do Workspace
-- [ ] Gerar o convite com papel `editor`
-- [ ] Teste de ponta a ponta: publicar um artigo pelo painel e conferir no ar —
-      é o que valida se as variáveis de ambiente estão corretas
+- [x] ~~Camila criar a conta Microsoft, receber o convite com papel `editor` e
+      publicar um artigo de ponta a ponta~~ — concluído em 05/08/2026
 - [x] ~~Trocar os cards de blog da home pelos artigos deste blog~~ — feito em
       05/08/2026; a home passa a listar os três mais recentes, gerados no build
+- [ ] **Trocar o `BLOG_GITHUB_TOKEN`** — o valor em uso foi exposto durante a
+      depuração de 05/08/2026. Gerar outro, atualizar a variável no portal e
+      revogar o antigo
 - [ ] Decidir o destino do `felipevillaca.com` — ver
       [a questão dos dois domínios](#relacionado)
 
