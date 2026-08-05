@@ -234,6 +234,58 @@ function paginaLista(posts) {
   });
 }
 
+/* ---------- cards do blog na home ----------
+   A home tinha tres cards escritos a mao, todos marcados "Em breve" e sem link:
+   nasceram antes do blog existir e nunca foram ligados a ele. Agora os tres mais
+   recentes sao injetados aqui a cada build, entre os marcadores do index.html.
+
+   A escrita e no index.html da pasta de deploy, nao no repositorio: o arquivo
+   versionado guarda os marcadores, e o gerador so preenche a copia que vai para o
+   Azure. E o mesmo caminho ja usado pelo sitemap.xml.
+
+   O card reaproveita o markup .media-card, que era da secao "Na Midia" removida no
+   mesmo commit. E o formato com foto, que ja existia e o cliente aprovou, e evita
+   inventar CSS novo. */
+const CARDS_NA_HOME = 3;
+
+function cardDaHome(p) {
+  const capa = p.capa || '/assets/social/og-cover.jpg';
+  return `      <article class="media-card reveal">
+        <a href="/blog/${p.slug}/">
+          <div class="thumb"><img src="${escaparHtml(capa)}" alt="${escaparHtml(p.capaAlt)}" loading="lazy"></div>
+          <div class="body">
+            <small>${escaparHtml(dataBR(p.data))}</small>
+            <h3>${escaparHtml(p.titulo)}</h3>
+            <p>${escaparHtml(p.resumo)}</p>
+            <span class="link">Ler artigo →</span>
+          </div>
+        </a>
+      </article>`;
+}
+
+function atualizarHome(posts) {
+  const arq = path.join(RAIZ, 'index.html');
+  if (!fs.existsSync(arq)) return;
+  const html = fs.readFileSync(arq, 'utf8');
+  const ini = '<!-- BLOG:CARDS:INICIO -->';
+  const fim = '<!-- BLOG:CARDS:FIM -->';
+  const a = html.indexOf(ini), b = html.indexOf(fim);
+  if (a < 0 || b < 0 || b < a) {
+    console.log('  AVISO  marcadores BLOG:CARDS ausentes no index.html; home nao atualizada');
+    return;
+  }
+
+  const recentes = posts.slice(0, CARDS_NA_HOME);
+  // Sem artigo publicado, a secao inteira sairia com uma grade vazia. Melhor um
+  // convite curto do que tres buracos.
+  const miolo = recentes.length
+    ? `\n    <div class="media-grid">\n${recentes.map(cardDaHome).join('\n')}\n    </div>\n    `
+    : `\n    <p style="text-align:center;color:var(--muted)">Os primeiros artigos estão a caminho.</p>\n    `;
+
+  fs.writeFileSync(arq, html.slice(0, a + ini.length) + miolo + html.slice(b));
+  console.log(`  home: ${recentes.length} card(s) de artigo`);
+}
+
 /* ---------- sitemap ---------- */
 function atualizarSitemap(posts) {
   const arq = path.join(RAIZ, 'sitemap.xml');
@@ -270,6 +322,7 @@ for (const p of publicados) {
   fs.writeFileSync(path.join(dir, 'index.html'), paginaPost(p));
 }
 atualizarSitemap(publicados);
+atualizarHome(publicados);
 
 console.log(`blog: ${publicados.length} publicado(s), ${agendados.length} agendado(s)`);
 for (const p of publicados) console.log(`  publicado  /blog/${p.slug}/  ${p.data.toISOString().slice(0, 16)}`);

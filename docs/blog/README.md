@@ -75,7 +75,7 @@ Ler multipart numa Function exigiria biblioteca. O limite de requisição do Azu
 |---|---|
 | `content/blog/*.md` | fonte dos artigos (frontmatter + corpo) |
 | `content/blog/_modelo.md` | exemplo do formato; prefixo `_` = ignorado pelo gerador |
-| `tools/build-blog.mjs` | gera `/blog/` e `/blog/<slug>/`, atualiza o `sitemap.xml` |
+| `tools/build-blog.mjs` | gera `/blog/` e `/blog/<slug>/`, atualiza o `sitemap.xml` e os cards da home |
 | `tools/markdown.mjs` | conversor Markdown→HTML e leitura de frontmatter |
 | `admin/index.html` | painel |
 | `sem-acesso.html` | mostrada a quem entra sem o papel `editor` |
@@ -90,6 +90,25 @@ conversão registrada no próprio arquivo.
 | `api/shared/` | acesso ao GitHub e validação de identidade |
 
 `/blog/` é saída de build e está no `.gitignore` — é reconstruída a cada deploy.
+
+### Os cards da home
+
+A seção `#blog` do `index.html` tinha três cards escritos à mão, marcados "Em
+breve" e sem link nenhum: nasceram antes do blog existir e nunca foram ligados a
+ele. Hoje o gerador injeta ali os **três artigos mais recentes**, entre os
+marcadores `<!-- BLOG:CARDS:INICIO -->` e `<!-- BLOG:CARDS:FIM -->`.
+
+Editar o miolo à mão não adianta: o build descarta o que estiver entre os
+marcadores. Mexer nos **marcadores**, sim, quebra — some o par e o gerador avisa no
+log e deixa a home como está, sem derrubar o deploy. O que fica versionado é o
+`index.html` com os marcadores e um card de fallback; quem é preenchido é só a
+cópia que vai para o Azure, mesmo caminho já usado pelo `sitemap.xml`.
+
+O card reaproveita o markup `.media-card`, que era da seção "Na Mídia" — removida
+junto, em 05/08/2026. Eram três matérias hospedadas no `felipevillaca.com`: a home
+exportava três links `follow` para um domínio que disputa as mesmas palavras-chave
+que ela. Sobraram **8 links** para lá, todos na seção de procedimentos — mesma
+questão, decisão ainda pendente do cliente (ver [Relacionado](#relacionado)).
 
 ### Frontmatter
 
@@ -264,8 +283,8 @@ passada exibindo "publicado assim que salvar".
 - [ ] Gerar o convite com papel `editor`
 - [ ] Teste de ponta a ponta: publicar um artigo pelo painel e conferir no ar —
       é o que valida se as variáveis de ambiente estão corretas
-- [ ] Trocar os seis cards de blog da home, que hoje apontam para
-      `felipevillaca.com`, pelos artigos deste blog
+- [x] ~~Trocar os cards de blog da home pelos artigos deste blog~~ — feito em
+      05/08/2026; a home passa a listar os três mais recentes, gerados no build
 - [ ] Decidir o destino do `felipevillaca.com` — ver
       [a questão dos dois domínios](#relacionado)
 
