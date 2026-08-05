@@ -2,7 +2,7 @@
    Lista todos os artigos, inclusive os agendados, para o painel.
    O site publico so enxerga os ja publicados - quem filtra por data e o gerador. */
 
-const { listarPasta, lerArquivo } = require('../shared/github');
+const { listarPasta, lerArquivo, explicarFalhaGitHub } = require('../shared/github');
 const { exigirEditor } = require('../shared/auth');
 
 const PASTA = 'content/blog';
@@ -62,7 +62,7 @@ module.exports = async function (context, req) {
     context.log.error('posts-admin falhou:', e.message);
     context.res = {
       status: e.configIncompleta ? 503 : 500,
-      body: { erro: e.configIncompleta ? e.message : 'Não consegui ler os artigos no repositório.' },
+      body: { erro: explicarFalhaGitHub(e, 'ler os artigos') },
       headers: { 'Content-Type': 'application/json' },
     };
   }

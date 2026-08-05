@@ -5,7 +5,7 @@
    biblioteca so para isso. O projeto nao tem dependencia nenhuma e o limite de
    requisicao do Azure e 30 MB, entao base64 de uma capa de ate 5 MB cabe sobrando. */
 
-const { gravarArquivo } = require('../shared/github');
+const { gravarArquivo, explicarFalhaGitHub } = require('../shared/github');
 const { exigirEditor, autorDoCommit } = require('../shared/auth');
 
 const PASTA = 'assets/blog';
@@ -66,7 +66,7 @@ module.exports = async function (context, req) {
   } catch (e) {
     context.log.error('upload falhou:', e.message);
     return responder(e.configIncompleta ? 503 : 500, {
-      erro: e.configIncompleta ? e.message : 'Não consegui enviar a imagem.',
+      erro: explicarFalhaGitHub(e, 'gravar a imagem'),
     });
   }
 };

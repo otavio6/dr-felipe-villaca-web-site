@@ -3,7 +3,7 @@
    roda o gerador e publica a pagina. Cada save vira um commit - e dai que sai o
    historico de versoes que a editora pediu, com data, autor e o que mudou. */
 
-const { gravarArquivo, apagarArquivo } = require('../shared/github');
+const { gravarArquivo, apagarArquivo, explicarFalhaGitHub } = require('../shared/github');
 const { exigirEditor, autorDoCommit } = require('../shared/auth');
 
 const PASTA = 'content/blog';
@@ -71,7 +71,7 @@ module.exports = async function (context, req) {
   } catch (e) {
     context.log.error('salvar-post falhou:', e.message);
     return responder(e.configIncompleta ? 503 : 500, {
-      erro: e.configIncompleta ? e.message : 'Não consegui gravar o artigo no repositório.',
+      erro: explicarFalhaGitHub(e, 'gravar o artigo'),
     });
   }
 };

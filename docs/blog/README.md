@@ -178,6 +178,25 @@ então basta voltar e clicar em Salvar de novo); e uma ronda de 5 em 5 minutos
 avisa que a sessão caiu **antes** do trabalho estar pronto. O rascunho só é
 apagado depois que o artigo é gravado no repositório de verdade.
 
+**Toda falha do GitHub virava "Não consegui gravar".** O motivo real — 401, 403,
+404 — ia só para o `context.log`, que ninguém lê. A editora recebia uma frase sobre
+a qual não podia agir e nem repassar. Agora `explicarFalhaGitHub()` traduz o status
+em causa e responsável:
+
+| Status do GitHub | O que é | O que a mensagem manda fazer |
+|---|---|---|
+| `401` | token inválido ou vencido | renovar `BLOG_GITHUB_TOKEN` |
+| `403` | token sem escrita | gerar de novo com `Contents: Read and write` |
+| `404` na escrita | `BLOG_REPO`/`BLOG_BRANCH` errados | conferir as variáveis |
+| `409`/`422` | arquivo mudou no meio | recarregar e salvar de novo |
+
+**O 404 na gravação virava "Salvo" sem ter salvo.** O `gh()` devolvia `null` em
+qualquer 404, o que faz sentido na leitura (arquivo não existe) e é falso sucesso
+na escrita: repositório ou branch errados respondem 404, `gravarArquivo` devolvia
+`null` e o handler respondia `200 {ok:true}`. Era o mesmo falso sucesso já
+corrigido no painel, escondido uma camada abaixo. Hoje o 404 só é tolerado onde é
+pedido explicitamente (`aceitar404: true`), e leitura é o único lugar que pede.
+
 **SSR por função é frágil no Static Web Apps.** Ao reescrever `/blog/post` para uma
 função, o cabeçalho de origem chega já reescrito e a função não sabe qual artigo
 foi pedido ([issue #580](https://github.com/Azure/static-web-apps/issues/580)). Foi
@@ -216,6 +235,18 @@ Painel testado com DOM, `localStorage` e `fetch` simulados (19 verificações):
 | Abrir o painel com rascunho pendente | oferece "Continuar de onde parei" |
 | Retomar rascunho | devolve título, texto e data ao editor |
 | Descartar rascunho | limpa o `localStorage` |
+
+API testada contra um GitHub simulado (17 verificações):
+
+| Caso | Resultado |
+|---|---|
+| `403` na escrita | 500 com "permissão de escrita" e `Contents: Read and write` |
+| `401` na escrita | fala em token inválido ou expirado |
+| `404` na escrita | **não** vira sucesso; aponta `BLOG_REPO`/`BLOG_BRANCH` |
+| `409` na escrita | manda recarregar e tentar de novo |
+| Qualquer falha | resposta segue JSON e não carrega o token |
+| Save e upload normais | 200, com `PUT` de fato disparado |
+| `BLOG_GITHUB_TOKEN` ausente | 503 nomeando a variável |
 
 Verificado em produção após o deploy: `/blog/` responde 200, `/admin` e `/api`
 retornam 401 sem login, `/content/*` retorna 404, `/.auth/login/github` retorna 404
