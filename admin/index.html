@@ -128,6 +128,7 @@ font-size:.72rem;font-weight:600;cursor:pointer;color:var(--ink)}
       <h1>Artigos</h1>
       <button class="btn btn-gold" id="btnNovo">Novo artigo</button>
     </div>
+    <div id="avisoRascunho"></div>
     <div id="avisoLista"></div>
     <table id="tabela">
       <thead><tr><th>Título</th><th>Situação</th><th>Data</th><th></th></tr></thead>
@@ -237,14 +238,37 @@ const dataBR = d => d.toLocaleString('pt-BR', { day: '2-digit', month: 'long', y
 /* Chamada à API que exige resposta JSON.
    Sessão expirada faz o Azure responder 302 para a tela de login; o fetch segue o
    redirecionamento e devolve HTML com status 200. Sem esta checagem, um "salvar"
-   com sessão vencida exibiria "Salvo" sem ter salvo nada. */
+   com sessão vencida exibiria "Salvo" sem ter salvo nada.
+
+   Só que resposta em HTML não significa necessariamente sessão vencida: o
+   staticwebapp.config.json também transforma 403 (conta sem o papel editor) em
+   /sem-acesso.html e 404 em /404.html. Tratar os três como "sessão expirou" fazia
+   a editora tentar relogar contra um problema que não era de login. Por isso,
+   ao receber algo que não é JSON, perguntamos ao /.auth/me qual é o caso real —
+   esse endpoint responde JSON mesmo sem sessão. */
 class SessaoExpirada extends Error {
   constructor() { super('Sua sessão expirou. Entre novamente para continuar.'); }
 }
+class SemPermissao extends Error {
+  constructor() { super('Sua conta entrou, mas não tem permissão de editor neste site.'); }
+}
+
+async function estadoDaSessao() {
+  const u = await carregarUsuario();
+  if (!u) return 'expirada';
+  const papeis = u.userRoles || [];
+  return (papeis.includes('editor') || papeis.includes('administrator')) ? 'ok' : 'sem-papel';
+}
+
 async function pedirJson(url, opcoes) {
   const r = await fetch(url, opcoes);
   const tipo = r.headers.get('content-type') || '';
-  if (!tipo.includes('application/json')) throw new SessaoExpirada();
+  if (!tipo.includes('application/json')) {
+    const estado = await estadoDaSessao();
+    if (estado === 'expirada') throw new SessaoExpirada();
+    if (estado === 'sem-papel') throw new SemPermissao();
+    throw new Error(`o servidor respondeu num formato inesperado (HTTP ${r.status}).`);
+  }
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.erro || `Erro ${r.status}`);
   return j;
@@ -253,10 +277,29 @@ async function pedirJson(url, opcoes) {
 /* ---------- autenticação ---------- */
 async function carregarUsuario() {
   try {
-    const r = await fetch('/.auth/me');
+    const r = await fetch('/.auth/me', { cache: 'no-store' });
     const j = await r.json();
     return j.clientPrincipal || null;
   } catch { return null; }
+}
+
+/* Entrar de novo em outra aba, nunca nesta.
+   Navegar esta aba para o login descarta o texto que está no formulário — era
+   exatamente o que acontecia: a sessão vencia no save, o link levava embora e o
+   artigo inteiro se perdia. O cookie de sessão vale para todas as abas, então
+   basta voltar para cá e clicar em Salvar de novo. */
+const LINK_ENTRAR = '<a href="/.auth/login/aad?post_login_redirect_uri=/admin" ' +
+  'target="_blank" rel="noopener">Entrar novamente (abre em outra aba)</a>';
+
+function mensagemDeFalha(err, acao) {
+  if (err instanceof SessaoExpirada) {
+    return `${err.message} Seu texto está salvo aqui e continua na tela. ${LINK_ENTRAR} ` +
+      `e depois volte para esta aba e clique em ${acao} de novo.`;
+  }
+  if (err instanceof SemPermissao) {
+    return `${err.message} Peça para liberarem seu e-mail com o papel <b>editor</b>.`;
+  }
+  return `Não consegui ${acao.toLowerCase()}. ${err.message || ''}`;
 }
 
 /* ---------- lista ---------- */
@@ -266,8 +309,8 @@ async function carregarLista() {
   try {
     posts = await pedirJson(`${API}/posts-admin`);
   } catch (e) {
-    aviso($('avisoLista'), e instanceof SessaoExpirada
-      ? `${e.message} <a href="/.auth/login/aad?post_login_redirect_uri=/admin">Entrar novamente</a>`
+    aviso($('avisoLista'), e instanceof SessaoExpirada || e instanceof SemPermissao
+      ? mensagemDeFalha(e, 'Atualizar')
       : `Não consegui carregar os artigos. ${e.message} ` +
         'O editor abaixo continua funcionando para escrever e pré-visualizar.', 'err');
   }
@@ -287,8 +330,84 @@ async function carregarLista() {
     b.addEventListener('click', () => abrirEditor(posts.find(p => p.slug === b.dataset.editar))));
 }
 
+/* ---------- rascunho local ----------
+   O texto passa a viver no navegador enquanto está sendo escrito. Sem isso,
+   qualquer coisa que tire a editora da página — sessão vencida, aba fechada,
+   queda de energia — apagava o artigo inteiro. É gravado no próprio computador
+   dela, não sai daqui, e some assim que o artigo é salvo de verdade. */
+const CHAVE_RASCUNHO = 'fv-blog-rascunho';
+let temporizadorRascunho = null;
+
+const lerFormulario = () => ({
+  slug: editando?.slug || gerarSlug($('fTitulo').value || ''),
+  titulo: $('fTitulo').value,
+  resumo: $('fResumo').value,
+  data: $('fData').value,
+  capa: capaAtual,
+  instagram: $('fInstagram').value,
+  corpo: $('fTexto').value,
+  editandoExistente: !!editando,
+});
+
+const formularioVazio = f => !f.titulo.trim() && !f.resumo.trim() && !f.corpo.trim() && !f.capa;
+
+function guardarRascunho() {
+  const f = lerFormulario();
+  if (formularioVazio(f)) return limparRascunho();
+  try {
+    localStorage.setItem(CHAVE_RASCUNHO, JSON.stringify({ ...f, salvoEm: new Date().toISOString() }));
+  } catch { /* modo anônimo ou disco cheio: seguir sem rascunho é melhor que quebrar */ }
+}
+const agendarRascunho = () => {
+  clearTimeout(temporizadorRascunho);
+  temporizadorRascunho = setTimeout(guardarRascunho, 700);
+};
+function lerRascunho() {
+  try { return JSON.parse(localStorage.getItem(CHAVE_RASCUNHO) || 'null'); } catch { return null; }
+}
+function limparRascunho() {
+  clearTimeout(temporizadorRascunho);
+  try { localStorage.removeItem(CHAVE_RASCUNHO); } catch { /* idem */ }
+}
+
+// Avisa antes de fechar a aba com texto ainda não publicado.
+addEventListener('beforeunload', e => {
+  if (!$('telaEditor').classList.contains('oculto') && !formularioVazio(lerFormulario())) {
+    e.preventDefault(); e.returnValue = '';
+  }
+});
+
+function mostrarRascunhoPendente() {
+  const r = lerRascunho();
+  if (!r || !$('telaEditor').classList.contains('oculto')) return;
+  const quando = r.salvoEm ? dataBR(new Date(r.salvoEm)) : 'há pouco';
+  aviso($('avisoRascunho'),
+    `Você tem um texto não publicado — “${r.titulo || 'sem título'}”, de ${quando}. ` +
+    `<button class="btn btn-ghost btn-sm" id="btnRetomar">Continuar de onde parei</button> ` +
+    `<button class="btn btn-ghost btn-sm" id="btnDescartar">Descartar</button>`, 'info');
+  $('btnRetomar')?.addEventListener('click', () => { abrirEditor(null, r); });
+  $('btnDescartar')?.addEventListener('click', () => { limparRascunho(); aviso($('avisoRascunho'), ''); });
+}
+
 /* ---------- editor ---------- */
-function abrirEditor(post) {
+function abrirEditor(post, rascunho) {
+  if (rascunho) {
+    editando = rascunho.editandoExistente ? { slug: rascunho.slug } : null;
+    $('tituloEditor').textContent = rascunho.editandoExistente ? 'Editar artigo' : 'Novo artigo';
+    $('fTitulo').value = rascunho.titulo || '';
+    $('fResumo').value = rascunho.resumo || '';
+    $('fTexto').value = rascunho.corpo || '';
+    $('fInstagram').value = rascunho.instagram || '';
+    capaAtual = rascunho.capa || '';
+    $('fData').value = rascunho.data || paraInputLocal(new Date());
+    mostrar($('btnExcluir'), !!rascunho.editandoExistente);
+    aviso($('avisoEditor'), 'Recuperei o texto que você tinha escrito. Confira antes de salvar.', 'info');
+    atualizarCapa(); atualizarPrevia();
+    mostrar($('telaLista'), false);
+    mostrar($('telaEditor'), true);
+    scrollTo(0, 0);
+    return;
+  }
   editando = post || null;
   $('tituloEditor').textContent = post ? 'Editar artigo' : 'Novo artigo';
   $('fTitulo').value = post?.titulo || '';
@@ -348,11 +467,12 @@ document.querySelectorAll('.ferramentas button').forEach(b => b.addEventListener
   ta.setRangeText(molde, ini, fim, 'end');
   ta.focus();
   atualizarPrevia();
+  agendarRascunho();
 }));
 
 /* ---------- upload de capa ---------- */
 $('btnCapa').addEventListener('click', () => $('fCapa').click());
-$('btnRemoverCapa').addEventListener('click', () => { capaAtual = ''; atualizarCapa(); atualizarPrevia(); });
+$('btnRemoverCapa').addEventListener('click', () => { capaAtual = ''; atualizarCapa(); atualizarPrevia(); guardarRascunho(); });
 $('fCapa').addEventListener('change', async e => {
   const arq = e.target.files[0];
   if (!arq) return;
@@ -375,10 +495,10 @@ $('fCapa').addEventListener('change', async e => {
       body: JSON.stringify({ dadosBase64, tipo: arq.type, slug: gerarSlug($('fTitulo').value || 'capa') }),
     });
     capaAtual = j.caminho;
-    atualizarCapa(); atualizarPrevia();
+    atualizarCapa(); atualizarPrevia(); guardarRascunho();
     aviso($('avisoEditor'), 'Imagem enviada. Ela entra no site junto com o artigo.', 'ok');
   } catch (err) {
-    aviso($('avisoEditor'), 'Não consegui enviar a imagem. ' + (err.message || ''), 'err');
+    aviso($('avisoEditor'), mensagemDeFalha(err, 'Escolher imagem'), 'err');
   }
   e.target.value = '';
 });
@@ -408,11 +528,10 @@ $('btnSalvar').addEventListener('click', async () => {
       ? 'Agendado. O artigo entra no ar sozinho na data escolhida.'
       : 'Salvo. O site está sendo republicado — o artigo aparece em 1 a 2 minutos.', 'ok');
     editando = corpo;
+    limparRascunho();   // só agora o texto está seguro no repositório
   } catch (err) {
-    aviso($('avisoEditor'), err instanceof SessaoExpirada
-      ? `${err.message} Copie seu texto antes de sair, para não perder. ` +
-        `<a href="/.auth/login/aad?post_login_redirect_uri=/admin">Entrar novamente</a>`
-      : 'Não consegui salvar. ' + (err.message || ''), 'err');
+    guardarRascunho();  // falhou: garante que o texto fica gravado antes de qualquer coisa
+    aviso($('avisoEditor'), mensagemDeFalha(err, 'Salvar'), 'err');
   }
   btn.disabled = false; btn.textContent = 'Salvar';
 });
@@ -426,19 +545,20 @@ $('btnExcluir').addEventListener('click', async () => {
       body: JSON.stringify({ slug: editando.slug, excluir: true }),
     });
     voltarLista();
-  } catch (err) { aviso($('avisoEditor'), 'Não consegui excluir. ' + (err.message || ''), 'err'); }
+  } catch (err) { aviso($('avisoEditor'), mensagemDeFalha(err, 'Excluir artigo'), 'err'); }
 });
 
-function voltarLista() {
+async function voltarLista() {
   mostrar($('telaEditor'), false);
   mostrar($('telaLista'), true);
-  carregarLista();
+  await carregarLista();
+  mostrarRascunhoPendente();
 }
 $('btnVoltar').addEventListener('click', voltarLista);
 $('btnNovo').addEventListener('click', () => abrirEditor(null));
 
-['fTitulo', 'fResumo', 'fTexto', 'fData'].forEach(id =>
-  $(id).addEventListener('input', atualizarPrevia));
+['fTitulo', 'fResumo', 'fTexto', 'fData', 'fInstagram'].forEach(id =>
+  $(id).addEventListener('input', () => { atualizarPrevia(); agendarRascunho(); }));
 
 /* ---------- inicialização ---------- */
 (async () => {
@@ -453,7 +573,21 @@ $('btnNovo').addEventListener('click', () => abrirEditor(null));
   }
   $('quem').innerHTML = `${usuario.userDetails} <a href="/.auth/logout">Sair</a>`;
   mostrar($('app'), true);
-  carregarLista();
+  await carregarLista();
+  mostrarRascunhoPendente();
+
+  /* Ronda de sessão: a sessão do Azure cai sozinha depois de algumas horas, e até
+     agora isso só aparecia no clique em Salvar — depois do artigo escrito. Checar
+     de tempo em tempo enquanto o editor está aberto avisa antes do trabalho pronto.
+     Só avisa; nunca tira a editora da página nem mexe no texto. */
+  setInterval(async () => {
+    if ($('telaEditor').classList.contains('oculto')) return;
+    if (await estadoDaSessao() === 'ok') return;
+    aviso($('avisoEditor'),
+      'Sua sessão caiu. Seu texto está guardado aqui e não vai se perder. ' +
+      `${LINK_ENTRAR} e depois volte para esta aba e clique em Salvar.`, 'err');
+    guardarRascunho();
+  }, 5 * 60 * 1000);
 })();
 </script>
 </body>

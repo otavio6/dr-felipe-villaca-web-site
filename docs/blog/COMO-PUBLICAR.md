@@ -94,9 +94,19 @@ anterior de qualquer artigo — é só pedir para quem cuida do site.
 **Editar um artigo publicado** é só abrir, alterar e salvar de novo. Ele se
 atualiza no ar em 1 a 2 minutos.
 
-**Se aparecer "sua sessão expirou"**, copie seu texto antes de fazer qualquer coisa.
-Clique em "Entrar novamente", faça login e cole de volta. O aviso existe justamente
-para você não perder o trabalho achando que salvou.
+**Seu texto não se perde.** Enquanto você escreve, o painel guarda o que está na
+tela no seu próprio computador. Se a aba fechar, o navegador travar ou faltar luz,
+é só abrir o painel de novo: aparece "Você tem um texto não publicado" com o botão
+**Continuar de onde parei**. Ele some sozinho quando o artigo é salvo de verdade.
+
+**Se aparecer "sua sessão expirou"**, não copie nada e não saia da página. O login
+do site cai depois de algumas horas — é normal e não tem a ver com o seu texto.
+Clique em **Entrar novamente**, que abre em outra aba; faça o login lá, feche
+aquela aba, volte para esta e clique em **Salvar**. Tudo continua no lugar.
+
+**Se aparecer que sua conta não tem permissão de editor**, aí é outra coisa: o
+login funcionou, mas o seu e-mail ainda não foi liberado, ou o convite venceu.
+Avise quem cuida do site.
 
 **Artigo bom para o Google** tem 400 palavras ou mais. O contador embaixo da caixa
 de texto te mostra quantas você já escreveu.

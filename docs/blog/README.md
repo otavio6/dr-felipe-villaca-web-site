@@ -160,6 +160,24 @@ editora perderia o texto achando que publicou. Toda chamada agora exige
 `content-type: application/json`; HTML vira erro de sessão expirada, com aviso para
 copiar o texto antes de sair.
 
+**"Sessão expirada" era o único diagnóstico possível — e quase sempre errado.**
+O `staticwebapp.config.json` transforma em HTML *todos* os erros de acesso: `401`
+vira redirect 302 para o login, `403` vira `/sem-acesso.html`, `404` vira
+`/404.html`. O painel só sabia checar se a resposta era JSON, então conta sem o
+papel `editor`, rota quebrada e sessão realmente vencida chegavam à editora com a
+mesma frase. Agora, ao receber algo que não é JSON, o painel consulta `/.auth/me`
+— que responde JSON com ou sem sessão — e separa os três casos.
+
+**Relogar apagava o artigo inteiro.** A sessão do Azure cai depois de algumas
+horas, e isso só aparecia no clique em *Salvar*, com o texto pronto. O aviso
+oferecia um link de login que **navegava a própria aba**: ela entrava de novo e
+voltava para um formulário em branco. Toda tentativa de publicar terminava em
+perda do texto. Três mudanças: o rascunho é gravado no `localStorage` enquanto ela
+escreve; o link de login abre em **outra aba** (o cookie de sessão vale para todas,
+então basta voltar e clicar em Salvar de novo); e uma ronda de 5 em 5 minutos
+avisa que a sessão caiu **antes** do trabalho estar pronto. O rascunho só é
+apagado depois que o artigo é gravado no repositório de verdade.
+
 **SSR por função é frágil no Static Web Apps.** Ao reescrever `/blog/post` para uma
 função, o cabeçalho de origem chega já reescrito e a função não sabe qual artigo
 foi pedido ([issue #580](https://github.com/Azure/static-web-apps/issues/580)). Foi
@@ -185,6 +203,19 @@ Testado chamando os handlers direto, com o módulo do GitHub substituído por du
 | Ida e volta API → gerador | frontmatter gravado é lido corretamente |
 | `javascript:` em link do Markdown | neutralizado para `#` |
 | `<script>` no texto | escapado |
+
+Painel testado com DOM, `localStorage` e `fetch` simulados (19 verificações):
+
+| Caso | Resultado |
+|---|---|
+| Sessão vence no *Salvar* | texto gravado no rascunho, nada perdido |
+| Mensagem da sessão vencida | diz que o texto está guardado, login abre em outra aba |
+| Salvar de novo após relogar | grava e apaga o rascunho |
+| Conta sem o papel `editor` | fala em permissão, **não** em sessão |
+| Falha do servidor com sessão boa | mostra o código HTTP, **não** fala em sessão |
+| Abrir o painel com rascunho pendente | oferece "Continuar de onde parei" |
+| Retomar rascunho | devolve título, texto e data ao editor |
+| Descartar rascunho | limpa o `localStorage` |
 
 Verificado em produção após o deploy: `/blog/` responde 200, `/admin` e `/api`
 retornam 401 sem login, `/content/*` retorna 404, `/.auth/login/github` retorna 404
