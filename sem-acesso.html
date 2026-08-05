@@ -23,6 +23,13 @@ display:flex;align-items:center;justify-content:center;padding:2rem;text-align:c
 h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.15;margin-bottom:.9rem}
 h1 em{color:var(--gold-soft);font-style:italic}
 p{color:#B7B0A2;line-height:1.7;margin-bottom:1.6rem;font-size:.95rem}
+.conta{background:rgba(183,155,105,.1);border:1px solid rgba(183,155,105,.35);border-radius:2px;
+padding:.9rem 1.2rem;margin-bottom:1.2rem}
+.conta .rot{display:block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#B7B0A2;margin-bottom:.25rem}
+.conta strong{font-size:1rem;color:var(--gold-soft);word-break:break-all}
+.dica{font-size:.86rem;background:rgba(255,255,255,.03);border-left:2px solid var(--gold);
+padding:.85rem 1.1rem;text-align:left;margin-bottom:1.4rem}
+.dica b{color:var(--gold-soft)}
 .passos{text-align:left;background:rgba(255,255,255,.03);border:1px solid rgba(183,155,105,.25);
 border-radius:2px;padding:1.2rem 1.4rem;margin-bottom:1.8rem}
 .passos li{color:#B7B0A2;font-size:.88rem;margin-bottom:.5rem;margin-left:1rem}
@@ -41,15 +48,37 @@ border-radius:2px;text-decoration:none;transition:all .3s}
     <span class="marca">Painel do Blog</span>
     <h1>Sua conta entrou, mas ainda <em>não tem acesso</em>.</h1>
     <p>O login funcionou. O que falta é liberar essa conta como editora do blog — isso é feito uma única vez, por quem administra o site.</p>
+    <!-- Preenchido por JS: sem mostrar a conta logada, a pessoa nao tem como saber
+         que entrou com o e-mail errado - que e a causa mais comum de cair aqui. -->
+    <div class="conta" id="conta" hidden>
+      <span class="rot">Você entrou como</span>
+      <strong id="email">—</strong>
+    </div>
+
+    <p class="dica"><b>Se aceitou o convite agora há pouco:</b> saia e entre de novo. O acesso é gravado no momento do login, então uma sessão aberta antes do convite continua sem ele.</p>
+
     <ol class="passos">
-      <li>Envie para o administrador o e-mail que você acabou de usar para entrar.</li>
-      <li>Ele gera um convite no painel da Azure e devolve um link para você.</li>
-      <li>Abra o link com esta mesma conta. O acesso passa a valer na hora.</li>
+      <li>Confira se o e-mail acima é o mesmo que recebeu o convite. Se for outro, saia desta conta e entre com o correto.</li>
+      <li>Se você ainda não abriu o link do convite, abra — só entrar no painel não concede acesso.</li>
+      <li>Se nada disso resolver, mande o e-mail acima para quem administra o site.</li>
     </ol>
+
     <div class="acoes">
-      <a class="btn btn-gold" href="/admin">Tentar de novo</a>
-      <a class="btn btn-ghost" href="/.auth/logout">Sair desta conta</a>
+      <a class="btn btn-gold" href="/.auth/logout?post_logout_redirect_uri=/admin">Sair e entrar de novo</a>
+      <a class="btn btn-ghost" href="/admin">Tentar de novo</a>
     </div>
   </main>
+
+<script>
+fetch('/.auth/me')
+  .then(function (r) { return r.json(); })
+  .then(function (j) {
+    var p = j && j.clientPrincipal;
+    if (!p) return;
+    document.getElementById('email').textContent = p.userDetails || '(sem e-mail)';
+    document.getElementById('conta').hidden = false;
+  })
+  .catch(function () {});
+</script>
 </body>
 </html>
