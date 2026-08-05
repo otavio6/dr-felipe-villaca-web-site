@@ -51,9 +51,15 @@ fica entre 120 e 160 caracteres; o contador te avisa.
 assim que você salvar. **Data futura deixa o artigo invisível no site até chegar a
 hora.** O painel te diz qual dos dois vai acontecer, embaixo do campo.
 
-**Imagem de capa** — opcional, mas recomendada. É ela que aparece quando o link é
-compartilhado no WhatsApp e no Instagram. Sem capa, o link vai sem imagem. Aceita
-JPG, PNG ou WEBP até 5 MB.
+**Imagem de capa** — opcional, mas **sempre coloque uma**. É ela que aparece no card
+do artigo na página inicial do site e quando o link é compartilhado no WhatsApp e no
+Instagram. Sem capa, o site usa uma foto genérica — e se três artigos seguidos
+saírem sem capa, a home fica com a mesma imagem repetida três vezes. Aceita JPG, PNG
+ou WEBP até 5 MB.
+
+A foto aparece na tela assim que você escolhe, antes mesmo de terminar de enviar —
+é para você conferir na hora se pegou a imagem certa. Escolheu a errada? Clica em
+"Escolher imagem" de novo e manda a certa; vale a última.
 
 **Texto** — escreva normalmente. Os botões acima da caixa formatam:
 

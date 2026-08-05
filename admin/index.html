@@ -222,7 +222,9 @@ const API = '/api';
 
 let usuario = null;
 let editando = null;   // { slug, ... } quando editando existente
-let capaAtual = '';    // caminho da capa ja enviada
+let capaAtual = '';    // caminho da capa ja enviada, e o que vai no frontmatter
+let capaPrevia = '';   // imagem lida do computador dela, so para ver na tela
+let nomeDaCapa = '';   // nome do arquivo escolhido, enquanto o upload nao volta
 
 /* ---------- utilidades ---------- */
 const mostrar = (el, sim) => el.classList.toggle('oculto', !sim);
@@ -391,6 +393,9 @@ function mostrarRascunhoPendente() {
 
 /* ---------- editor ---------- */
 function abrirEditor(post, rascunho) {
+  // A previa local vale so para o arquivo escolhido nesta sessao. Ao abrir outro
+  // artigo ela precisa sumir, senao a foto de um aparece na tela do outro.
+  capaPrevia = ''; nomeDaCapa = '';
   if (rascunho) {
     editando = rascunho.editandoExistente ? { slug: rascunho.slug } : null;
     $('tituloEditor').textContent = rascunho.editandoExistente ? 'Editar artigo' : 'Novo artigo';
@@ -425,12 +430,26 @@ function abrirEditor(post, rascunho) {
   scrollTo(0, 0);
 }
 
+/* O que se ve na tela nao e o mesmo endereco que vai gravado no artigo.
+   O caminho devolvido pelo upload (/assets/blog/...) so passa a existir quando o
+   deploy termina, um a dois minutos depois: apontar a previa para ele mostrava
+   imagem quebrada justamente no momento em que ela quer conferir a escolha.
+   Entao a previa usa o arquivo que esta no computador dela, lido na hora, e o
+   caminho remoto fica guardado so para o frontmatter. */
+function urlDaCapa() {
+  return capaPrevia || capaAtual;
+}
+
 function atualizarCapa() {
-  const tem = !!capaAtual;
-  mostrar($('previaCapa'), tem);
-  mostrar($('btnRemoverCapa'), tem);
-  if (tem) $('previaCapa').src = capaAtual;
-  $('textoCapa').textContent = tem ? capaAtual.split('/').pop() : 'Nenhuma imagem escolhida';
+  const url = urlDaCapa();
+  mostrar($('previaCapa'), !!url);
+  mostrar($('btnRemoverCapa'), !!url);
+  if (url) $('previaCapa').src = url;
+  // Mesma ordem de preferencia da imagem. Invertida, a tela mostrava a foto nova
+  // com o nome da anterior enquanto o upload nao voltava.
+  $('textoCapa').textContent = capaPrevia
+    ? (nomeDaCapa || 'Imagem escolhida')
+    : (capaAtual ? capaAtual.split('/').pop() : 'Nenhuma imagem escolhida');
 }
 
 function atualizarPrevia() {
@@ -442,8 +461,9 @@ function atualizarPrevia() {
   $('dicaData').textContent = futuro
     ? 'Este artigo ficará invisível no site até essa data.'
     : 'Publicado assim que você salvar.';
-  mostrar($('pvCapa'), !!capaAtual);
-  if (capaAtual) $('pvCapa').src = capaAtual;
+  const capa = urlDaCapa();
+  mostrar($('pvCapa'), !!capa);
+  if (capa) $('pvCapa').src = capa;
   $('pvCorpo').innerHTML = markdownParaHtml($('fTexto').value);
 
   const ct = $('fTitulo').value.length, cr = $('fResumo').value.length;
@@ -472,23 +492,49 @@ document.querySelectorAll('.ferramentas button').forEach(b => b.addEventListener
 
 /* ---------- upload de capa ---------- */
 $('btnCapa').addEventListener('click', () => $('fCapa').click());
-$('btnRemoverCapa').addEventListener('click', () => { capaAtual = ''; atualizarCapa(); atualizarPrevia(); guardarRascunho(); });
+$('btnRemoverCapa').addEventListener('click', () => {
+  capaAtual = ''; capaPrevia = ''; nomeDaCapa = '';
+  atualizarCapa(); atualizarPrevia(); guardarRascunho();
+});
 $('fCapa').addEventListener('change', async e => {
   const arq = e.target.files[0];
   if (!arq) return;
   if (arq.size > 5 * 1024 * 1024) {
     aviso($('avisoEditor'), 'Imagem acima de 5 MB. Reduza antes de enviar.', 'err'); return;
   }
+
+  // A leitura serve para as duas coisas ao mesmo tempo: mostrar a imagem na tela
+  // agora e mandar o conteudo para a API. Le-la uma vez so evita ler 5 MB duas
+  // vezes num computador que pode ser modesto.
+  let dataUrl;
+  try {
+    dataUrl = await new Promise((ok, falha) => {
+      const fr = new FileReader();
+      fr.onload = () => ok(String(fr.result));
+      fr.onerror = () => falha(fr.error);
+      fr.readAsDataURL(arq);
+    });
+  } catch {
+    aviso($('avisoEditor'), 'Não consegui ler esse arquivo. Tente escolher de novo.', 'err');
+    e.target.value = ''; return;
+  }
+
+  // Aparece antes de o upload terminar: ela confere a escolha na hora e, se
+  // errou de foto, ja troca sem esperar a viagem ate o servidor.
+  capaPrevia = dataUrl;
+  nomeDaCapa = arq.name;
+  // Escolher outra foto e trocar de foto. Manter a anterior aqui deixaria a tela
+  // mostrando a nova enquanto o artigo ainda gravaria a antiga - ela publicaria a
+  // capa errada achando que era a que esta vendo. Se o upload falhar, o artigo
+  // fica sem capa e o aviso diz por que, o que e honesto.
+  capaAtual = '';
+  atualizarCapa(); atualizarPrevia();
+
   aviso($('avisoEditor'), 'Enviando imagem…', 'info');
   try {
     // base64 em JSON: ler multipart na Function exigiria biblioteca, e o projeto
     // nao tem nenhuma dependencia.
-    const dadosBase64 = await new Promise((ok, falha) => {
-      const fr = new FileReader();
-      fr.onload = () => ok(String(fr.result).split(',')[1]);
-      fr.onerror = () => falha(fr.error);
-      fr.readAsDataURL(arq);
-    });
+    const dadosBase64 = dataUrl.split(',')[1];
     const j = await pedirJson(`${API}/upload`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -498,6 +544,9 @@ $('fCapa').addEventListener('change', async e => {
     atualizarCapa(); atualizarPrevia(); guardarRascunho();
     aviso($('avisoEditor'), 'Imagem enviada. Ela entra no site junto com o artigo.', 'ok');
   } catch (err) {
+    // A previa continua na tela de proposito: o texto dela ja explica que a
+    // imagem nao subiu, e apagar a foto agora so tiraria a referencia do que
+    // ela acabou de escolher.
     aviso($('avisoEditor'), mensagemDeFalha(err, 'Escolher imagem'), 'err');
   }
   e.target.value = '';

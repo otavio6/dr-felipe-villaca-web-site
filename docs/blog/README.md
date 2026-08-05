@@ -217,6 +217,20 @@ então basta voltar e clicar em Salvar de novo); e uma ronda de 5 em 5 minutos
 avisa que a sessão caiu **antes** do trabalho estar pronto. O rascunho só é
 apagado depois que o artigo é gravado no repositório de verdade.
 
+**A prévia da capa mostrava imagem quebrada.** Depois do upload ela apontava para
+`/assets/blog/<arquivo>`, e esse caminho só passa a existir quando o deploy termina
+— um a dois minutos depois. Justamente no momento de conferir a foto escolhida, a
+editora via um ícone quebrado. Hoje a prévia usa o arquivo que está no computador
+dela, lido uma única vez e reaproveitado para o upload; o caminho remoto fica
+guardado só para o frontmatter. Duas consequências que valem lembrar ao mexer aqui:
+a prévia aparece **antes** de o upload terminar, e o rascunho guarda o caminho, não
+a imagem — uma data URL de 5 MB estouraria a cota do `localStorage`.
+
+**Trocar de foto limpa a capa anterior na hora.** Antes, a tela mostrava a foto
+nova enquanto o artigo ainda gravaria a antiga: era possível publicar a capa errada
+achando que era a que estava na tela. Se o upload falhar, o artigo fica sem capa e o
+aviso diz por quê.
+
 **Toda falha do GitHub virava "Não consegui gravar".** O motivo real — 401, 403,
 404 — ia só para o `context.log`, que ninguém lê. A editora recebia uma frase sobre
 a qual não podia agir e nem repassar. Agora `explicarFalhaGitHub()` traduz o status
@@ -274,6 +288,12 @@ Painel testado com DOM, `localStorage` e `fetch` simulados (19 verificações):
 | Abrir o painel com rascunho pendente | oferece "Continuar de onde parei" |
 | Retomar rascunho | devolve título, texto e data ao editor |
 | Descartar rascunho | limpa o `localStorage` |
+| Escolher capa, upload lento | foto aparece antes de o upload voltar |
+| Upload concluído | prévia **não** troca para `/assets/blog/...` |
+| Rascunho com capa | guarda o caminho, nunca a data URL |
+| Trocar de foto | nome e capa acompanham a foto nova |
+| Upload que falha | foto escolhida continua na tela, com o motivo |
+| Abrir outro artigo | não herda a capa da sessão anterior |
 
 API testada contra um GitHub simulado (17 verificações):
 
