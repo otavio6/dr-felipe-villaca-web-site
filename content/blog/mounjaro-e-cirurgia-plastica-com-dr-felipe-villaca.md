@@ -2,6 +2,7 @@
 titulo: Mounjaro e Cirurgia Plástica com Dr. Felipe Villaça
 data: 2026-08-05T18:29:00.000Z
 resumo: O Mounjaro exige suspensão semanas antes da cirurgia plástica para evitar riscos na anestesia. O retorno no pós-operatório depende de liberação médica para garantir a cicatrização.
+capa: /assets/blog/mounjaro-e-cirurgia-plastica-com-dr-felipe-villaca-msggcmap.png
 instagram: https://www.instagram.com/drfelipevillaca/
 ---
 
