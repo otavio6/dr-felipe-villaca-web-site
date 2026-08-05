@@ -3,5 +3,5 @@
   "version": "1.0.0",
   "description": "API do painel do blog. Sem dependencias: Node 20 ja tem fetch nativo.",
   "private": true,
-  "main": "index.js"
+  "_comentario_main": "NAO declarar 'main' aqui. No worker Node do Azure Functions esse campo e o ponto de entrada do modelo de programacao v4: o worker tenta carregar o arquivo na inicializacao e, se nao achar, falha antes de registrar qualquer funcao - toda chamada a /api/* passa a devolver 500 em HTML, sem tocar no nosso codigo e sem log nenhum. Estas funcoes usam o modelo v3, com function.json em cada pasta, que nao usa 'main'."
 }
