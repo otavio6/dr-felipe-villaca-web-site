@@ -316,8 +316,8 @@ p{text-wrap:pretty}
   </div>
   <div class="stats">
     <div class="wrap stats-grid">
-      <div class="stat"><div class="num gold-text"><span class="count" data-target="15000">0</span>+</div><div class="lbl">Cirurgias Realizadas</div></div>
-      <div class="stat"><div class="num gold-text"><span class="count" data-target="20">0</span>+</div><div class="lbl">Anos de Experiência</div></div>
+      <div class="stat"><div class="num gold-text"><span class="count" data-target="15000">15.000</span>+</div><div class="lbl">Cirurgias Realizadas</div></div>
+      <div class="stat"><div class="num gold-text"><span class="count" data-target="20">20</span>+</div><div class="lbl">Anos de Experiência</div></div>
       <div class="stat"><div class="num gold-text">Hospital</div><div class="lbl">Próprio — São Rafael</div></div>
       <div class="stat"><div class="num gold-text">SBCP</div><div class="lbl">Membro da Sociedade Brasileira de Cirurgia Plástica</div></div>
     </div>
@@ -358,7 +358,7 @@ p{text-wrap:pretty}
     <div class="reveal">
       <span class="eyebrow">Segurança em primeiro lugar</span>
       <h2 style="color:#F4F0E6">Você não é operada em uma clínica adaptada. É cuidada em um <span class="gold-text">hospital&nbsp;próprio.</span></h2>
-      <p>O Hospital São Rafael foi fundado pelo Dr. Felipe Villaça — que também é seu responsável técnico — com o mais alto rigor de segurança cirúrgica.</p>
+      <p>O Hospital São Rafael foi fundado pelo Dr. Felipe Villaça, que também é seu responsável técnico, e conta com protocolos de segurança cirúrgica definidos para cada procedimento.</p>
       <ul class="cred" style="margin:1.4rem 0 2rem">
         <li>Estrutura hospitalar completa</li>
         <li>Anestesia por médico dedicado</li>
@@ -396,8 +396,8 @@ p{text-wrap:pretty}
     <div class="j-steps">
       <div class="j-step reveal"><div class="n"></div><h3>Consulta Personalizada</h3><p>Entendemos seu objetivo, avaliamos seu histórico e desenhamos o procedimento ideal para o seu corpo.</p></div>
       <div class="j-step reveal"><div class="n"></div><h3>Planejamento Cirúrgico</h3><p>Mapeamento corporal, definição de técnicas e protocolo de segurança individualizados.</p></div>
-      <div class="j-step reveal"><div class="n"></div><h3>Cirurgia com Segurança Máxima</h3><p>Procedimento no Hospital São Rafael, com equipe especializada e anestesia por médico dedicado.</p></div>
-      <div class="j-step reveal"><div class="n"></div><h3>Acompanhamento Pós-Operatório</h3><p>Protocolos de recuperação acelerada, retornos agendados e suporte contínuo.</p></div>
+      <div class="j-step reveal"><div class="n"></div><h3>Segurança cirúrgica planejada</h3><p>Procedimento no Hospital São Rafael, com equipe especializada e anestesia por médico dedicado.</p></div>
+      <div class="j-step reveal"><div class="n"></div><h3>Acompanhamento Pós-Operatório</h3><p>Protocolos de recuperação, retornos agendados e suporte contínuo.</p></div>
       <div class="j-step reveal"><div class="n"></div><h3>Seu Resultado Final</h3><p>A transformação que você buscava, com o cuidado que você merece.</p></div>
     </div>
   </div>
@@ -534,7 +534,8 @@ const cObs=new IntersectionObserver(es=>es.forEach(e=>{
     if(p<1)requestAnimationFrame(tick)};
   requestAnimationFrame(tick);cObs.unobserve(el);
 }),{threshold:.4});
-document.querySelectorAll('.count').forEach(c=>cObs.observe(c));
+const semAnimacao=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!semAnimacao)document.querySelectorAll('.count').forEach(c=>cObs.observe(c));
 
 /* Procedimentos: cards com CTA direto no WhatsApp */
 const WA='https://wa.me/5531997714488?text=';
@@ -544,7 +545,7 @@ const PROCS=[
   ['Ugraft — Lipoenxertia Intramuscular','Volume onde você quer. Guiado por ultrassom.'],
   ['Retração de Pele com Árgon Plasma','Adeus, flacidez. Pele firme sem grande cicatriz.'],
   ['Abdominoplastia / MILA','Abdômen plano por videocirurgia.'],
-  ['Remodelamento Costal','A cintura que você sempre quis.'],
+  ['Remodelamento Costal','Redução da circunferência da cintura em casos indicados.'],
   ['Mamoplastia Completa','Naturalidade e proporção com técnica retromuscular.'],
   ['Lipedema','Tratamento especializado com resultado estético e saúde.']
 ];

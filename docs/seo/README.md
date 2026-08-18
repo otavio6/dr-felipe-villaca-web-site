@@ -106,6 +106,118 @@ favor do outro.
 
 ---
 
+## Consolidação de domínio e conformidade editorial (2026-08-18)
+
+Rodada a partir do `REESTRUTURACAO_SEO_ANTIGRAVITY.md`, um brief externo de
+reconstrução completa. A reconstrução (Astro, multipágina, 9 landing pages) não
+foi feita. Foram aplicados os cinco itens que não dependem dela.
+
+### 1. Nenhum link interno aponta mais para `felipevillaca.com`
+
+Eram 8 links na home, 1 em `links.html` e 1 no gerador. Cada um empurrava
+autoridade e visitante para o domínio que está sendo aposentado, e o card levava
+a pessoa para fora com `target="_blank"` no meio da jornada de conversão.
+
+Os cards de procedimento agora apontam para o artigo interno correspondente,
+quando existe:
+
+| Card | Destino |
+|---|---|
+| Lipoescultura HD | `/blog/cirurgia-de-contorno-corporal-avancado-com-dr-felipe-villaca/` |
+| Retração com Árgon | `/blog/tecnologias-na-cirurgia-plastica-dr-felipe-villaca/` |
+| Abdominoplastia / MILA | `/blog/neo-umbigo-abdominoplastia-natural-dr-felipe-villaca/` |
+| Mamoplastia | `/blog/protese-de-recuperacao-rapida-existe-mesmo-dr-felipe-villaca/` |
+| Lipedema | `/blog/tratamento-do-lipedema-nas-pernas-como-funciona-a-cirurgia/` |
+| Remodelamento glúteo, Ugraft, Costal | `#contato` — não há artigo ainda |
+
+**Quando existir artigo novo para glúteo, Ugraft ou costal, trocar o `#contato`
+pelo artigo.** Um link para conteúdo vale mais que um link para formulário: a
+pessoa nesses cards ainda está entendendo o procedimento, não decidindo.
+
+O botão "Ver matéria sobre a hiperbárica" saiu. Apontava para o domínio legado e
+a própria URL afirmava que a hiperbárica "acelera cicatrizações" — efeito clínico
+universal, que é o que a Res. CFM 2.336/2023 veda. Volta quando houver conteúdo
+próprio revisado.
+
+Em `links.html` o domínio legado estava rotulado como **"Site Oficial"**, ou
+seja, todo tráfego do Instagram ia para o site errado. Corrigido também em
+`links-embed-builder.html`, que é o gerador — mudar só um faria a próxima
+geração reintroduzir o valor antigo.
+
+### 2. Linguagem superlativa removida
+
+Saíram, na home e na `/lp`: "um dos mais experientes do Brasil", "o mais alto
+rigor", "Segurança Máxima", "definição máxima, sem riscos desnecessários", "a
+cintura que você sempre quis", "recuperação acelerada" (3×), "sua transformação",
+"terapia hiperbárica para acelerar a cicatrização".
+
+A `/lp` é `noindex`, então isso não é SEO ali — é o destino do tráfego pago, ou
+seja, publicidade médica no sentido estrito da resolução. As mesmas frases pesam
+**mais** naquela página, não menos.
+
+Duas dessas frases viviam em dois lugares: no FAQ visível e no `FAQPage` do
+JSON-LD. Foram trocadas juntas. **Conferido depois da edição: as 11 respostas do
+schema continuam idênticas ao HTML visível.** Se divergirem, o Google descarta o
+rich result inteiro.
+
+### 3. Contadores param de renderizar zero
+
+`<span class="count" data-target="15000">0</span>` virava "15.000" só depois que
+o `IntersectionObserver` disparava. Quem lia o HTML — rastreador, leitor de tela,
+navegador com JS bloqueado — via **zero**. Agora o valor real está no HTML e a
+animação é só enfeite. Adicionada também a guarda de
+`prefers-reduced-motion`: quem pede menos movimento vê o número parado, correto.
+
+### 4. Data de nascimento fora do primeiro contato
+
+O campo era **obrigatório** e o valor ia dentro da query string do `wa.me`:
+
+```js
+`*Data de nascimento:* ${encodeURIComponent(nascBR)}%0A`   // removido
+```
+
+Não era só excesso de coleta — era dado pessoal em URL, que fica no histórico do
+navegador e em qualquer log intermediário. A equipe pede a data na conversa,
+quando ela for necessária.
+
+### 5. Identificação médica completa no rodapé
+
+Antes: `Dr. Felipe Villaça Guimarães — CRM-MG 48463 · RQE 32245`
+Agora: `Dr. Felipe Villaça Guimarães — MÉDICO · CRM-MG 48463 · Cirurgia Plástica · RQE 32245`
+
+Faltavam a palavra **MÉDICO** e a especialidade escrita, ambas exigidas com
+destaque equivalente.
+
+---
+
+## O que ficou de fora, e por quê
+
+**O depoimento com "é tão perfeito o que ele faz"** (`index.html`, seção de
+depoimentos) continua no ar. É a fala autêntica de uma paciente: reescrever as
+palavras dela seria fabricar um depoimento, que é falta mais grave que a original.
+As saídas legítimas são remover o trecho ou substituí-lo por outro relato real e
+autorizado — decisão da equipe, não do código.
+
+**`procedimento` continua sendo enviado ao GTM** no evento `submit_lead`. O §15.4
+do brief classifica isso como risco de inferência sobre saúde. Remover é trivial,
+mas apaga a segmentação por procedimento que hoje existe no GA4 — decisão de quem
+usa o relatório.
+
+**O canônico continua no apex** (`drfelipevillaca.com.br`), não em `www`. O brief
+pede `www` sem justificar. O apex já está indexado; trocar custa 301 em massa,
+rastreamento novo e uma janela de instabilidade, por zero ganho de posição.
+
+**Os nomes dos eventos não mudaram.** O brief propõe `whatsapp_click`; o site usa
+`click_whatsapp`. Renomear quebra os acionadores do GTM e parte a série histórica
+do GA4 em duas. A taxonomia dele é melhor no vácuo; não paga o custo.
+
+**"Quero saber qual é ideal para mim"** (CTA do WhatsApp na seção de
+procedimentos) contraria o §9.4 do brief, que veda prometer o procedimento ideal
+por marketing. Não foi alterado porque mexe na convenção de mensagens do
+WhatsApp — vale decidir junto com o texto dos outros CTAs.
+
+---
+
 ## Verificado em produção
 
 ```
@@ -124,5 +236,9 @@ JSON-LD                Physician+MedicalBusiness | WebSite | FAQPage
 - [ ] Submeter `sitemap.xml` no Google Search Console — **sem isso nada disso sai
       do lugar**
 - [ ] Testar a home no Rich Results Test; o `FAQPage` é o rich result mais visível
-- [ ] Decidir o destino do `felipevillaca.com`
+- [ ] Decidir o destino do `felipevillaca.com` — nenhum link interno aponta
+      mais para lá, mas o domínio segue no ar; falta o 301 servidor a servidor
+- [ ] Decidir o que fazer com o depoimento que contém "perfeito"
+- [ ] Criar artigo para remodelamento glúteo, Ugraft e remodelamento costal, e
+      trocar o `#contato` desses cards pelo artigo
 - [ ] Horário de atendimento no schema
