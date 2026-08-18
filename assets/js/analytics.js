@@ -168,6 +168,11 @@
           procedimento: proc ? proc.value : '(nao informado)',
           pagina: location.pathname
         });
+        // Mesma conversao do clique no CTA: o envio do formulario tambem
+        // termina abrindo o WhatsApp. A trava por sessao dentro de
+        // registrarConversao() impede contar duas vezes quem preenche o
+        // formulario e depois ainda clica no botao flutuante.
+        registrarConversao();
       });
     }
 

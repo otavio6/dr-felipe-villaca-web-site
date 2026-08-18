@@ -14,7 +14,7 @@ Esta é a única medição do site que **não** passa pelo GTM. Explicação em
 ```
 landing com ?oppref=…  →  cookie __oppref (90 dias)
         │
-clique em a[href*="wa.me"]
+clique em a[href*="wa.me"]  ou  submit do #leadForm
         │
         ├─► dataLayer.push({event:'click_whatsapp'})   → GTM → GA4   (já existia)
         │
@@ -153,7 +153,8 @@ Function sem mexer no resto.
 
 `sessionStorage['fv-conversao-enviada']`. O mesmo visitante costuma clicar em
 mais de um CTA (hero, barra fixa, botão flutuante) e três cliques não são três
-consultas. Em aba anônima sem storage o código segue e envia — melhor contar a
+consultas. Vale também entre gatilhos diferentes: preencher o formulário e
+depois clicar no botão flutuante conta uma vez. Em aba anônima sem storage o código segue e envia — melhor contar a
 mais do que perder a conversão.
 
 ### `keepalive: true`
@@ -217,8 +218,10 @@ existe justamente para isso.
 comportamento anterior a esta integração. Se passarem a receber tráfego pago,
 incluir o script.
 
-O formulário de lead (`submit_lead`) também não dispara conversão hoje. Só o
-clique de WhatsApp.
+O formulário de lead **dispara**, junto com o `submit_lead`. Faz sentido porque
+o envio do formulário também termina abrindo o WhatsApp — é o mesmo desfecho do
+clique no CTA, por outro caminho. Quem preenche o formulário e depois ainda
+clica no botão flutuante conta uma vez só, pela trava de sessão.
 
 ---
 
@@ -269,7 +272,6 @@ conta de anúncios.
 - [ ] Cadastrar `OPENAI_ADS_PID` e `OPENAI_ADS_TOKEN` no Azure **antes** do
       push — sem isso o site chama o endpoint e recebe 503 em toda conversão.
 - [ ] Rodar o teste `validate_only` uma vez antes de contar com o número.
-- [ ] Decidir se `submit_lead` também vira conversão.
 - [ ] Conferir no painel, depois das primeiras conversões, se elas aparecem
       **atribuídas a campanha**. Se aparecerem sem campanha, o `oppref` não está
       chegando — checar se o anúncio está mandando o parâmetro na URL final.
