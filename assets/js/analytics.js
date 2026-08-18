@@ -70,6 +70,49 @@
     return 'outro';
   }
 
+  /* ---- 2b. Conversao para o ChatGPT Ads (beta) ----
+     A API de eventos exige uma chave secreta, entao a chamada NAO sai daqui:
+     este arquivo e servido publicamente e a chave apareceria no DevTools. O
+     navegador chama /api/conversao (Azure Function), que guarda a chave e monta
+     o evento. Ver docs/analytics/CHATGPT-ADS.md.
+
+     O evento NAO leva identificador do visitante - so um id aleatorio de
+     deduplicacao, o caminho da pagina e o horario. Por isso ele e disparado
+     mesmo sem aceite do banner: nao ha dado pessoal nem leitura de cookie. Se
+     a orientacao juridica mudar, condicionar a lido() === 'granted' aqui.
+
+     Uma vez por sessao: o mesmo visitante costuma clicar em mais de um CTA, e
+     tres cliques nao sao tres consultas. */
+  var CONVERSAO_URL = '/api/conversao';
+  var MARCA_SESSAO = 'fv-conversao-enviada';
+
+  function idDeEvento() {
+    try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+    // Navegador sem randomUUID: gera no formato UUIDv4, que e o que a Function
+    // valida antes de repassar.
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  function registrarConversao() {
+    try {
+      if (sessionStorage.getItem(MARCA_SESSAO) === '1') return;
+      sessionStorage.setItem(MARCA_SESSAO, '1');
+    } catch (e) { /* aba anonima sem storage: segue e envia */ }
+    try {
+      fetch(CONVERSAO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: idDeEvento(), pagina: location.pathname }),
+        // O clique leva a pagina embora para o WhatsApp. Sem keepalive a
+        // requisicao e cancelada na navegacao e a conversao se perde.
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="wa.me"]');
     if (!a) return;
@@ -77,6 +120,7 @@
       origem: origemDoLink(a),
       pagina: location.pathname
     });
+    registrarConversao();
   }, true);
 
   document.addEventListener('DOMContentLoaded', function () {

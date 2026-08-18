@@ -9,6 +9,10 @@ Manager** disponível para tags futuras. Tudo sob Consent Mode v2.
 | GTM | `GTM-PGQZNSJS` |
 | Onde | `index.html`, `lp.html` e todas as páginas do blog |
 
+> **Fora do GTM:** as conversões enviadas ao **ChatGPT Ads** (beta) não passam
+> pelo container — a API exige uma chave secreta, então a chamada sai de uma
+> Azure Function. Documentação em [CHATGPT-ADS.md](CHATGPT-ADS.md).
+
 ---
 
 ## A ordem de carregamento não pode mudar

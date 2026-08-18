@@ -5,6 +5,7 @@
     { "route": "/privacidade", "rewrite": "/privacidade.html" },
 
     { "route": "/admin*", "allowedRoles": ["editor", "administrator"], "headers": { "Cache-Control": "no-store" } },
+    { "route": "/api/conversao", "methods": ["POST"], "allowedRoles": ["anonymous"] },
     { "route": "/api/*", "allowedRoles": ["editor", "administrator"] },
 
     { "route": "/content/*", "statusCode": 404 },
