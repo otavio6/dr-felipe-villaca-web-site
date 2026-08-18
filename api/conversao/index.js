@@ -62,7 +62,7 @@ module.exports = async function (context, req) {
   const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'desconhecido';
   if (!passouNoLimite(ip)) return responder(429, { erro: 'Muitas chamadas.' });
 
-  const { id, pagina } = req.body || {};
+  const { id, pagina, oppref } = req.body || {};
   if (!UUID.test(String(id || ''))) return responder(400, { erro: 'id inválido.' });
 
   // O caminho vem do navegador, mas a origem nao: montar a URL aqui impede que
@@ -70,17 +70,22 @@ module.exports = async function (context, req) {
   const caminho = String(pagina || '/');
   const sourceUrl = /^\/[\w\-./]*$/.test(caminho) ? origem + caminho : origem + '/';
 
-  const corpo = {
-    validate_only: false,
-    events: [{
-      id: String(id),
-      type: TIPO_EVENTO,
-      timestamp_ms: Date.now(),
-      source_url: sourceUrl,
-      action_source: 'web',
-      data: { type: 'customer_action' }
-    }]
+  // Click ID do anuncio, capturado da URL da landing pelo analytics.js. Valor
+  // opaco da OpenAI: repassar sem modificar. Ausente em visita organica - a
+  // conversao vai do mesmo jeito, so nao e atribuida a uma campanha.
+  const clique = typeof oppref === 'string' && /^[A-Za-z0-9._~=-]{1,512}$/.test(oppref) ? oppref : null;
+
+  const evento = {
+    id: String(id),
+    type: TIPO_EVENTO,
+    timestamp_ms: Date.now(),
+    source_url: sourceUrl,
+    action_source: 'web',
+    data: { type: 'customer_action' }
   };
+  if (clique) evento.oppref = clique;
+
+  const corpo = { validate_only: false, events: [evento] };
 
   try {
     const r = await fetch(ENDPOINT + '?pid=' + encodeURIComponent(pid), {
@@ -100,7 +105,8 @@ module.exports = async function (context, req) {
       return responder(502, { erro: 'Falha ao registrar a conversão.' });
     }
 
-    context.log('conversao: ' + TIPO_EVENTO + ' registrado para ' + sourceUrl);
+    context.log('conversao: ' + TIPO_EVENTO + ' registrado para ' + sourceUrl +
+      (clique ? ' (com oppref)' : ' (sem oppref - visita organica ou click id perdido)'));
     return responder(204, null);
   } catch (e) {
     context.log.error('conversao: erro de rede - ' + e.message);

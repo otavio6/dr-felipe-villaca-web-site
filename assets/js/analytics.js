@@ -70,6 +70,38 @@
     return 'outro';
   }
 
+  /* Click ID do ChatGPT Ads. Chega na URL da landing como ?oppref=... quando a
+     visita vem de um anuncio. A API NAO captura sozinha (a doc e explicita:
+     "Unlike the pixel, the API does not capture oppref for you") - sem ele a
+     conversao e registrada mas nao e ligada a campanha, e a otimizacao nao
+     aprende nada.
+
+     Guardado em cookie proprio porque clique e conversao quase nunca acontecem
+     na mesma pagina: o visitante cai na /lp com o oppref na URL e clica no CTA
+     depois de navegar, quando o parametro ja sumiu. Nome __oppref e o que o
+     pixel da OpenAI usaria - se o pixel for instalado um dia, os dois leem o
+     mesmo valor em vez de brigar. */
+  var OPPREF = '__oppref';
+  var OPPREF_DIAS = 90;
+
+  function leCookie(nome) {
+    var m = document.cookie.match(new RegExp('(?:^|; )' + nome + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  function capturaOppref() {
+    var v = '';
+    try { v = new URLSearchParams(location.search).get('oppref') || ''; } catch (e) {}
+    // Valor opaco da OpenAI: repassar sem modificar. O teto de tamanho e a
+    // faixa de caracteres existem so para nao gravar lixo vindo de URL montada
+    // a mao.
+    if (!v || v.length > 512 || !/^[A-Za-z0-9._~=-]+$/.test(v)) return;
+    var exp = new Date(Date.now() + OPPREF_DIAS * 864e5).toUTCString();
+    document.cookie = OPPREF + '=' + encodeURIComponent(v) +
+      ';path=/;expires=' + exp + ';SameSite=Lax' +
+      (location.protocol === 'https:' ? ';Secure' : '');
+  }
+  capturaOppref();
   /* ---- 2b. Conversao para o ChatGPT Ads (beta) ----
      A API de eventos exige uma chave secreta, entao a chamada NAO sai daqui:
      este arquivo e servido publicamente e a chave apareceria no DevTools. O
@@ -105,7 +137,11 @@
       fetch(CONVERSAO_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: idDeEvento(), pagina: location.pathname }),
+        body: JSON.stringify({
+          id: idDeEvento(),
+          pagina: location.pathname,
+          oppref: leCookie(OPPREF) || undefined
+        }),
         // O clique leva a pagina embora para o WhatsApp. Sem keepalive a
         // requisicao e cancelada na navegacao e a conversao se perde.
         keepalive: true
