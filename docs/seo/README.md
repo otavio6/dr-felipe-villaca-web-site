@@ -115,6 +115,11 @@ lendo igual — tirar palavra solta não muda o que o texto promete.
 Passou por comparativo lado a lado aprovado antes de aplicar. 22 trocas em 8
 seções.
 
+O comparativo lado a lado que foi aprovado antes de aplicar esta guardado em
+[comparativo-copy-home.html](comparativo-copy-home.html) — abrir direto no navegador.
+Cada linha traz o texto anterior, o que subiu e o motivo, com selo de publicado ou
+pendente. Ele nao e servido pelo site: `/docs/*` responde 404 no `staticwebapp.config.json`.
+
 ### O que mudou
 
 | Seção | De | Para |

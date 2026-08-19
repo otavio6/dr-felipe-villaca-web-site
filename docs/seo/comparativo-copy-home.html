@@ -1,0 +1,878 @@
+<title>Revisão de Copy da Home</title>
+<style>
+  :root {
+    --ground:        #F4F6F6;
+    --surface:       #FFFFFF;
+    --surface-sunk:  #ECEFEF;
+    --ink:           #14191A;
+    --ink-soft:      #4A5457;
+    --ink-faint:     #7C8688;
+    --rule:          #DCE1E1;
+    --rule-soft:     #E7EBEB;
+    --atual:         #A0453A;
+    --atual-bg:      #FBF1EF;
+    --atual-rule:    #E8CFC9;
+    --novo:          #0F6B66;
+    --novo-bg:       #EDF5F4;
+    --novo-rule:     #C4DEDB;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:       #101414;
+      --surface:      #171D1D;
+      --surface-sunk: #1D2424;
+      --ink:          #E6EBEA;
+      --ink-soft:     #A3AFAE;
+      --ink-faint:    #7A8685;
+      --rule:         #2A3333;
+      --rule-soft:    #222A2A;
+      --atual:        #E09083;
+      --atual-bg:     #241917;
+      --atual-rule:   #4A3029;
+      --novo:         #5FC7BF;
+      --novo-bg:      #12211F;
+      --novo-rule:    #234641;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:       #101414;
+    --surface:      #171D1D;
+    --surface-sunk: #1D2424;
+    --ink:          #E6EBEA;
+    --ink-soft:     #A3AFAE;
+    --ink-faint:    #7A8685;
+    --rule:         #2A3333;
+    --rule-soft:    #222A2A;
+    --atual:        #E09083;
+    --atual-bg:     #241917;
+    --atual-rule:   #4A3029;
+    --novo:         #5FC7BF;
+    --novo-bg:      #12211F;
+    --novo-rule:    #234641;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- cabeçalho ---------- */
+
+  header {
+    padding: 72px 0 40px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: -.015em;
+    text-wrap: balance;
+    margin: 0 0 20px;
+  }
+  .lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 32px;
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .aviso {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--novo);
+    border-radius: 3px;
+    padding: 16px 20px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 68ch;
+  }
+  .aviso b { color: var(--ink); }
+
+  /* ---------- resumo ---------- */
+
+  .resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 36px 0 0;
+  }
+  .resumo div {
+    background: var(--surface);
+    padding: 18px 20px;
+  }
+  .resumo dt {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 8px;
+  }
+  .resumo dd {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .resumo dd small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+
+  /* ---------- índice ---------- */
+
+  nav.indice {
+    margin: 48px 0 0;
+    padding: 22px 24px;
+    background: var(--surface-sunk);
+    border-radius: 3px;
+  }
+  nav.indice p {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 12px;
+  }
+  nav.indice ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-size: 14px;
+  }
+  nav.indice a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  nav.indice a:hover { color: var(--novo); border-color: var(--novo); }
+
+  /* ---------- blocos de seção ---------- */
+
+  section.bloco { margin-top: 64px; }
+
+  .bloco > h2 {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -.01em;
+    margin: 0 0 4px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .bloco > .onde {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .06em;
+    color: var(--ink-faint);
+    margin: 0 0 28px;
+  }
+
+  /* ---------- par comparativo ---------- */
+
+  .par { margin-bottom: 34px; }
+
+  .selo {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    vertical-align: 1px;
+  }
+  .selo.ok      { color: var(--novo);  background: var(--novo-bg);  border: 1px solid var(--novo-rule); }
+  .selo.aguarda { color: var(--atual); background: var(--atual-bg); border: 1px solid var(--atual-rule); }
+
+  .par > h3 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 12px;
+  }
+
+  .lados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: stretch;
+  }
+  @media (max-width: 720px) {
+    .lados { grid-template-columns: 1fr; }
+  }
+
+  .lado {
+    border-radius: 3px;
+    padding: 18px 20px 20px;
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lado.hoje  { background: var(--atual-bg); border-color: var(--atual-rule); }
+  .lado.prop  { background: var(--novo-bg);  border-color: var(--novo-rule); }
+
+  .lado > .rot {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .hoje > .rot { color: var(--atual); }
+  .prop > .rot { color: var(--novo); }
+
+  .lado p.txt {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--ink);
+  }
+  .lado p.txt + p.txt { margin-top: 2px; }
+  .lado p.txt.menor { font-size: 15.5px; }
+  .lado ul {
+    font-family: var(--serif);
+    font-size: 16px;
+    margin: 0;
+    padding-left: 20px;
+    color: var(--ink);
+  }
+  .lado ul li + li { margin-top: 4px; }
+  .lado .nota {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0;
+    font-style: italic;
+  }
+  .lado del { text-decoration: none; background: color-mix(in srgb, var(--atual) 16%, transparent); padding: 0 2px; border-radius: 2px; }
+  .lado ins { text-decoration: none; background: color-mix(in srgb, var(--novo) 16%, transparent); padding: 0 2px; border-radius: 2px; }
+
+  .porque {
+    margin-top: 12px;
+    padding-left: 14px;
+    border-left: 2px solid var(--rule);
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    max-width: 78ch;
+  }
+  .porque p { margin: 0; }
+  .porque p + p { margin-top: 8px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  .chip.cfm     { color: var(--atual); border-color: var(--atual-rule); background: var(--atual-bg); }
+  .chip.busca   { color: var(--novo);  border-color: var(--novo-rule);  background: var(--novo-bg); }
+
+  /* ---------- fecho ---------- */
+
+  .fecho {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .fecho h2 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 20px;
+  }
+  .fecho h3 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 28px 0 10px;
+  }
+  .fecho ul { margin: 0; padding-left: 20px; color: var(--ink-soft); max-width: 74ch; }
+  .fecho li { margin-bottom: 8px; }
+  .fecho li b { color: var(--ink); font-weight: 600; }
+  .fecho p { color: var(--ink-soft); max-width: 74ch; }
+
+  code {
+    font-family: var(--mono);
+    font-size: .88em;
+    background: var(--surface-sunk);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  a:focus-visible, nav.indice a:focus-visible {
+    outline: 2px solid var(--novo);
+    outline-offset: 3px;
+  }
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="kicker">drfelipevillaca.com.br · home · publicado em 19 ago 2026</p>
+  <h1>Revisão de copy da home</h1>
+  <p class="lede">
+    Registro do que mudou no texto da home. <strong>As 17 trocas aprovadas já estão no
+    ar</strong> desde 19 de agosto; as <strong>3 que dependem de decisão de vocês</strong>
+    seguem como estavam e estão marcadas ao longo da página. Qualquer uma pode ser
+    revertida ou reescrita — nada aqui é definitivo.
+  </p>
+  <div class="aviso">
+    <div>
+      <b>Esta foi a segunda rodada.</b> Na primeira saíram dez frases com promessa ou
+      superlativo — “Segurança Máxima”, “um dos mais experientes do Brasil”, “sem riscos
+      desnecessários”. A página seguia lendo igual, porque tirar palavra solta não muda o
+      que o texto promete. Esta rodada trocou a mensagem de cada seção.
+    </div>
+  </div>
+
+  <dl class="resumo">
+    <div>
+      <dt>No ar</dt>
+      <dd>17<small>Trocas publicadas em 8 seções da home</small></dd>
+    </div>
+    <div>
+      <dt>Pendentes</dt>
+      <dd>3<small>Dependem de decisão de vocês, não minha</small></dd>
+    </div>
+    <div>
+      <dt>Conformidade CFM</dt>
+      <dd>13<small>Promessa de resultado ou comparativo de superioridade</small></dd>
+    </div>
+    <div>
+      <dt>Encontrabilidade</dt>
+      <dd>3<small>O texto não usava a palavra que o paciente digita na busca</small></dd>
+    </div>
+  </dl>
+
+  <nav class="indice">
+    <p>Seções</p>
+    <ol>
+      <li><a href="#hero">1. Topo</a></li>
+      <li><a href="#sobre">2. Sobre o Dr.</a></li>
+      <li><a href="#procedimentos">3. Procedimentos</a></li>
+      <li><a href="#diferenciais">4. Diferenciais</a></li>
+      <li><a href="#jornada">5. Jornada</a></li>
+      <li><a href="#resultados">6. Resultados</a></li>
+      <li><a href="#depoimentos">7. Depoimentos</a></li>
+      <li><a href="#faq">8. FAQ e contato</a></li>
+      <li><a href="#fecho">Como seguir</a></li>
+    </ol>
+  </nav>
+</header>
+
+<!-- ============ 1. HERO ============ -->
+<section class="bloco" id="hero">
+  <h2>1. Topo da página</h2>
+  <p class="onde">A primeira tela. Define o que o Google entende que a página é, e o que a pessoa decide em três segundos.</p>
+
+  <div class="par">
+    <h3>Título principal (H1)<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt menor">Cirurgião Plástico em Belo Horizonte · Contorno Corporal de Alta Performance</p>
+        <p class="txt">Onde tecnologia, arte cirúrgica e cuidado humano se encontram.</p>
+        <p class="nota">A sobrelinha é pequena; a frase grande é o slogan.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt menor">Dr. Felipe Villaça · MÉDICO · CRM-MG 48463 · Cirurgia Plástica · RQE 32245</p>
+        <p class="txt">Cirurgião plástico em Belo Horizonte com foco em contorno corporal</p>
+        <p class="nota">O slogan desce para o parágrafo, sem sumir.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip busca">Busca</span><span class="chip">Identificação</span></div>
+      <p>“Onde tecnologia, arte cirúrgica e cuidado humano se encontram” é bonito e não é procurado por ninguém. Quem precisa de um cirurgião plástico em BH digita exatamente isso — e hoje essa frase está na linha pequena, não no título. Trocar não apaga a poesia: ela vira o parágrafo logo abaixo.</p>
+      <p>A identificação médica completa no topo também resolve a exigência de exibi-la com destaque, hoje cumprida só no rodapé.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Parágrafo de abertura<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Felipe Villaça Guimarães é fundador da FVG Cirurgia Plástica e do Hospital São Rafael, em Belo Horizonte. São mais de 15.000 cirurgias e duas décadas dedicadas ao contorno corporal — e à formação de cirurgiões no Brasil e no exterior.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Uma cirurgia plástica começa antes do centro cirúrgico: com avaliação individual, alinhamento de expectativas e um plano compatível com sua anatomia, sua saúde e seus objetivos.</p>
+        <p class="txt">O Dr. Felipe Villaça atende em Belo Horizonte e atua em procedimentos de contorno corporal e mamas, com orientação clara sobre possibilidades, limitações, riscos e recuperação.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip">Posicionamento</span></div>
+      <p>O texto atual abre por credencial. O proposto abre pelo que a pessoa vai receber, e usa a credencial como prova depois. É a diferença entre “ele é grande” e “é assim que você vai ser cuidada” — e a segunda converte melhor sem prometer nada.</p>
+      <p>Os números continuam na página, na faixa logo abaixo. Nada de currículo se perde.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. SOBRE ============ -->
+<section class="bloco" id="sobre">
+  <h2>2. Sobre o Dr. Felipe</h2>
+  <p class="onde">Seção “Quem é o Dr. Felipe Villaça”.</p>
+
+  <div class="par">
+    <h3>Título da seção<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Duas décadas dedicadas à arte do contorno corporal</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Experiência clínica com atenção ao que faz sentido para cada paciente</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip">Posicionamento</span><span class="chip">Validar</span></div>
+      <p>“Duas décadas” é uma afirmação com data: precisa bater com o início comprovado da atividade e envelhece sozinha. O título proposto diz o que diferencia o atendimento em vez de contar tempo.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Citação em destaque<span class="selo aguarda">aguarda o Dr.</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">No ar hoje</p>
+        <p class="txt">“Cada resultado é uma história de coragem. A sua começa agora.”</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">Sugestão</p>
+        <p class="txt">“A consulta existe para entender o que pode ser tratado, o que não pode e o que faz sentido para cada pessoa — inclusive quando a resposta é esperar.”</p>
+        <p class="nota">Frase a ser confirmada com o Dr., ou substituída por outra dele.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>“A sua começa agora” cria urgência para uma decisão cirúrgica, que é exatamente o tipo de pressão que a Resolução 2.336/2023 veda. E “história de coragem” sugere que operar é o caminho corajoso — pesa sobre quem está em dúvida.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. PROCEDIMENTOS ============ -->
+<section class="bloco" id="procedimentos">
+  <h2>3. Procedimentos</h2>
+  <p class="onde">Grade de 8 cards. É a seção mais visitada depois do topo.</p>
+
+  <div class="par">
+    <h3>Título e introdução<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Precisão técnica, desenhada para o seu corpo</p>
+        <p class="txt menor">Cada procedimento é planejado com precisão técnica e personalizado para o seu corpo e objetivo.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">O que você deseja entender ou melhorar?</p>
+        <p class="txt menor">O nome do procedimento nem sempre é o melhor ponto de partida. Na avaliação, o objetivo é compreender sua queixa, examinar as características do corpo e discutir quais possibilidades podem fazer sentido — inclusive quando a melhor decisão é não operar naquele momento.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip busca">Busca</span><span class="chip">Posicionamento</span></div>
+      <p>Hoje a seção organiza por técnica: quem não sabe se precisa de lipoescultura ou abdominoplastia não se reconhece em nenhum card. A pergunta proposta deixa a pessoa entrar pela queixa dela.</p>
+      <p>“Inclusive quando a melhor decisão é não operar” é o que mais separa este site de um catálogo. Contraintuitivamente, é o que mais gera confiança para agendar.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Descrição dos cards — exemplo: lipoescultura<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Definição muscular com tecnologia SAFER Deep Plane.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Lipoaspiração e lipoescultura podem ser consideradas para tratar depósitos de gordura e melhorar proporções corporais em pacientes selecionados. Não são métodos de emagrecimento e os resultados dependem da anatomia, da pele e dos hábitos ao longo do tempo.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span><span class="chip busca">Busca</span></div>
+      <p>Uma linha de sete palavras não informa nem posiciona. A versão longa faz três coisas de uma vez: explica o que é, diz o que <em>não</em> é (“não são métodos de emagrecimento” evita a consulta frustrada) e dá ao Google texto real sobre o tema.</p>
+      <p><b>Os oito cards foram reescritos</b>, não só este. Dois exemplos do que subiu: <em>“O tratamento cirúrgico do lipedema exige diagnóstico, avaliação de sintomas e histórico clínico. Nem toda pessoa com dor ou acúmulo de gordura tem indicação cirúrgica.”</em> e <em>“A abdominoplastia pode tratar excesso de pele, flacidez e alterações da parede abdominal em casos indicados. Extensão da cicatriz e recuperação variam conforme a avaliação.”</em></p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Botão da seção<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Quero saber qual é ideal para mim</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Entender se um procedimento pode ser considerado no meu caso</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>“Qual é ideal para mim” promete que o site responde o que só a consulta responde.</p>
+      <p><b>A mensagem do WhatsApp mudou junto</b>, senão o botão diria uma coisa e o texto que chega na equipe diria outra: “quero descobrir qual procedimento é ideal para mim” virou “quero entender se algum procedimento pode ser considerado no meu caso”. O “vim pelo site” foi mantido — é ele que separa lead orgânico de lead de anúncio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. DIFERENCIAIS ============ -->
+<section class="bloco" id="diferenciais">
+  <h2>4. Diferenciais técnicos</h2>
+  <p class="onde">Quatro cards sobre tecnologia, equipe e formação.</p>
+
+  <div class="par">
+    <h3>Título da seção<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Por que os resultados do Dr. Felipe são diferentes?</p>
+        <p class="txt menor">Não é sorte. É método, tecnologia e anos de aperfeiçoamento.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Planejamento, ambiente adequado e acompanhamento em cada etapa</p>
+        <p class="txt menor">Segurança cirúrgica não depende de uma única tecnologia. Ela envolve indicação adequada, avaliação pré-operatória, equipe habilitada, estrutura compatível com o procedimento, prevenção de riscos e acompanhamento depois da alta.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>“Por que os resultados são diferentes” afirma superioridade sobre outros profissionais — comparativo que a resolução veda. O título proposto entrega a mesma prova sem se comparar a ninguém.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Card de formação<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Dr. Felipe forma e aperfeiçoa cirurgiões do Brasil e do exterior — <del>você está nas mãos de quem ensina os melhores</del>.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Dr. Felipe ministra cursos de aperfeiçoamento para cirurgiões plásticos no Brasil e no exterior.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>Só o trecho final sai. O fato — ele ensina — é forte e fica; “os melhores” classifica colegas e não é comprovável.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. JORNADA ============ -->
+<section class="bloco" id="jornada">
+  <h2>5. Jornada da paciente</h2>
+  <p class="onde">Cinco etapas numeradas, do contato ao pós-operatório.</p>
+
+  <div class="par">
+    <h3>Título e introdução<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt menor">Jornada da <del>Paciente</del></p>
+        <p class="txt">Do primeiro contato à sua transformação</p>
+        <p class="txt menor">Cada etapa foi pensada para que você se sinta <del>segura</del>, informada e cuidada.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt menor">Como funciona</p>
+        <p class="txt">Da primeira conversa ao acompanhamento pós-operatório</p>
+        <p class="txt menor">Cada etapa existe para que você saiba o que esperar, o que depende de avaliação e quando falar com a equipe.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span><span class="chip">Linguagem</span></div>
+      <p>Duas correções em uma. “Sua transformação” promete o desfecho antes da avaliação. E toda a seção está escrita no feminino — “Paciente”, “segura”, “cuidada” — o que exclui os homens que operam com ele e não custa nada corrigir.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Etapa 1 — consulta<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Entendemos seu objetivo, avaliamos seu histórico e <del>desenhamos o procedimento ideal para o seu corpo</del>.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">O médico escuta a queixa, avalia histórico, anatomia e objetivos, e explica possibilidades, riscos, limites e alternativas.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>“Procedimento ideal” aparece três vezes na página (aqui, no FAQ e no botão dos procedimentos). É a construção que mais se repete e a que mais promete: sugere que existe uma resposta certa esperando, quando a consulta pode concluir que nenhuma cirurgia se aplica.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Etapa 5 — desfecho<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt menor">Seu Resultado Final</p>
+        <p class="txt">A transformação que você buscava, com o cuidado que você merece.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt menor">Evolução e retornos</p>
+        <p class="txt">Retornos e orientações ajudam a monitorar a evolução, que varia conforme o procedimento, o organismo e a adesão aos cuidados.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>“A transformação que você buscava” é garantia de resultado escrita em letra grande. Também é factualmente errado como última etapa: a jornada não termina no resultado, termina no acompanhamento — que é justamente o diferencial que o site quer vender.</p>
+      <p><b>Ajuste na aplicação:</b> o título proposto era “Acompanhamento”, mas a etapa 4 já se chama “Acompanhamento Pós-Operatório”. Ficou <b>“Evolução e retornos”</b> para não repetir cabeçalho.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. RESULTADOS ============ -->
+<section class="bloco" id="resultados">
+  <h2>6. Antes e depois</h2>
+  <p class="onde">Galeria com comparador. A nota de conformidade sob a galeria já está correta e não muda.</p>
+
+  <div class="par">
+    <h3>Título e introdução<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Resultados que falam por si</p>
+        <p class="txt menor">Mais de 15.000 histórias de transformação. Veja resultados reais de pacientes reais.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Resultado não começa pela foto: começa pela indicação correta</p>
+        <p class="txt menor">Fotos podem ajudar a explicar possibilidades, mas não garantem que outra pessoa terá a mesma evolução. Anatomia, qualidade da pele, condições de saúde, técnica indicada, cicatrização e cuidados pós-operatórios influenciam o resultado.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>“Resultados que falam por si” diz que a foto dispensa explicação — o oposto do que a apresentação educativa exige. A introdução proposta transforma a galeria de vitrine em material explicativo, que é o formato que a resolução permite.</p>
+      <p>É a mudança de maior risco regulatório da lista, porque incide sobre foto de paciente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. DEPOIMENTOS ============ -->
+<section class="bloco" id="depoimentos">
+  <h2>7. Depoimentos</h2>
+  <p class="onde">Três relatos de pacientes com cinco estrelas.</p>
+
+  <div class="par">
+    <h3>Título da seção<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Mais de 15.000 histórias de transformação</p>
+        <p class="txt menor">Ouça quem passou pela experiência.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">O que pacientes relatam sobre orientação e acompanhamento</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>Além de repetir o número, o título atual promete transformação 15 mil vezes. O proposto direciona o leitor para o que os depoimentos de fato comprovam: como foi ser atendido — não que o resultado se repete.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Primeiro depoimento<span class="selo aguarda">aguarda a equipe</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">No ar hoje</p>
+        <p class="txt">“O Felipe chega num ponto de excelência tão bom, é tão perfeito o que ele faz, que a sua manutenção é mínima. A autoestima e a confiança que você ganha após o procedimento é absurdo!”</p>
+        <p class="nota">Isabela Simões, paciente</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">Decisão da equipe</p>
+        <p class="txt">Substituir por outro relato real e autorizado, entre os que já existem, sobre clareza das explicações ou acompanhamento.</p>
+        <p class="nota">Os outros dois depoimentos da página não têm esse problema e podem ficar como estão.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span><span class="chip">Decisão</span></div>
+      <p><b>Este é o único item que não proponho reescrever.</b> São as palavras autênticas de uma paciente; editá-las para suavizar seria fabricar um depoimento, falta mais grave que a original. As saídas legítimas são remover o trecho ou trocá-lo por outro relato autorizado.</p>
+      <p>O problema é que “é tão perfeito o que ele faz” e “manutenção mínima” funcionam como garantia de resultado — ainda que ditas pela paciente, quem publica responde pelo que publica.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Botão da seção<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Quero ser a próxima história</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Falar com a equipe sobre a consulta</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span><span class="chip">Linguagem</span></div>
+      <p>“A próxima história” encadeia o clique ao resultado dos depoimentos acima — quem clica está sendo convidado a esperar o mesmo desfecho. E “próxima” volta ao feminino.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. FAQ E CONTATO ============ -->
+<section class="bloco" id="faq">
+  <h2>8. FAQ e contato</h2>
+  <p class="onde">Onze perguntas e o formulário. Atenção: o texto do FAQ existe em dois lugares — na página e nos dados estruturados lidos pelo Google. Os dois têm que mudar juntos, ou o Google descarta o bloco inteiro.</p>
+
+  <div class="par">
+    <h3>“Como funciona a consulta?”<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">É uma avaliação personalizada: você conta seu objetivo, o Dr. Felipe avalia seu caso e apresenta o <del>plano cirúrgico ideal</del>, com todas as orientações e etapas.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">A indicação só pode ser definida após consulta, avaliação do histórico de saúde, exame físico e conversa sobre objetivos e expectativas. Em alguns casos, a orientação pode ser adiar a cirurgia ou considerar outra abordagem.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip cfm">CFM</span></div>
+      <p>Terceira aparição de “ideal”. A resposta proposta também é a mais útil para quem ainda não decidiu: dizer que a consulta pode concluir “não opere agora” remove o medo de estar entrando num funil de venda.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>“Quais são os riscos?”<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Toda cirurgia tem riscos, e eles são discutidos com transparência na consulta. O protocolo inclui exames pré-operatórios completos, equipe dedicada e estrutura hospitalar própria para minimizá-los.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Sim, toda cirurgia tem riscos. Tipo e probabilidade variam conforme o procedimento, as condições clínicas, a extensão da cirurgia e outros fatores. Riscos, alternativas e medidas de prevenção são discutidos individualmente na consulta.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip">Clareza</span></div>
+      <p>Ajuste menor: a resposta atual reconhece o risco e emenda com a estrutura que o minimiza, o que soa a tranquilizar. A proposta responde a pergunta antes de apresentar a resposta da clínica.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Prazo de retorno<span class="selo aguarda">aguarda a equipe</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">No ar hoje</p>
+        <p class="txt">Retornaremos em até 24 horas pelo WhatsApp.</p>
+        <p class="nota">Aparece três vezes na página.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">Decisão da equipe</p>
+        <p class="txt">Manter se a equipe sustenta o prazo de fato. Se não sustenta, trocar por: “A equipe retorna pelo WhatsApp para informar horários e orientações da consulta.”</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip">Decisão</span></div>
+      <p>Não é questão regulatória, é de confiança. Prazo publicado e não cumprido é a primeira promessa que o paciente vê quebrar — e ele ainda não foi atendido. Vale medir antes de decidir.</p>
+    </div>
+  </div>
+
+  <div class="par">
+    <h3>Aviso do formulário<span class="selo ok">no ar</span></h3>
+    <div class="lados">
+      <div class="lado hoje">
+        <p class="rot">Antes</p>
+        <p class="txt">Seus dados são protegidos. Retornaremos em até 24 horas pelo WhatsApp.</p>
+      </div>
+      <div class="lado prop">
+        <p class="rot">No ar agora</p>
+        <p class="txt">Não envie exames, fotos ou informações de saúde por este formulário. A equipe orientará o canal adequado quando necessário. Retornaremos em até 24 horas pelo WhatsApp.</p>
+        <p class="nota">A frase do prazo foi mantida de propósito — ela é uma das três decisões pendentes da equipe.</p>
+      </div>
+    </div>
+    <div class="porque">
+      <div class="chips"><span class="chip">Privacidade</span></div>
+      <p>“Seus dados são protegidos” é uma afirmação genérica que não instrui ninguém. O aviso proposto evita o problema real: paciente que manda foto íntima ou exame por um canal não preparado para receber dado de saúde.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FECHO ============ -->
+<div class="fecho" id="fecho">
+  <h2>O que não muda</h2>
+  <p>Para deixar claro o tamanho da intervenção — a estrutura da página, o layout, as fotos, a galeria antes e depois, a nota de conformidade sob ela, os dados do médico, o endereço e os canais de contato ficam exatamente como estão. A proposta é de texto, não de reconstrução.</p>
+
+  <h3>Fora do escopo desta revisão</h3>
+  <ul>
+    <li><b>Os números da faixa de destaque</b> — 15.000 cirurgias, 20 anos, membro da SBCP. Não são copy, são afirmações que precisam de documento comprobatório. Estão registradas na lista de fatos a validar.</li>
+    <li><b>A galeria de resultados</b> — as fotos e a nota de conformidade já foram revisadas e estão adequadas.</li>
+    <li><b>O site antigo</b>, <code>felipevillaca.com</code> — continua no ar com a copy antiga inteira, e nada aqui o alcança. É o mapa de redirecionamento, tratado à parte.</li>
+  </ul>
+
+  <h3>O que falta decidir</h3>
+  <ul>
+    <li><b>O depoimento de Isabela Simões</b> — remover ou trocar por outro relato já autorizado. Não reescrevo: são as palavras dela.</li>
+    <li><b>O prazo de 24 horas</b> — manter se a equipe sustenta. Aparece três vezes na página.</li>
+    <li><b>A citação em destaque</b> — a substituta idealmente é uma frase do próprio Dr., não minha.</li>
+  </ul>
+  <p>Qualquer uma das 17 trocas já publicadas também pode ser revertida ou reescrita. É só apontar qual.</p>
+</div>
+
+</div>
