@@ -236,6 +236,10 @@ JSON-LD                Physician+MedicalBusiness | WebSite | FAQPage
 - [ ] Submeter `sitemap.xml` no Google Search Console — **sem isso nada disso sai
       do lugar**
 - [ ] Testar a home no Rich Results Test; o `FAQPage` é o rich result mais visível
+- [ ] Aplicar os 301 do `felipevillaca.com` no Hostinger — mapa pronto em
+      [MIGRACAO-DOMINIO.md](MIGRACAO-DOMINIO.md). 12 linhas aplicáveis hoje; a
+      de `/remodelamento-gluteo` é urgente (a página legada indica mamas numa
+      página de glúteo)
 - [ ] Decidir o destino do `felipevillaca.com` — nenhum link interno aponta
       mais para lá, mas o domínio segue no ar; falta o 301 servidor a servidor
 - [ ] Decidir o que fazer com o depoimento que contém "perfeito"

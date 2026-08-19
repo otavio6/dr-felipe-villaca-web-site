@@ -1,0 +1,42 @@
+# Redirecionamentos do dominio legado felipevillaca.com
+# Alternativa ao painel: usar so se o dominio sair do Website Builder
+# para uma hospedagem Apache.
+
+RewriteEngine On
+
+# AGORA — Home para home.
+RewriteRule ^/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# AGORA — Mesmo tema.
+RewriteRule ^abdominoplastia/?$ https://drfelipevillaca.com.br/blog/neo-umbigo-abdominoplastia-natural-dr-felipe-villaca/ [R=301,L]
+# AGORA — Unico conteudo novo sobre protese mamaria.
+RewriteRule ^aumento-dos-seios/?$ https://drfelipevillaca.com.br/blog/protese-de-recuperacao-rapida-existe-mesmo-dr-felipe-villaca/ [R=301,L]
+# AGORA — Duplicata: /en serve o mesmo texto em portugues, nao e traducao.
+RewriteRule ^en/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# AGORA — Duplicata: /en serve o mesmo texto em portugues, nao e traducao.
+RewriteRule ^en/na-midia/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# AGORA — Mesmo tema, e o artigo novo tem mais conteudo que a pagina legada (245 palavras).
+RewriteRule ^lipedema/?$ https://drfelipevillaca.com.br/blog/tratamento-do-lipedema-nas-pernas-como-funciona-a-cirurgia/ [R=301,L]
+# AGORA — Contorno corporal e o tema mais proximo publicado hoje.
+RewriteRule ^lipoescultura/?$ https://drfelipevillaca.com.br/blog/cirurgia-de-contorno-corporal-avancado-com-dr-felipe-villaca/ [R=301,L]
+# AGORA — Sem equivalente no dominio novo.
+RewriteRule ^mastopexia/?$ https://drfelipevillaca.com.br/#procedimentos [R=301,L]
+# AGORA — Apenas 60 palavras e a secao "Na Midia" foi retirada da home nova.
+RewriteRule ^na-midia/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# AGORA — PRIORIDADE: a pagina legada indica "mamas flacidas, assimetricas ou pequenas" numa pagina de gluteo - texto de mama colado por engano.
+RewriteRule ^remodelamento-gluteo/?$ https://drfelipevillaca.com.br/#procedimentos [R=301,L]
+# AGORA — Pagina sem H1, sem description e com titulo "Tec" - rascunho publicado por engano.
+RewriteRule ^tec/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# AGORA — Pagina de valores.
+RewriteRule ^valores/?$ https://drfelipevillaca.com.br/#contato [R=301,L]
+# DEPOIS — 525 palavras, artigo institucional.
+RewriteRule ^a-medicina-e-para-os-humanos/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# DEPOIS — Duplicata: /en serve o mesmo texto em portugues, nao e traducao.
+RewriteRule ^en/a-medicina-e-para-os-humanos/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# DEPOIS — Duplicata: /en serve o mesmo texto em portugues, nao e traducao.
+RewriteRule ^en/remodelamento-costal-conheca-a-tecnica-que-ajuda-a-afinar-a-cintura/?$ https://drfelipevillaca.com.br/#procedimentos [R=301,L]
+# DEPOIS — Duplicata: /en serve o mesmo texto em portugues, nao e traducao.
+RewriteRule ^en/terapia-hiperbarica-acelera-cicatrizacoes-de-cirurgias/?$ https://drfelipevillaca.com.br/ [R=301,L]
+# DEPOIS — 616 palavras, a maior pagina do site legado depois dos artigos.
+RewriteRule ^remodelamento-costal-conheca-a-tecnica-que-ajuda-a-afinar-a-cintura/?$ https://drfelipevillaca.com.br/#procedimentos [R=301,L]
+# DEPOIS — 651 palavras.
+RewriteRule ^terapia-hiperbarica-acelera-cicatrizacoes-de-cirurgias/?$ https://drfelipevillaca.com.br/ [R=301,L]
