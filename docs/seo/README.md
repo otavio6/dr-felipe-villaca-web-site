@@ -106,6 +106,90 @@ favor do outro.
 
 ---
 
+## Reescrita de copy da home (2026-08-19)
+
+Segunda rodada sobre o mesmo brief. A primeira removeu dez frases com promessa
+ou superlativo; esta troca a **mensagem de cada seção**, porque a página seguia
+lendo igual — tirar palavra solta não muda o que o texto promete.
+
+Passou por comparativo lado a lado aprovado antes de aplicar. 22 trocas em 8
+seções.
+
+### O que mudou
+
+| Seção | De | Para |
+|---|---|---|
+| **H1** | "Onde tecnologia, arte cirúrgica e cuidado humano se encontram" | "Cirurgião plástico em Belo Horizonte com foco em contorno corporal" |
+| **Sobrelinha do H1** | "Cirurgião Plástico em BH · Contorno Corporal de Alta Performance" | identificação médica completa: nome · MÉDICO · CRM · especialidade · RQE |
+| **Abertura** | credencial primeiro | o que a pessoa recebe primeiro; a credencial vira prova |
+| **Sobre** | "Duas décadas dedicadas à arte do contorno corporal" | "Experiência clínica com atenção ao que faz sentido para cada paciente" |
+| **Procedimentos** | "Precisão técnica, desenhada para o seu corpo" | "O que você deseja entender ou melhorar?" |
+| **Cards** (7 dos 8) | uma linha de vantagem | indicação, limite e o que o procedimento **não** é |
+| **Diferenciais** | "Por que os resultados do Dr. Felipe são diferentes?" | "Planejamento, ambiente adequado e acompanhamento em cada etapa" |
+| **Jornada** | "Do primeiro contato à sua transformação" | "Da primeira conversa ao acompanhamento pós-operatório" |
+| **Jornada, etapa 5** | "A transformação que você buscava, com o cuidado que você merece" | "Retornos e orientações ajudam a monitorar a evolução…" |
+| **Resultados** | "Resultados que falam por si" | "Resultado não começa pela foto: começa pela indicação correta" |
+| **Depoimentos** | "Mais de 15.000 histórias de transformação" | "O que pacientes relatam sobre orientação e acompanhamento" |
+| **FAQ** ×2 | "apresenta o plano cirúrgico ideal" / riscos emendados com a estrutura que os minimiza | resposta direta, com a possibilidade de adiar a cirurgia |
+
+### As três construções que se repetiam
+
+**"Ideal"** aparecia três vezes — botão de procedimentos, etapa 1 da jornada e
+FAQ da consulta. Era a construção mais repetida e a que mais prometia: sugere
+que existe uma resposta certa esperando, quando a consulta pode concluir que
+nenhuma cirurgia se aplica.
+
+**"Transformação"** aparecia em quatro seções, inclusive como última etapa da
+jornada. Além de garantia de resultado, era factualmente errado: a jornada
+termina no acompanhamento, que é o diferencial que o site quer vender.
+
+**O feminino** cobria a seção inteira de jornada — "Jornada da Paciente", "você
+se sinta segura", "cuidada" — e o CTA "Quero ser a próxima história". Excluía os
+homens que operam com ele.
+
+### Mensagens de WhatsApp acompanharam os botões
+
+Dois CTAs mudaram de rótulo, e o texto pré-preenchido mudou junto — senão o
+botão diz uma coisa e a mensagem que chega na equipe diz outra:
+
+- "quero descobrir qual procedimento é ideal para mim" → "quero entender se
+  algum procedimento pode ser considerado no meu caso"
+- "quero ser a próxima história de transformação" → "quero falar com a equipe
+  sobre a consulta"
+
+Ambas mantêm "vim pelo site", que é o que separa lead orgânico de lead de
+anúncio (a `/lp` diz "vim pela página").
+
+### Um desvio do comparativo aprovado
+
+A etapa 5 da jornada foi proposta como "Acompanhamento", mas a etapa 4 já se
+chama "Acompanhamento Pós-Operatório". Ficou **"Evolução e retornos"** — mesma
+ideia, sem dois cabeçalhos iguais seguidos.
+
+### Fora desta rodada, por decisão da equipe
+
+- **O depoimento de Isabela Simões** ("é tão perfeito o que ele faz"). São as
+  palavras autênticas de uma paciente; editá-las seria fabricar depoimento. As
+  saídas são remover ou substituir por outro relato autorizado.
+- **"Retornaremos em até 24 horas"**, 3 vezes visíveis. Manter só se a equipe
+  sustenta o prazo. Prazo publicado e não cumprido é a primeira promessa que o
+  paciente vê quebrar.
+- **A citação em destaque** ("Cada resultado é uma história de coragem. A sua
+  começa agora") — cria urgência para decisão cirúrgica, mas a substituta
+  idealmente é uma frase do próprio Dr.
+
+### Conferido depois de aplicar
+
+```
+FAQPage × FAQ visível     11/11 respostas idênticas
+h1/h2/h3/section/article  contagem inalterada
+"procedimento ideal"      0      "falam por si"            0
+"sua transformação"       0      "são diferentes"          0
+"Jornada da Paciente"     0      "próxima história"        0
+```
+
+---
+
 ## Consolidação de domínio e conformidade editorial (2026-08-18)
 
 Rodada a partir do `REESTRUTURACAO_SEO_ANTIGRAVITY.md`, um brief externo de
