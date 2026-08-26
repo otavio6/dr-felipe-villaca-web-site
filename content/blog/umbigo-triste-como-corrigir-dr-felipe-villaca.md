@@ -1,6 +1,6 @@
 ---
 titulo: Umbigo Triste: Como Corrigir? | Dr. Felipe Villaça
-data: 2026-08-26T17:45:00.000Z
+data: 2026-08-31T15:00:00.000Z
 resumo: Descubra o que causa o aspecto de umbigo triste na barriga e conheça as técnicas cirúrgicas para devolver o contorno jovem ao abdômen.
 capa: /assets/blog/umbigo-triste-como-corrigir-dr-felipe-villaca-mtae0xmc.png
 instagram: https://www.instagram.com/drfelipevillaca/
