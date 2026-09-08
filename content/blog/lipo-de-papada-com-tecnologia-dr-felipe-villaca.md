@@ -1,6 +1,6 @@
 ---
 titulo: Lipo de Papada com Tecnologia | Dr. Felipe Villaça
-data: 2026-09-08T19:47:00.000Z
+data: 2026-09-09T13:00:00.000Z
 resumo: Conheça a lipoaspiração de papada com tecnologia de retração de pele para definir o contorno da mandíbula e eliminar a gordura do pescoço.
 capa: /assets/blog/lipo-de-papada-com-tecnologia-dr-felipe-villaca-mtt33tro.png
 instagram: https://www.instagram.com/drfelipevillaca/
