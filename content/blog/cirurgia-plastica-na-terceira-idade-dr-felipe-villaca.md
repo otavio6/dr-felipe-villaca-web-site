@@ -3,6 +3,7 @@ titulo: Cirurgia Plástica na Terceira Idade | Dr. Felipe Villaça
 data: 2026-09-23T15:30:00.000Z
 resumo: Saiba quais procedimentos de cirurgia plástica são seguros e indicados para manter a jovialidade e a autoestima na maturidade.
 capa: /assets/blog/cirurgia-plastica-na-terceira-idade-dr-felipe-villaca-mtu9bene.png
+instagram: https://www.instagram.com/drfelipevillaca/
 ---
 
 O aumento da expectativa de vida e a busca por um envelhecimento ativo e saudável trouxeram um novo perfil de pacientes para os consultórios de cirurgia plástica. Homens e mulheres acima dos sessenta anos estão mais saudáveis, praticam esportes, mantêm vidas sociais ativas e desejam que a sua aparência no espelho refira a energia e a jovialidade que sentem por dentro.
