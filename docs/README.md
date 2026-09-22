@@ -16,7 +16,7 @@ do blog a partir de arquivos Markdown.
 
 ```
 index.html      site institucional
-lp.html         landing page de tráfego pago (noindex)
+lp.html         landing page de tráfego pago e busca orgânica (/lp)
 links.html      hub de bio, destino do QR do cartão (noindex)
 privacidade.html  política de privacidade (noindex, revisão jurídica pendente)
 404.html        página de erro

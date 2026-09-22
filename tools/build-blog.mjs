@@ -294,6 +294,7 @@ function atualizarSitemap(posts) {
   const hoje = agora.toISOString().slice(0, 10);
   const urls = [
     `  <url>\n    <loc>${SITE}/</loc>\n    <lastmod>${hoje}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>`,
+    `  <url>\n    <loc>${SITE}/lp</loc>\n    <lastmod>${hoje}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
     `  <url>\n    <loc>${SITE}/blog/</loc>\n    <lastmod>${hoje}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
     ...posts.map(p => `  <url>\n    <loc>${SITE}/blog/${p.slug}/</loc>\n    <lastmod>${p.data.toISOString().slice(0, 10)}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`),
   ];
