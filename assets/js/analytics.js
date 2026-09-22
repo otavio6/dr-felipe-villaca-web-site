@@ -163,9 +163,11 @@
     var form = document.getElementById('leadForm');
     if (form) {
       form.addEventListener('submit', function () {
-        var proc = document.getElementById('proc');
+        var investimento = document.getElementById('investimento');
+        var prazo = document.getElementById('prazo');
         enviar('submit_lead', {
-          procedimento: proc ? proc.value : '(nao informado)',
+          investimento: investimento ? investimento.value : '(nao informado)',
+          prazo: prazo ? prazo.value : '(nao informado)',
           pagina: location.pathname
         });
         // Mesma conversao do clique no CTA: o envio do formulario tambem

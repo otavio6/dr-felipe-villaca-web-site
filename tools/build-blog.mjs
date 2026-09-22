@@ -96,6 +96,7 @@ ${CONSENTIMENTO_E_GTM}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#0B0B0C">
+<meta name="author" content="Dr. Felipe Villaça Guimarães">
 <title>${escaparHtml(titulo)}</title>
 <meta name="description" content="${escaparHtml(descricao)}">
 <link rel="canonical" href="${canonical}">
@@ -211,7 +212,7 @@ function paginaLista(posts) {
 
   const cards = posts.map(p => `
     <a class="card" href="/blog/${p.slug}/">
-      ${p.capa ? `<img class="thumb" src="${escaparHtml(p.capa)}" alt="${escaparHtml(p.capaAlt)}" loading="lazy">` : ''}
+      ${p.capa ? `<img class="thumb" src="${escaparHtml(p.capa)}" alt="${escaparHtml(p.capaAlt)}" width="1200" height="750" loading="lazy" decoding="async">` : ''}
       <div class="corpo">
         <span class="data">${dataBR(p.data)}</span>
         <h2>${escaparHtml(p.titulo)}</h2>

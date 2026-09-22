@@ -65,7 +65,13 @@ const server = http.createServer(async (req, res) => {
   }
 
   const requestPath = decodeURIComponent((req.url || '/').split('?')[0]);
-  const relative = requestPath === '/' ? 'index.html' : requestPath.replace(/^\/+/, '');
+  const rewrites = {
+    '/lp': 'lp.html',
+    '/obrigado': 'obrigado.html',
+    '/links': 'links.html',
+    '/privacidade': 'privacidade.html'
+  };
+  const relative = rewrites[requestPath] || (requestPath === '/' ? 'index.html' : requestPath.replace(/^\/+/, ''));
   const file = path.resolve(root, relative);
   if (!file.startsWith(root + path.sep)) {
     send(res, 403, 'Forbidden');

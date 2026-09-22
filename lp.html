@@ -179,6 +179,9 @@ header{position:sticky;top:0;z-index:90;background:rgba(11,11,12,.88);backdrop-f
 .form-copy .ret{display:flex;align-items:center;gap:.8rem;font-size:.8rem;color:#CFC7B4}
 .form-copy .ret svg{width:18px;height:18px;stroke:var(--gold-soft);fill:none;stroke-width:1.5;flex:none}
 form.lead{background:rgba(20,20,22,.75);backdrop-filter:blur(10px);border:1px solid rgba(183,155,105,.22);border-radius:2px;padding:clamp(1.6rem,3vw,2.6rem)}
+form.lead fieldset{border:0;padding:0;margin:0 0 1.5rem}
+form.lead fieldset+fieldset{padding-top:1.35rem;border-top:1px solid rgba(140,115,71,.2)}
+form.lead legend{font-family:var(--serif);font-size:1.45rem;color:var(--ink);margin-bottom:1.1rem;padding:0}
 .f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .f-field{margin-bottom:1rem}
 .f-field label{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#B7B0A2;margin-bottom:.45rem;font-weight:600}
@@ -468,27 +471,48 @@ p{text-wrap:pretty}
       <div class="ret"><svg viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10zM12 6v6l4 2"/></svg> Retornaremos em até 24 horas pelo WhatsApp.</div>
     </div>
     <form class="lead reveal" id="leadForm">
-      <div class="f-row">
-        <div class="f-field"><label for="nome">Nome completo *</label><input id="nome" name="nome" type="text" placeholder="Seu nome" required></div>
-        <div class="f-field"><label for="zap">WhatsApp *</label><input id="zap" name="zap" type="tel" placeholder="(31) 9 0000-0000" required></div>
-      </div>
-      <div class="f-field">
-        <label for="nasc">Data de nascimento *</label>
-        <input id="nasc" name="nasc" type="date" required>
-      </div>
-      <div class="f-field">
-        <label for="proc">Qual procedimento tem interesse?</label>
-        <select id="proc" name="proc">
-          <option>Ainda não sei</option>
-          <option>Lipoescultura HD</option>
-          <option>Remodelamento Glúteo</option>
-          <option>Abdominoplastia</option>
-          <option>Mamoplastia</option>
-          <option>Lipedema</option>
-          <option>Remodelamento Costal</option>
-        </select>
-      </div>
-      <button class="btn btn-gold" type="submit">Quero Agendar Minha Avaliação</button>
+      <fieldset>
+        <legend>Dados de contato</legend>
+        <div class="f-field">
+          <label for="nome">Qual é o seu nome completo? *</label>
+          <input id="nome" name="nome" type="text" placeholder="Digite seu nome e sobrenome." autocomplete="name" required>
+        </div>
+        <div class="f-field">
+          <label for="zap">Qual é o seu WhatsApp com DDD? *</label>
+          <input id="zap" name="zap" type="tel" placeholder="Informe o número pelo qual podemos falar com você." autocomplete="tel" inputmode="tel" required>
+        </div>
+        <div class="f-field">
+          <label for="cidade">Em qual cidade e estado você mora? *</label>
+          <input id="cidade" name="cidade" type="text" placeholder="Exemplo: Belo Horizonte — MG." autocomplete="address-level2" required>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Planejamento da cirurgia</legend>
+        <div class="f-field">
+          <label for="investimento">Quanto você está planejando investir na sua cirurgia? *</label>
+          <select id="investimento" name="investimento" required>
+            <option value="" selected disabled>Selecione uma opção.</option>
+            <option>Menos de R$ 20 mil</option>
+            <option>De R$ 20 mil a menos de R$ 40 mil</option>
+            <option>De R$ 40 mil a menos de R$ 60 mil</option>
+            <option>De R$ 60 mil a menos de R$ 80 mil</option>
+            <option>De R$ 80 mil a R$ 100 mil</option>
+            <option>Acima de R$ 100 mil</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label for="prazo">Quando você gostaria de realizar a sua cirurgia? *</label>
+          <select id="prazo" name="prazo" required>
+            <option value="" selected disabled>Selecione uma opção.</option>
+            <option>O mais breve possível</option>
+            <option>Nos próximos 3 meses</option>
+            <option>Entre 3 e 6 meses</option>
+            <option>Entre 6 e 12 meses</option>
+            <option>Daqui a mais de 1 ano</option>
+          </select>
+        </div>
+      </fieldset>
+      <button class="btn btn-gold" type="submit">Quero agendar minha avaliação</button>
       <p class="microcopy"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Seus dados são protegidos. Retornaremos em até 24 horas pelo WhatsApp.</p>
     </form>
   </div>
@@ -605,17 +629,39 @@ document.querySelectorAll('.faq-item button').forEach(btn=>{
   });
 });
 
-/* Formulário → WhatsApp */
-document.getElementById('leadForm').addEventListener('submit',e=>{
+/* Formulário → CRM → página de obrigado */
+document.getElementById('leadForm').addEventListener('submit',async e=>{
   e.preventDefault();
-  const v=id=>document.getElementById(id).value.trim();
-  const nascBR=v('nasc')?v('nasc').split('-').reverse().join('/'):'';
-  const msg=`Olá! Vim pela página do Dr. Felipe Villaça e quero agendar minha avaliação.%0A%0A`+
-    `*Nome:* ${encodeURIComponent(v('nome'))}%0A`+
-    `*WhatsApp:* ${encodeURIComponent(v('zap'))}%0A`+
-    `*Data de nascimento:* ${encodeURIComponent(nascBR)}%0A`+
-    `*Procedimento de interesse:* ${encodeURIComponent(v('proc'))}`;
-  window.open(`https://wa.me/5531997714488?text=${msg}`,'_blank');
+  const form=e.currentTarget;
+  const nome=form.elements.nome.value.trim().replace(/\s+/g,' ');
+  const zap=form.elements.zap.value.replace(/\D/g,'');
+  const letras=nome.replace(/[^\p{L}]/gu,'');
+  const semAcentos=letras.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  const erroNome=nome.length<5||nome.length>120||nome.split(' ').length<2||!/^[\p{L}]+(?:[ '-][\p{L}]+)*$/u.test(nome)||[...letras].filter(letra=>/[aeiouáéíóúâêôãõàü]/i.test(letra)).length/letras.length<.25||/[bcdfghjklmnpqrstvwxyz]{4,}/i.test(semAcentos);
+  const erroZap=!/^[1-9]\d{9,10}$/.test(zap)||/^(\d)\1+$/.test(zap)||'0123456789'.includes(zap)||'9876543210'.includes(zap);
+  if(erroNome||erroZap){
+    alert(erroNome?'Digite seu nome e sobrenome válidos.':'Digite um WhatsApp válido com DDD.');
+    return;
+  }
+  const button=form.querySelector('button[type="submit"]');
+  const original=button.textContent;
+  button.disabled=true;
+  button.textContent='Enviando...';
+  try{
+    const dados=Object.fromEntries(new FormData(form).entries());
+    const resposta=await fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(dados)});
+    if(!resposta.ok)throw new Error('Falha ao enviar o formulário');
+    window.location.assign('/obrigado');
+  }catch(error){
+    const local=location.hostname==='localhost'||location.hostname==='127.0.0.1';
+    if(local){
+      window.location.assign('/obrigado.html?preview=local');
+      return;
+    }
+    button.disabled=false;
+    button.textContent=original;
+    alert('Não foi possível enviar seus dados agora. Tente novamente ou fale conosco pelo WhatsApp.');
+  }
 });
 
 /* Reveal */

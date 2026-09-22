@@ -21,6 +21,7 @@ window.__fvConsentInit=true;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#0B0B0C">
+<meta name="author" content="Dr. Felipe Villaça Guimarães">
 <title>Dr. Felipe Villaça — Cirurgia de Contorno Corporal de Alta Performance | Belo Horizonte</title>
 <meta name="description" content="Dr. Felipe Villaça: mais de 15.000 cirurgias, fundador da FVG Cirurgia Plástica e do Hospital São Rafael. Especialista em Contorno Corporal de Alta Performance em Belo Horizonte.">
 <link rel="canonical" href="https://drfelipevillaca.com.br/">
@@ -646,7 +647,7 @@ p{text-wrap:pretty}
   <div class="wrap hero-grid">
     <div class="hero-photo reveal">
       <span class="frame"></span>
-      <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=903,fit=crop/A0xVxN8yeVtL78n1/felipe-mnl9lvRVnbCMQ51D.png" alt="Dr. Felipe Villaça, cirurgião plástico">
+      <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=903,fit=crop/A0xVxN8yeVtL78n1/felipe-mnl9lvRVnbCMQ51D.png" alt="Dr. Felipe Villaça, cirurgião plástico" width="768" height="903" fetchpriority="high">
       <div class="badge">
         <span class="num gold-text">15mil+</span>
         <small>cirurgias<br>realizadas</small>
@@ -1203,15 +1204,40 @@ document.querySelectorAll('.faq-item button').forEach(btn=>{
   });
 });
 
-/* ===== Formulário → WhatsApp ===== */
-document.getElementById('leadForm').addEventListener('submit',e=>{
+/* ===== Formulário → DataCrazy → página de obrigado ===== */
+document.getElementById('leadForm').addEventListener('submit',async e=>{
   e.preventDefault();
-  const v=id=>document.getElementById(id).value.trim();
-  const msg=`Olá! Vim pelo site e quero agendar minha consulta com o Dr. Felipe Villaça. Como funciona?%0A%0A`+
-    `*Nome:* ${encodeURIComponent(v('nome'))}%0A`+
-    `*WhatsApp:* ${encodeURIComponent(v('zap'))}%0A`+
-    `*Procedimento de interesse:* ${encodeURIComponent(v('proc'))}`;
-  window.open(`https://wa.me/5531997714488?text=${msg}`,'_blank');
+  const form=e.currentTarget;
+  const nome=form.elements.nome.value.trim().replace(/\s+/g,' ');
+  const zap=form.elements.zap.value.replace(/\D/g,'');
+  const letras=nome.replace(/[^\p{L}]/gu,'');
+  const semAcentos=letras.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  const erroNome=nome.length<5||nome.length>120||nome.split(' ').length<2||!/^[\p{L}]+(?:[ '-][\p{L}]+)*$/u.test(nome)||[...letras].filter(letra=>/[aeiouáéíóúâêôãõàü]/i.test(letra)).length/letras.length<.25||/[bcdfghjklmnpqrstvwxyz]{4,}/i.test(semAcentos);
+  const erroZap=!/^[1-9]\d{9,10}$/.test(zap)||/^(\d)\1+$/.test(zap)||'0123456789'.includes(zap)||'9876543210'.includes(zap);
+  if(erroNome||erroZap){
+    alert(erroNome?'Digite seu nome e sobrenome válidos.':'Digite um WhatsApp válido com DDD.');
+    return;
+  }
+  const button=form.querySelector('button[type="submit"]');
+  const original=button.textContent;
+  button.disabled=true;
+  button.textContent='Enviando...';
+  try{
+    const dados=Object.fromEntries(new FormData(form).entries());
+    dados.pagina=location.pathname;
+    const resposta=await fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(dados)});
+    if(!resposta.ok)throw new Error('Falha ao enviar o formulário');
+    window.location.assign('/obrigado');
+  }catch(error){
+    const local=location.hostname==='localhost'||location.hostname==='127.0.0.1';
+    if(local){
+      window.location.assign('/obrigado.html?preview=local');
+      return;
+    }
+    button.disabled=false;
+    button.textContent=original;
+    alert('Não foi possível enviar seus dados agora. Tente novamente ou fale conosco pelo WhatsApp.');
+  }
 });
 
 /* ===== Reveal on scroll ===== */
