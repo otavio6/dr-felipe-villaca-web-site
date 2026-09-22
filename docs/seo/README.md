@@ -1,6 +1,6 @@
 # SEO
 
-Só a home é indexável. Todo o resto do site carrega `noindex` por decisão.
+A home, a LP `/lp` e o blog são indexáveis. As páginas auxiliares continuam com `noindex` por decisão.
 
 ---
 
@@ -10,7 +10,7 @@ Só a home é indexável. Todo o resto do site carrega `noindex` por decisão.
 |---|---|---|
 | `index.html` | `index,follow,max-image-preview:large` | meta |
 | `blog/` e `blog/<slug>/` | `index,follow,max-image-preview:large` | meta, via gerador |
-| `lp.html` | `noindex` | meta (já vinha assim) |
+| `lp.html` (`/lp`) | `index,follow,max-image-preview:large` | meta e canonical |
 | `links.html` | `noindex,follow` | meta |
 | `privacidade.html` | `noindex,follow` | meta |
 | `404.html` | `noindex,follow` | meta |
@@ -94,9 +94,9 @@ largura.
 
 ## Canibalização entre páginas
 
-`lp.html` é destino de tráfego pago e já vinha com `noindex` — **não** foi
-adicionado canonical apontando para a home: canonical e `noindex` na mesma URL são
-sinais conflitantes. Para LP de tráfego pago, `noindex` sozinho basta.
+`lp.html` atende tráfego pago e busca orgânica. A URL pública `/lp` tem canonical
+próprio e entrou no sitemap; assim, a LP pode aparecer para buscas de cirurgia
+plástica em Belo Horizonte sem transferir sua relevância para a home.
 
 **A questão maior segue aberta:** `felipevillaca.com` é um segundo site ativo do
 mesmo médico, com os artigos de cada procedimento, e este site manda **12 links
@@ -240,9 +240,8 @@ rigor", "Segurança Máxima", "definição máxima, sem riscos desnecessários",
 cintura que você sempre quis", "recuperação acelerada" (3×), "sua transformação",
 "terapia hiperbárica para acelerar a cicatrização".
 
-A `/lp` é `noindex`, então isso não é SEO ali — é o destino do tráfego pago, ou
-seja, publicidade médica no sentido estrito da resolução. As mesmas frases pesam
-**mais** naquela página, não menos.
+A `/lp` também recebe tráfego orgânico. A página tem title, description, canonical,
+Open Graph e conteúdo visível voltado a cirurgia plástica em Belo Horizonte.
 
 Duas dessas frases viviam em dois lugares: no FAQ visível e no `FAQPage` do
 JSON-LD. Foram trocadas juntas. **Conferido depois da edição: as 11 respostas do
@@ -313,8 +312,9 @@ WhatsApp — vale decidir junto com o texto dos outros CTAs.
 /                      200, indexável
 /pagina-inexistente    404 de verdade
 /robots.txt            200, text/plain, aponta o sitemap
-/sitemap.xml           200, application/xml, só a home
-/lp /links             200, noindex
+/sitemap.xml           200, application/xml, home, LP e blog
+/lp                    200, index, canonical /lp
+/links                 200, noindex
 JSON-LD                Physician+MedicalBusiness | WebSite | FAQPage
 ```
 

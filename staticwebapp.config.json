@@ -1,11 +1,13 @@
 {
   "routes": [
     { "route": "/lp", "rewrite": "/lp.html" },
+    { "route": "/obrigado", "rewrite": "/obrigado.html" },
     { "route": "/links", "rewrite": "/links.html" },
     { "route": "/privacidade", "rewrite": "/privacidade.html" },
 
     { "route": "/admin*", "allowedRoles": ["editor", "administrator"], "headers": { "Cache-Control": "no-store" } },
     { "route": "/api/conversao", "methods": ["POST"], "allowedRoles": ["anonymous"] },
+    { "route": "/api/leads", "methods": ["POST"], "allowedRoles": ["anonymous"] },
     { "route": "/api/*", "allowedRoles": ["editor", "administrator"] },
 
     { "route": "/content/*", "statusCode": 404 },
