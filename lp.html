@@ -1170,33 +1170,7 @@
       font-weight: 600
     }
 
-    /* WhatsApp float + barra mobile */
-    .wa-float {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 95;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 26px -10px rgba(140, 115, 71, .45);
-      transition: transform .3s
-    }
-
-    .wa-float:hover {
-      transform: scale(1.08)
-    }
-
-    .wa-float svg {
-      width: 28px;
-      height: 28px;
-      fill: #141005
-    }
-
+    /* Barra mobile */
     .mobile-bar {
       display: none;
       position: fixed;
@@ -1433,10 +1407,6 @@
         display: block
       }
 
-      .wa-float {
-        display: none
-      }
-
       body {
         padding-bottom: 72px
       }
@@ -1467,16 +1437,12 @@
           src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,fit=crop,q=95/A0xVxN8yeVtL78n1/felipe_villaca_completa_textura-dWxbxbZn4lUeVO2L.png"
           alt="Felipe Villaça — Cirurgia Plástica"></span>
       <div class="nav-right">
-        <!-- TODO: trocar pelo link real do Google Business -->
-        <a class="nav-rating"
-          href="https://www.google.com/search?q=Dr.+Felipe+Villa%C3%A7a+cirurgi%C3%A3o+pl%C3%A1stico+Belo+Horizonte+avalia%C3%A7%C3%B5es"
-          target="_blank" rel="noopener" title="Ver avaliações no Google">
+        <span class="nav-rating" title="Avaliações de pacientes">
           <span class="stars">★★★★★ <b style="color:#F4F0E6">4.9</b></span>
           <span>+1.200 avaliações no Google</span>
-        </a>
+        </span>
         <a class="btn btn-gold"
-          href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%20e%20quero%20agendar%20minha%20avalia%C3%A7%C3%A3o."
-          target="_blank" rel="noopener">Agendar Avaliação</a>
+          href="#contato">Agendar Avaliação</a>
       </div>
     </div>
   </header>
@@ -1506,9 +1472,7 @@
           <li>Hospital próprio</li>
         </ul>
         <div class="hero-ctas">
-          <a class="btn btn-gold"
-            href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%20e%20quero%20agendar%20minha%20avalia%C3%A7%C3%A3o."
-            target="_blank" rel="noopener">Quero Minha Avaliação</a>
+          <a class="btn btn-gold" href="#contato">Quero Minha Avaliação</a>
           <a class="btn btn-ghost" href="#resultados">Ver Resultados Reais</a>
         </div>
       </div>
@@ -1558,9 +1522,7 @@
         padronizado para permitir a comparação. Conteúdo de caráter educativo, conforme Resolução CFM nº 2.336/2023.
         Resultados variam de pessoa para pessoa.</p>
       <div class="results-ctas">
-        <a class="btn btn-gold"
-          href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%2C%20vi%20os%20resultados%20e%20quero%20agendar%20minha%20consulta."
-          target="_blank" rel="noopener">Agendar Minha Consulta</a>
+        <a class="btn btn-gold" href="#contato">Agendar Minha Consulta</a>
       </div>
     </div>
   </section>
@@ -1587,9 +1549,7 @@
           <li>Terapia hiperbárica</li>
           <li>Equipe treinada nos protocolos do hospital</li>
         </ul>
-        <a class="btn btn-gold"
-          href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%20e%20quero%20saber%20mais%20sobre%20a%20seguran%C3%A7a%20e%20a%20estrutura%20do%20Hospital%20S%C3%A3o%20Rafael."
-          target="_blank" rel="noopener">Falar com a Equipe</a>
+        <a class="btn btn-gold" href="#contato">Falar com a Equipe</a>
       </div>
     </div>
   </section>
@@ -1605,9 +1565,7 @@
       </div>
       <div class="proc-grid" id="procGrid"></div>
       <div class="proc-ctas">
-        <a class="btn btn-gold"
-          href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%20e%20ainda%20n%C3%A3o%20sei%20qual%20procedimento%20faz%20sentido%20para%20mim.%20Quero%20uma%20avalia%C3%A7%C3%A3o."
-          target="_blank" rel="noopener">Ainda não sei — quero conversar</a>
+        <a class="btn btn-gold" href="#contato">Ainda não sei — quero conversar</a>
       </div>
     </div>
   </section>
@@ -1693,9 +1651,7 @@
         </article>
       </div>
       <div class="testi-cta">
-        <a class="btn btn-gold"
-          href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%20e%20quero%20conversar%20sobre%20uma%20avalia%C3%A7%C3%A3o."
-          target="_blank" rel="noopener">Quero conversar com a equipe</a>
+        <a class="btn btn-gold" href="#contato">Quero conversar com a equipe</a>
       </div>
     </div>
   </section>
@@ -1833,18 +1789,18 @@
 
   <div class="mobile-bar">
     <a class="btn btn-gold"
-      href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%20e%20quero%20agendar%20minha%20avalia%C3%A7%C3%A3o."
-      target="_blank" rel="noopener">Agendar Avaliação pelo WhatsApp</a>
+      href="#contato">Agendar Avaliação</a>
   </div>
 
-  <a class="wa-float"
+  <!-- Flutuante do WhatsApp removido. -->
+  <!-- <a class="wa-float"
     href="https://wa.me/5531997714488?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20do%20Dr.%20Felipe%20Villa%C3%A7a%20e%20quero%20agendar%20minha%20avalia%C3%A7%C3%A3o."
     target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     <svg viewBox="0 0 24 24">
       <path
         d="M12 2A10 10 0 0 0 2 12a9.9 9.9 0 0 0 1.5 5.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1a16 16 0 0 1-1.6-.6 12.6 12.6 0 0 1-4.8-4.3 5.5 5.5 0 0 1-1.1-2.9A3.1 3.1 0 0 1 7.2 7.3a1 1 0 0 1 .8-.4h.6c.2 0 .4 0 .6.5s.8 1.9.8 2-.1.4-.2.5l-.4.6c-.1.2-.3.4-.1.7a8.9 8.9 0 0 0 1.6 2 8 8 0 0 0 2.3 1.4c.3.2.5.1.6-.1l.7-.9c.2-.3.4-.2.7-.1l1.8.8c.3.2.5.2.6.4a2.7 2.7 0 0 1-.1 1.4z" />
     </svg>
-  </a>
+  </a> -->
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -1864,8 +1820,7 @@
     const semAnimacao = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!semAnimacao) document.querySelectorAll('.count').forEach(c => cObs.observe(c));
 
-    /* Procedimentos: cards com CTA direto no WhatsApp */
-    const WA = 'https://wa.me/5531997714488?text=';
+    /* Procedimentos: cards com CTA para o formulário */
     const PROCS = [
       ['Lipoescultura Ultrassônica HD', 'Para quem busca mais definição e contorno, sempre com indicação individual.'],
       ['Remodelamento Glúteo', 'Para equilibrar proporções e valorizar o contorno do corpo com naturalidade.'],
@@ -1879,7 +1834,7 @@
     document.getElementById('procGrid').innerHTML = PROCS.map(([t, d], i) => `
   <article class="proc-card reveal" data-n="${String(i + 1).padStart(2, '0')}">
     <h3>${t}</h3><p>${d}</p>
-    <a href="${WA}${encodeURIComponent('Olá! Vim pela página do Dr. Felipe e quero conversar sobre: ' + t)}" target="_blank" rel="noopener">Conversar sobre este procedimento</a>
+    <a href="#contato">Conversar sobre este procedimento</a>
   </article>`).join('');
 
     /* Galeria antes/depois */
