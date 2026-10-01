@@ -20,6 +20,10 @@ const PRAZOS = [
   'Entre 6 e 12 meses',
   'Daqui a mais de 1 ano'
 ];
+const MODALIDADES_CAMPANHA = ['Presencial em BH', 'Online'];
+const DISPOSICOES_CAMPANHA = ['Sim', 'Não', 'Talvez'];
+const PRAZOS_CAMPANHA = ['Imediatamente', '2 a 4 semanas', '4 a 10 semanas', 'Acima de 10 semanas'];
+const ATRIBUTOS_CAMPANHA = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid', 'wbraid', 'gbraid', 'msclkid', 'ttclid', 'oppref'];
 
 module.exports = async function (context, req) {
   const responder = (status, corpo) => {
@@ -33,6 +37,15 @@ module.exports = async function (context, req) {
   if (dados.investimento && !FAIXAS.includes(dados.investimento) || dados.prazo && !PRAZOS.includes(dados.prazo)) {
     return responder(400, { erro: 'Opção inválida.' });
   }
+  const campanhaPosEmagrecimento = dados.campanha === 'pos-emagrecimento';
+  if (campanhaPosEmagrecimento) {
+    if (typeof dados.cidade !== 'string' || !dados.cidade.trim() || !dados.modalidade || !dados.disposicaoConsulta || !dados.prazoConsulta) {
+      return responder(400, { erro: 'Preencha todos os campos obrigatórios.' });
+    }
+    if (!MODALIDADES_CAMPANHA.includes(dados.modalidade) || !DISPOSICOES_CAMPANHA.includes(dados.disposicaoConsulta) || !PRAZOS_CAMPANHA.includes(dados.prazoConsulta)) {
+      return responder(400, { erro: 'Opção inválida.' });
+    }
+  }
 
   const url = process.env.CRM_WEBHOOK_URL;
   if (!url) {
@@ -43,24 +56,44 @@ module.exports = async function (context, req) {
   const nome = dados.nome.trim().slice(0, 120);
   const whatsapp = dados.zap.trim().slice(0, 40);
   const telefone = whatsapp.replace(/\D/g, '');
+  const cidade = typeof dados.cidade === 'string' ? dados.cidade.trim().slice(0, 120) : undefined;
+  const respostasCampanha = campanhaPosEmagrecimento ? {
+    modalidadeConsulta: dados.modalidade,
+    disposicaoValorConsulta: dados.disposicaoConsulta,
+    prazoConsulta: dados.prazoConsulta
+  } : undefined;
+  const atribuicaoRecebida = campanhaPosEmagrecimento && dados.atribuicao && typeof dados.atribuicao === 'object' && !Array.isArray(dados.atribuicao) ? dados.atribuicao : {};
+  const atribuicao = Object.fromEntries(ATRIBUTOS_CAMPANHA.flatMap((chave) => {
+    const valor = atribuicaoRecebida[chave];
+    return typeof valor === 'string' && valor.trim() ? [[chave, valor.trim().slice(0, 256)]] : [];
+  }));
   const lead = {
     dadosLead: {
       leadName: nome,
       leadPhone: telefone.length === 10 || telefone.length === 11 ? '55' + telefone : telefone,
-      leadCity: typeof dados.cidade === 'string' ? dados.cidade.trim().slice(0, 120) : undefined,
-      leadSource: 'site-felipe-villaca',
+      leadCity: cidade,
+      leadSource: campanhaPosEmagrecimento ? 'campanha-pos-emagrecimento-fvg' : 'site-felipe-villaca',
       leadNotes: [
         dados.proc && `Procedimento: ${dados.proc}`,
         dados.investimento && `Investimento: ${dados.investimento}`,
         dados.prazo && `Prazo: ${dados.prazo}`,
-        dados.cidade && `Cidade/estado: ${dados.cidade}`
+        cidade && `Cidade/estado: ${cidade}`,
+        campanhaPosEmagrecimento && `Campanha: Pós-emagrecimento`,
+        campanhaPosEmagrecimento && `Modalidade da consulta: ${dados.modalidade}`,
+        campanhaPosEmagrecimento && `Disposta a pagar R$950,00 pela consulta: ${dados.disposicaoConsulta}`,
+        campanhaPosEmagrecimento && `Quando pretende fazer a consulta: ${dados.prazoConsulta}`,
+        campanhaPosEmagrecimento && atribuicao.utm_source && `UTM source: ${atribuicao.utm_source}`,
+        campanhaPosEmagrecimento && atribuicao.utm_medium && `UTM medium: ${atribuicao.utm_medium}`,
+        campanhaPosEmagrecimento && atribuicao.utm_campaign && `UTM campaign: ${atribuicao.utm_campaign}`
       ].filter(Boolean).join(' | ')
     },
     dadosEmpresaLead: { nomeEmpresa: 'FVG Cirurgia Plástica' },
     assets: {
-      origem: 'site-felipe-villaca',
+      origem: campanhaPosEmagrecimento ? 'campanha-pos-emagrecimento-fvg' : 'site-felipe-villaca',
       pagina: typeof dados.pagina === 'string' ? dados.pagina.slice(0, 160) : undefined,
-      recebidoEm: new Date().toISOString()
+      recebidoEm: new Date().toISOString(),
+      ...(respostasCampanha ? { respostasCampanha } : {}),
+      ...(Object.keys(atribuicao).length ? { atribuicao } : {})
     }
   };
 

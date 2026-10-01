@@ -67,6 +67,7 @@ const server = http.createServer(async (req, res) => {
   const requestPath = decodeURIComponent((req.url || '/').split('?')[0]);
   const rewrites = {
     '/lp': 'lp.html',
+    '/campanha-excessodepele': 'campanha.html',
     '/obrigado': 'obrigado.html',
     '/links': 'links.html',
     '/privacidade': 'privacidade.html'
