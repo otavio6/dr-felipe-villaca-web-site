@@ -10,13 +10,14 @@
   </script>
   <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PGQZNSJS');</script>
   <script>
-    if (new URLSearchParams(location.search).get('origem') === 'campanha') {
+    const origem = new URLSearchParams(location.search).get('origem');
+    if (origem === 'campanha' || origem === 'campanha-eua') {
       try {
         const pendente = sessionStorage.getItem('fvg-campanha-lead-pendente');
         if (pendente) {
           sessionStorage.removeItem('fvg-campanha-lead-pendente');
           const dados = JSON.parse(pendente);
-          window.dataLayer.push({ event: 'submit_lead', campanha: 'pos-emagrecimento', modalidade: dados.modalidade, pagina: dados.pagina });
+          window.dataLayer.push({ event: 'submit_lead', campanha: origem === 'campanha-eua' ? 'consulta-eua' : 'pos-emagrecimento', modalidade: dados.modalidade, pagina: dados.pagina });
         }
       } catch (erro) { /* A página de obrigado permanece disponível sem armazenamento. */ }
     }
@@ -45,7 +46,7 @@
     <p>Recebemos suas informações. Nossa equipe entrará em contato pelo WhatsApp para agendar sua avaliação.</p>
     <a id="return-link" href="/lp.html">Voltar para a página</a>
   </main>
-  <script>if (new URLSearchParams(location.search).get('origem') === 'campanha') document.getElementById('return-link').href = '/campanha-excessodepele';</script>
+  <script>if (origem === 'campanha') document.getElementById('return-link').href = '/campanha-excessodepele'; if (origem === 'campanha-eua') document.getElementById('return-link').href = '/campanha';</script>
   <script src="/assets/js/analytics.js" charset="utf-8" defer></script>
 </body>
 </html>

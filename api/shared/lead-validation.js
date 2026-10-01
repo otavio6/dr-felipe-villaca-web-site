@@ -24,8 +24,12 @@ function validarTelefone(valor) {
   return '';
 }
 
-function validarLead(dados) {
-  return { nome: validarNome(String(dados.nome || '')), zap: validarTelefone(String(dados.zap || '')) };
+function validarLead(dados, opcoes = {}) {
+  const telefone = String(dados.zap || '').replace(/\D/g, '');
+  const erroTelefone = opcoes.internacional
+    ? (/^1[2-9]\d{9}$/.test(telefone) ? '' : 'Digite um WhatsApp dos EUA válido com código +1 e código de área.')
+    : validarTelefone(String(dados.zap || ''));
+  return { nome: validarNome(String(dados.nome || '')), zap: erroTelefone };
 }
 
 module.exports = { validarLead };

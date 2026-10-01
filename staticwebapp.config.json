@@ -2,6 +2,8 @@
   "routes": [
     { "route": "/lp", "rewrite": "/lp.html" },
     { "route": "/campanha-excessodepele", "rewrite": "/campanha.html" },
+    { "route": "/campanha", "rewrite": "/eua.html" },
+    { "route": "/campanha/", "rewrite": "/eua.html" },
     { "route": "/obrigado", "rewrite": "/obrigado.html" },
     { "route": "/links", "rewrite": "/links.html" },
     { "route": "/privacidade", "rewrite": "/privacidade.html" },
