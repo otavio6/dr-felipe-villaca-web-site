@@ -262,6 +262,8 @@
     .booking-form fieldset { min-width: 0; margin: 0 0 16px; padding: 0; border: 0; }
     .booking-form .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 13px; }
     .booking-form .choices label { display: flex; min-height: 44px; align-items: flex-start; gap: 8px; margin: 0; padding: 11px 12px; border: 1px solid rgba(26,26,28,.13); border-radius: 10px; background: var(--cream); font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 1.45; cursor: pointer; }
+    .booking-form .choices small { display: block; margin-top: 2px; color: #6E675C; font-size: 11px; }
+    .currency-note { margin: -5px 0 16px; color: #6E675C; font-size: 11px; line-height: 1.5; }
     .booking-form .choices label:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 3px; }
     .booking-form .hero-cta:disabled { opacity: .65; cursor: wait; transform: none; }
     .booking-form .choices label:has(input:checked) { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 2px rgba(183,155,105,.12); }
@@ -437,14 +439,14 @@
           <a href="#procedimentos">Procedimentos</a>
           <a href="#resultados">Resultados</a>
           <a href="#faq">Dúvidas</a>
-          <a href="#formulario">Agendamento</a>
+          <a href="#formulario">Solicitar consulta</a>
         </div>
-        <a class="nav-cta" href="#formulario">Agendar Consulta</a>
+        <a class="nav-cta" href="#formulario">Solicitar consulta online</a>
         <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
       </nav>
       <div class="mobile-nav" id="mobile-nav">
-        <a href="#inicio">Início</a><a href="#conversa">A consulta</a><a href="#procedimentos">Procedimentos</a><a href="#resultados">Resultados</a><a href="#faq">Dúvidas</a><a href="#formulario">Agendamento</a>
-        <a class="nav-cta" href="#formulario">Agendar Consulta</a>
+        <a href="#inicio">Início</a><a href="#conversa">A consulta</a><a href="#procedimentos">Procedimentos</a><a href="#resultados">Resultados</a><a href="#faq">Dúvidas</a><a href="#formulario">Solicitar consulta</a>
+        <a class="nav-cta" href="#formulario">Solicitar consulta online</a>
       </div>
   </header>
   <main>
@@ -470,7 +472,7 @@
               <li>Fundador do Hospital São Rafael</li>
             </ul>
             <a class="hero-cta" href="#formulario">
-              Agende agora sua consulta online
+              Solicitar consulta online
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <p class="hero-copyline">Converse sobre o que você deseja melhorar e entenda as possibilidades para o seu caso antes de organizar sua viagem a Belo Horizonte. Conheça os próximos passos da avaliação, do planejamento cirúrgico e da recuperação.</p>
@@ -493,7 +495,7 @@
         </ul>
         <div class="problem-art" data-motion="fade"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=789,fit=crop/A0xVxN8yeVtL78n1/felipe_formulario-dJo4lK2a5aS7wEqk.png" alt="Dr. Felipe Villaça em seu consultório" width="768" height="789" loading="lazy" decoding="async"><div class="problem-art-label"><b>Dr. Felipe Villaça</b>Cirurgia Plástica · Belo Horizonte</div></div>
       </div>
-      <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero me consultar com o Dr. Felipe <span aria-hidden="true">→</span></a></div>
+      <div class="problem-cta"><a class="hero-cta" href="#formulario">Solicitar consulta online <span aria-hidden="true">→</span></a></div>
 
     </section>
     <section class="section section3" id="procedimentos" aria-labelledby="procedimentos-title">
@@ -544,7 +546,7 @@
         <p>Na consulta com o Dr. Felipe Villaça, você apresenta o que deseja melhorar e recebe esclarecimentos sobre <strong>possibilidades, limitações e próximos passos.</strong></p>
         <p>Você não precisa chegar sabendo o nome da técnica. Precisa explicar o que deseja e ser <strong>avaliada individualmente.</strong></p>
       </div>
-      <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero avaliar meu caso com ele <span aria-hidden="true">→</span></a></div>
+      <div class="problem-cta"><a class="hero-cta" href="#formulario">Solicitar consulta online <span aria-hidden="true">→</span></a></div>
     </section>
     <section class="section authority" id="resultados" aria-labelledby="authority-title">
       <div class="authority-grid">
@@ -553,7 +555,6 @@
           <p class="authority-lead">Conheça o médico por trás dos resultados e converse diretamente com ele sobre a cirurgia que você deseja.</p>
           <div class="authority-body">
             <p>Dr. Felipe Villaça é cirurgião plástico, membro da SBCP e atua em procedimentos de contorno corporal e mamas.</p>
-            <p>Sua trajetória reúne mais de 20 anos de experiência e mais de 15 mil cirurgias realizadas, conforme os dados institucionais fornecidos.</p>
             <p>Agora, o próximo passo é falar sobre você: seus objetivos, suas dúvidas e as possibilidades para o seu caso.</p>
           </div>
           <div class="consultation-connection" data-motion="connection" aria-hidden="true">
@@ -568,7 +569,7 @@
       </div>
       <div class="results">
         <div class="results-heading">
-          <h3>Resultados reais, avaliados individualmente</h3>
+          <h3>Resultados de pacientes</h3>
           <p>Arraste o marcador para comparar as imagens. Cada resultado é individual e não representa garantia de resultado para outras pessoas.</p>
         </div>
         <div class="result-grid">
@@ -578,11 +579,11 @@
         </div>
         <p class="results-note">Imagens de pacientes reais. Resultados variam conforme características individuais, indicação, procedimento e recuperação. As imagens não permitem prever o resultado de outra pessoa; a indicação depende de avaliação médica.</p>
       </div>
-      <div class="problem-cta"><a class="hero-cta" href="#formulario">Agende agora sua consulta online <span aria-hidden="true">→</span></a></div>
+      <div class="problem-cta"><a class="hero-cta" href="#formulario">Solicitar consulta online <span aria-hidden="true">→</span></a></div>
     </section>
     <section class="section booking" id="formulario" aria-labelledby="form-title">
       <div class="booking-grid">
-        <div><p class="hero-eyebrow">Agendamento · residentes nos EUA</p><h2 id="form-title">Converse com o <em>Dr. Felipe Villaça</em> sobre o seu caso.</h2><p class="booking-copy">Preencha seus dados para que a equipe entre em contato, confirme as condições de atendimento e organize o agendamento da consulta online.</p></div>
+        <div><p class="hero-eyebrow">Consulta online · residentes nos EUA</p><h2 id="form-title">Converse com o <em>Dr. Felipe Villaça</em> sobre o seu caso.</h2><p class="booking-copy">A consulta particular custa R$ 950,00 (cerca de US$ 190). Preencha seus dados para que a equipe entre em contato, confirme as condições de atendimento e organize o agendamento.</p></div>
         <form class="booking-form" id="lead-form">
           <div class="booking-form-head"><h3>Solicitar <em>consulta online</em></h3><p>Conte à equipe onde você mora e quando pensa em realizar a cirurgia.</p></div>
           <div class="field"><label for="nome">Nome completo</label><input id="nome" name="nome" autocomplete="name" required></div>
@@ -645,11 +646,12 @@
           <fieldset><legend>Quando você gostaria de realizar a cirurgia?</legend><div class="choices">
             <label><input type="radio" name="prazoCirurgia" value="imediatamente" required>Imediatamente</label><label><input type="radio" name="prazoCirurgia" value="3-6-meses">Entre 3 a 6 meses</label><label><input type="radio" name="prazoCirurgia" value="6-12-meses">6 meses a 12 meses</label><label><input type="radio" name="prazoCirurgia" value="acima-12-meses">Acima de 12 meses</label>
           </div></fieldset>
-          <fieldset><legend>Quanto você pretende investir para ter o corpo dos sonhos? (Reais)</legend><div class="choices">
-            <label><input type="radio" name="investimentoEua" value="abaixo-20000" required>Abaixo de R$ 20.000,00</label><label><input type="radio" name="investimentoEua" value="20000-60000">Entre R$ 20.000,00 e R$ 60.000,00</label><label><input type="radio" name="investimentoEua" value="60000-100000">Entre R$ 60.000,00 e R$ 100.000,00</label><label><input type="radio" name="investimentoEua" value="acima-100000">Acima de R$ 100.000,00</label>
+          <fieldset><legend>Qual faixa de investimento você considera para a cirurgia? Valores em reais (BRL).</legend><div class="choices">
+            <label><input type="radio" name="investimentoEua" value="abaixo-20000" required><span>Abaixo de R$ 20.000,00<small>≈ menos de US$ 4.000</small></span></label><label><input type="radio" name="investimentoEua" value="20000-60000"><span>Entre R$ 20.000,00 e R$ 60.000,00<small>≈ US$ 4.000 a US$ 12.000</small></span></label><label><input type="radio" name="investimentoEua" value="60000-100000"><span>Entre R$ 60.000,00 e R$ 100.000,00<small>≈ US$ 12.000 a US$ 20.000</small></span></label><label><input type="radio" name="investimentoEua" value="acima-100000"><span>Acima de R$ 100.000,00<small>≈ mais de US$ 20.000</small></span></label>
           </div></fieldset>
-          <fieldset><legend>Está disposta a investir R$ 950,00 no valor da consulta online com o Dr. Felipe Villaça?</legend><div class="choices"><label><input type="radio" name="disposicaoConsulta" value="sim" required>Sim</label><label><input type="radio" name="disposicaoConsulta" value="nao">Não</label></div></fieldset>
-          <button type="submit" class="hero-cta">Solicitar contato da equipe <span aria-hidden="true">→</span></button>
+          <fieldset><legend>O valor de R$ 950,00 (cerca de US$ 190) para a consulta online faz sentido para você?</legend><div class="choices"><label><input type="radio" name="disposicaoConsulta" value="sim" required>Sim</label><label><input type="radio" name="disposicaoConsulta" value="nao">Não</label></div></fieldset>
+          <p class="currency-note">Referência ilustrativa: US$ 1 ≈ R$ 5,00 (PTAX do Banco Central em 05/10/2026). Os valores informados são em reais; a equivalência em dólares varia com o câmbio e as taxas de pagamento.</p>
+          <button type="submit" class="hero-cta">Solicitar consulta online <span aria-hidden="true">→</span></button>
           <p class="form-privacy">Ao enviar, você concorda com o contato da equipe sobre a consulta. A solicitação não confirma o agendamento. Consulte a <a href="/privacidade">Política de Privacidade</a>.</p>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
@@ -660,13 +662,14 @@
       <div class="faq-list">
         <details class="faq-item"><summary>A consulta será com o próprio Dr. Felipe Villaça?</summary><p>Sim. A consulta anunciada nesta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o primeiro contato e organiza o agendamento.</p></details>
         <details class="faq-item"><summary>Como solicito minha consulta online?</summary><p>Preencha o formulário de qualificação. A equipe entrará em contato pelo WhatsApp para confirmar as condições de atendimento e organizar o agendamento.</p></details>
-        <details class="faq-item"><summary>Qual é o valor da consulta online?</summary><p>O valor informado nesta campanha é R$ 950,00. A equipe confirmará as condições de atendimento antes do agendamento.</p></details>
+        <details class="faq-item"><summary>Qual é o valor da consulta online?</summary><p>O valor informado nesta campanha é R$ 950,00 (cerca de US$ 190 pela referência de R$ 5,00 por dólar). A equivalência em dólares pode variar. A equipe confirmará as condições de atendimento antes do agendamento.</p></details>
         <details class="faq-item"><summary>Preciso saber qual cirurgia quero fazer?</summary><p>Não. Na consulta, explique o que deseja melhorar. O Dr. Felipe Villaça conversará sobre possibilidades, limitações e próximos passos para o seu caso.</p></details>
         <details class="faq-item"><summary>A consulta online confirma que posso fazer a cirurgia?</summary><p>Não. A consulta online permite iniciar a conversa e esclarecer sua decisão, mas não é uma aprovação cirúrgica nem substitui todas as avaliações presenciais necessárias.</p></details>
         <details class="faq-item"><summary>Onde será realizada uma possível cirurgia?</summary><p>O atendimento cirúrgico apresentado nesta campanha é em Belo Horizonte. A possibilidade de operar e o planejamento são definidos após avaliação individual.</p></details>
-        <details class="faq-item"><summary>Quando saberei sobre viagem e recuperação?</summary><p>Na consulta, você poderá conhecer os próximos passos da avaliação, do planejamento cirúrgico e da recuperação. Orientações específicas dependem do seu caso.</p></details>
+        <details class="faq-item"><summary>O que preciso considerar para viajar ao Brasil?</summary><p>Tempo de permanência em Belo Horizonte, necessidade de acompanhante e liberação para o voo de volta dependem do procedimento, da avaliação médica e da recuperação. Leve essas perguntas à consulta antes de comprar as passagens.</p></details>
+        <details class="faq-item"><summary>Quando saberei o custo da cirurgia e como pagar do exterior?</summary><p>O valor da cirurgia depende do plano definido após avaliação. Pergunte à equipe sobre as formas de pagamento disponíveis para residentes nos EUA antes de agendar.</p></details>
       </div>
-      <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero agendar com o Dr. Felipe <span aria-hidden="true">→</span></a></div>
+      <div class="problem-cta"><a class="hero-cta" href="#formulario">Solicitar consulta online <span aria-hidden="true">→</span></a></div>
     </section>
   </main>
   <footer class="footer">
@@ -682,7 +685,7 @@
           <a href="#conversa">A consulta</a>
           <a href="#procedimentos">Procedimentos</a>
           <a href="#resultados">Resultados</a>
-          <a href="#formulario">Agendamento</a>
+          <a href="#formulario">Solicitar consulta</a>
           <a href="#faq">Dúvidas frequentes</a>
         </nav>
         <div class="footer-col">
