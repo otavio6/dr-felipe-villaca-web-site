@@ -36,6 +36,7 @@
     html { scroll-behavior: smooth; }
     body { min-width: 320px; background: var(--green-deep); color: var(--cream); font-family: var(--sans); line-height: 1.65; -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
     .site-header { position: fixed; inset: 0 0 auto; z-index: 100; height: 74px; transition: height .3s ease, background .35s ease, box-shadow .35s ease; }
     .site-header.is-scrolled { height: 52px; background: rgba(251,249,244,.94); box-shadow: 0 1px 0 rgba(26,26,28,.08); backdrop-filter: blur(14px); }
     .nav-wrap { width: min(var(--max), calc(100% - clamp(40px, 10vw, 112px))); height: 74px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; transition: height .3s ease; }
@@ -113,7 +114,7 @@
     h1 { max-width: 690px; margin-bottom: 21px; color: var(--cream); font: 400 clamp(42px, 5.15vw, 70px)/1.04 var(--serif); letter-spacing: -.025em; text-wrap: balance; }
     h1 em { color: var(--gold-hi); font-weight: 400; }
     .hero-sub { max-width: 620px; margin-bottom: 18px; color: rgba(251,249,244,.83); font-size: clamp(16px, 1.65vw, 19px); line-height: 1.65; }
-    .hero-copyline { max-width: 620px; margin-bottom: 27px; color: rgba(251,249,244,.68); font-size: 15px; line-height: 1.7; }
+    .hero-copyline { max-width: 620px; margin: 22px 0 0; color: rgba(251,249,244,.68); font-size: 15px; line-height: 1.7; }
     .hero-credentials { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 30px; padding: 0; list-style: none; }
     .hero-credentials li { display: inline-flex; align-items: center; gap: 9px; padding: 9px 13px; border: 1px solid rgba(183,155,105,.28); border-radius: 999px; background: rgba(251,249,244,.045); color: rgba(251,249,244,.85); font-size: 12px; line-height: 1.4; }
     .hero-credentials li::before { content: ""; width: 6px; height: 6px; flex: 0 0 6px; background: var(--gold); transform: rotate(45deg); }
@@ -133,13 +134,13 @@
       .site-header.is-scrolled .brand img { height:22px; }
       .nav-links, .nav-wrap > .nav-cta { display: none; }
       .nav-toggle { display: flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; }
-      .hero-wrap { width: min(100% - 40px, 560px); padding-block: 38px 54px; }
+      .hero-wrap { width: min(100% - 40px, 560px); padding-block: 28px 54px; }
       .hero-grid { grid-template-columns: 1fr; gap: 26px; }
       .hero-copy { grid-row: 1; }
       .hero-eyebrow { margin-bottom: 15px; font-size: 9px; letter-spacing: .18em; }
-      h1 { max-width: 560px; margin-bottom: 14px; font-size: clamp(39px, 10vw, 56px); }
+      h1 { max-width: 560px; margin-bottom: 14px; font-size: clamp(35px, 9.5vw, 54px); }
       .hero-sub { margin-bottom: 10px; font-size: 15px; }
-      .hero-copyline { margin-bottom: 18px; font-size: 13px; }
+      .hero-copyline { margin-top: 20px; font-size: 13px; }
       .hero-credentials { gap: 7px; margin-bottom: 20px; }
       .hero-credentials li { padding: 7px 10px; font-size: 10px; }
       .hero-cta { width: 100%; min-height: 54px; }
@@ -171,12 +172,10 @@
     .problem-body { position: relative; max-width: 990px; margin: 0 auto 26px; display: grid; grid-template-columns: minmax(0,1.15fr) minmax(250px,.85fr); align-items: center; gap: clamp(32px,7vw,80px); }
     .problem-copy { position: relative; z-index: 1; display: grid; gap: 17px; margin: 0; padding: 0; color: #6E675C; font-size: 15px; line-height: 1.75; list-style: none; }
     .problem-copy li { padding-left: 18px; border-left: 1px solid rgba(140,115,71,.3); }
-    .problem-art { position: relative; min-height: 270px; display: grid; place-items: center; isolation: isolate; }
-    .problem-art::before { content: ""; position: absolute; z-index: -2; inset: 0; background: radial-gradient(ellipse at center, rgba(183,155,105,.21), rgba(183,155,105,.07) 38%, transparent 68%); filter: blur(12px); }
-    .problem-art::after { content: ""; position: absolute; z-index: -1; width: 230px; height: 230px; border: 1px solid rgba(140,115,71,.3); border-radius: 50%; box-shadow: 0 0 0 20px rgba(183,155,105,.035), 0 0 0 44px rgba(183,155,105,.025); }
-    .problem-art img { width: min(92%, 290px); max-height: 310px; object-fit: contain; filter: drop-shadow(0 18px 24px rgba(26,26,28,.2)); }
-    .problem-art-label { position: absolute; bottom: 4px; right: 0; padding: 12px 16px; background: #0B0B0C; color: #FBF9F4; box-shadow: 0 10px 24px rgba(26,26,28,.15); font-size: 10px; letter-spacing: .14em; line-height: 1.5; text-transform: uppercase; }
-    .problem-art-label b { display: block; color: #D6C39A; font: italic 24px/1.1 var(--serif); letter-spacing: 0; text-transform: none; }
+    .problem-art { position: relative; min-width: 0; }
+    .problem-art img { display: block; width: 100%; height: auto; border-radius: 2px; }
+    .problem-art-label { padding: 16px 0 0; color: #6E675C; font-size: 10px; letter-spacing: .14em; line-height: 1.5; text-transform: uppercase; }
+    .problem-art-label b { display: block; color: #8C7347; font: italic 24px/1.1 var(--serif); letter-spacing: 0; text-transform: none; }
     .results { margin-top: 42px; }
     .results-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
     .results-heading h3 { color: #1A1A1C; font: 400 clamp(25px, 3vw, 34px)/1.15 var(--serif); }
@@ -192,8 +191,8 @@
     .result-tag.after-label { right: 12px; }
     .result-divider { position: absolute; z-index: 3; top: 0; bottom: 0; left: var(--pos); width: 2px; background: #FBF9F4; box-shadow: 0 0 0 1px rgba(11,11,12,.2); pointer-events: none; }
     .result-divider::after { content: "↔"; position: absolute; top: 50%; left: 50%; display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid rgba(183,155,105,.7); border-radius: 50%; background: var(--green-deep); color: var(--gold-hi); font-size: 16px; transform: translate(-50%,-50%); }
-    .result-pair input { position: absolute; z-index: 4; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
-    .result-pair input:focus-visible { outline: 3px solid var(--gold); outline-offset: -4px; opacity: .01; }
+    .result-pair input { position: absolute; z-index: 4; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
+    .result-pair:focus-within { outline: 3px solid var(--gold); outline-offset: -4px; }
     .result-range-mobile { display: none; }
     .result-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 14px 15px; }
     .result-meta h4 { color: #1A1A1C; font: 500 18px/1.2 var(--serif); }
@@ -207,17 +206,14 @@
       .problem-lead { margin: 0; font-size: 14px; }
       .problem-body { grid-template-columns: 1fr; gap: 16px; margin-bottom: 23px; }
       .problem-copy { gap: 11px; font-size: 14px; }
-      .problem-art { min-height: 205px; max-height: 230px; }
-      .problem-art img { width: 185px; max-height: 215px; }
-      .problem-art::after { width: 165px; height: 165px; }
-      .problem-art-label { right: 7%; bottom: 0; }
+      .problem-art { width: min(100%, 360px); margin: 16px auto 0; }
       .results-heading { display: block; }
       .results-heading p { margin-top: 8px; }
       .result-grid { display: flex; gap: 14px; margin: 0 -20px; padding: 0 20px 18px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
       .result-card { flex: 0 0 min(84vw, 340px); scroll-snap-align: start; }
       .result-pair { aspect-ratio: 1.14 / 1; }
       .result-pair input { display: none; }
-      .result-range-mobile { display: block; width: calc(100% - 28px); margin: 12px 14px 0; accent-color: var(--gold); cursor: ew-resize; }
+      .result-range-mobile { display: block; width: calc(100% - 28px); min-height: 44px; margin: 4px 14px 0; touch-action: pan-y; accent-color: var(--gold); cursor: ew-resize; }
       .result-meta { padding: 12px 14px; }
       .problem-cta .hero-cta { width: 100%; }
     }
@@ -232,10 +228,12 @@
     .procedure-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1.2rem; margin: 27px 0 clamp(2.2rem,4vw,3.2rem); }
     .procedure-card { position: relative; display: flex; min-height: 295px; flex-direction: column; overflow: hidden; padding: clamp(1.55rem,2.5vw,2.15rem); border: 1px solid rgba(140,115,71,.19); border-radius: 3px; background: #FFFEFB; box-shadow: 0 18px 42px -34px rgba(31,25,17,.34); color: #1A1A1C; transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
     .procedure-card::after { position: absolute; right: -70px; bottom: -100px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle,rgba(183,155,105,.16),transparent 70%); content: ""; pointer-events: none; }
-    .procedure-card:hover { transform: translateY(-10px); border-color: rgba(140,115,71,.55); box-shadow: 0 32px 60px -30px rgba(31,25,17,.36); }
+    @media (hover: hover) and (pointer: fine) {
+      .procedure-card:hover { transform: translateY(-4px); border-color: rgba(140,115,71,.55); box-shadow: 0 24px 48px -32px rgba(31,25,17,.36); }
+    }
     .procedure-card .card-index { color: #8C7347; font-size: .68rem; font-weight: 600; letter-spacing: .18em; }
     .procedure-card svg { width: 118px; height: 118px; margin: 1rem auto .75rem; color: #8C7347; stroke: currentColor; stroke-width: 1.45; fill: none; }
-    .procedure-card h3 { position: relative; z-index: 1; margin: auto 0 0; padding-top: .8rem; border-top: 1px solid rgba(140,115,71,.21); font: 600 clamp(1.55rem,2.2vw,2rem)/1.1 var(--serif); }
+    .procedure-card h3 { position: relative; z-index: 1; margin: auto 0 0; padding-top: .8rem; border-top: 1px solid rgba(140,115,71,.21); font: 600 clamp(1.4rem,2vw,1.8rem)/1.1 var(--serif); }
     .section3-copy { max-width: 760px; color: #6E675C; font-size: 15px; line-height: 1.75; }
     .section3-copy p + p { margin-top: 11px; }
     .section3 .problem-cta { justify-content: flex-start; }
@@ -255,9 +253,11 @@
     .booking-form .field input { width: 100%; min-height: 50px; padding: 15px 16px; border: 1.5px solid rgba(26,26,28,.13); border-radius: 10px; background: var(--cream); color: #1A1A1C; font: 16px var(--sans); transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
     .booking-form .field input:focus { outline: none; border-color: var(--gold); background: #fff; box-shadow: 0 0 0 4px rgba(183,155,105,.18); }
     .booking-form .field input::placeholder { color: rgba(61,56,38,.4); }
-    .booking-form fieldset { margin: 0 0 16px; padding: 0; border: 0; }
+    .booking-form fieldset { min-width: 0; margin: 0 0 16px; padding: 0; border: 0; }
     .booking-form .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 13px; }
-    .booking-form .choices label { display: flex; align-items: flex-start; gap: 8px; margin: 0; padding: 11px 12px; border: 1px solid rgba(26,26,28,.13); border-radius: 10px; background: var(--cream); font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 1.45; cursor: pointer; }
+    .booking-form .choices label { display: flex; min-height: 44px; align-items: flex-start; gap: 8px; margin: 0; padding: 11px 12px; border: 1px solid rgba(26,26,28,.13); border-radius: 10px; background: var(--cream); font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 1.45; cursor: pointer; }
+    .booking-form .choices label:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .booking-form .hero-cta:disabled { opacity: .65; cursor: wait; transform: none; }
     .booking-form .choices label:has(input:checked) { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 2px rgba(183,155,105,.12); }
     .booking-form .choices input { width: 16px; min-height: 16px; height: 16px; margin: 0; flex: 0 0 16px; accent-color: #0B0B0C; }
     .booking-form .hero-cta { width: 100%; margin-top: 10px; border-radius: 12px; font-size: 15px; }
@@ -272,6 +272,8 @@
     .faq-item summary { position: relative; padding: 19px 44px 19px 0; color: #0B0B0C; cursor: pointer; list-style: none; font: 500 20px/1.3 var(--serif); }
     .faq-item summary::-webkit-details-marker { display:none; }
     .faq-item summary::after { content: "+"; position: absolute; right: 5px; top: 50%; color: #8C7347; font: 300 25px/1 var(--sans); transform: translateY(-50%); }
+    .faq-item[open] summary { color: #8C7347; }
+    .faq-item[open] p { animation: motion-fade .22s ease; }
     .faq-item[open] summary::after { content: "−"; }
     .faq-item p { padding: 0 36px 18px 0; color: #6E675C; font-size: 14px; line-height: 1.7; }
     .footer { background: var(--green-deep); color: rgba(251,249,244,.6); padding: clamp(48px,7vw,72px) 0 30px; }
@@ -284,15 +286,54 @@
     .footer-col a { display: block; padding: 5px 0; color: rgba(251,249,244,.6); font-size: 14px; text-decoration: none; transition: color .2s ease; }
     .footer-col a:hover { color: var(--gold-hi); }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 24px; color: rgba(251,249,244,.34); font-size: 12.5px; }
-    .reveal-pending { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
-    .reveal-pending.is-visible { opacity: 1; transform: none; }
-    .procedure-card.reveal-pending.is-visible:hover { transform: translateY(-10px); }
-    .procedure-card.reveal-pending:nth-child(2) { transition-delay: .07s; }
-    .procedure-card.reveal-pending:nth-child(3) { transition-delay: .14s; }
-    .procedure-card.reveal-pending:nth-child(4) { transition-delay: .21s; }
+    /* Entrances enhance visible content; no hidden state depends on JavaScript. */
+    .hero-copy { animation: hero-copy-enter .7s ease backwards; }
+    .hero-portrait { animation: hero-portrait-enter .75s .08s ease backwards; }
+    [data-motion="soft"].is-visible { animation: motion-soft .55s ease backwards; }
+    [data-motion="fade"].is-visible { animation: motion-fade .6s ease backwards; }
+    [data-motion="card"].is-visible { animation: motion-card .56s var(--motion-delay, 0ms) ease backwards; }
+    @keyframes hero-copy-enter { from { opacity: .65; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @keyframes hero-portrait-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @keyframes motion-soft { from { opacity: .3; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @keyframes motion-fade { from { opacity: .3; } to { opacity: 1; } }
+    @keyframes motion-card { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .authority { background: var(--green-2); }
+    .authority-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: clamp(36px, 6vw, 80px); }
+    .authority h2 { margin-bottom: 22px; font: 500 clamp(36px, 4.4vw, 56px)/1.08 var(--serif); letter-spacing: -.02em; }
+    .authority h2 em { color: var(--gold-hi); }
+    .authority-lead { color: rgba(251,249,244,.85); font-size: 17px; line-height: 1.7; }
+    .authority-body { margin-top: 26px; color: rgba(251,249,244,.68); font-size: 15px; line-height: 1.8; }
+    .authority-body p + p { margin-top: 16px; }
+    .authority-portrait { width: min(100%, 440px); justify-self: center; }
+    .authority-doctor { display: block; width: 100%; height: auto; border-radius: 2px; }
+    .authority-portrait figcaption { padding-top: 24px; }
+    .authority-portrait figcaption img { display: block; width: min(230px, 80%); height: auto; margin: auto; }
+    .authority .results { margin-top: clamp(48px, 7vw, 80px); padding-top: 32px; border-top: 1px solid rgba(183,155,105,.24); }
+    .authority .results-heading h3 { color: var(--cream); }
+    .authority .results-heading p, .authority .results-note { color: rgba(251,249,244,.65); }
+    .consultation-connection { width: min(100%, 400px); margin-top: 32px; }
+    .connection-labels { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--gold-hi); font-size: 10px; }
+    .connection-track { position: relative; height: 8px; margin-top: 12px; overflow: hidden; }
+    .connection-track::before, .connection-track::after { content: ""; position: absolute; top: 1px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+    .connection-track::before { left: 0; }
+    .connection-track::after { right: 0; }
+    .connection-line { position: absolute; top: 3px; left: 3px; right: 3px; height: 1px; background: var(--gold); opacity: .4; transform-origin: left; }
+    .connection-pulse { position: absolute; inset: 0; opacity: 0; }
+    .connection-pulse::before { content: ""; position: absolute; top: 1px; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--gold-hi); }
+    .consultation-connection.is-visible .connection-line { animation: connection-draw 1.5s ease backwards; }
+    .consultation-connection.is-visible .connection-pulse { animation: connection-travel 1.5s ease backwards; }
+    @keyframes connection-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes connection-travel { 0% { opacity: 0; transform: translateX(0); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translateX(calc(100% - 6px)); } }
     section[id] { scroll-margin-top: 82px; }
     @media(max-width:760px) {
-      .booking-grid { grid-template-columns:1fr; }
+      .booking-grid { grid-template-columns:1fr; gap: 24px; }
+      .booking-form { padding: 24px 20px; }
+      .authority-grid { grid-template-columns: 1fr; gap: 32px; }
+      .authority-portrait { width: min(80%, 340px); }
+      .authority h2 { font-size: clamp(34px, 9vw, 46px); }
+      .authority-lead { font-size: 15px; }
+      .authority-body { font-size: 14px; }
+      .consultation-connection { width: 100%; }
       .booking-copy { font-size:14px; }
       .procedure-grid { display: flex; gap: 1rem; margin-right: -20px; padding: 0 20px 18px 0; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
       .procedure-grid::-webkit-scrollbar { display: none; }
@@ -306,7 +347,12 @@
       .footer-top { grid-template-columns: 1fr; gap: 30px; }
       .footer-bottom { flex-direction: column; text-align: center; }
     }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal-pending { opacity: 1; transform: none; } *, *::before, *::after { transition-duration: .01ms !important; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      [data-motion], .hero-copy, .hero-portrait { opacity: 1; transform: none; }
+      .procedure-card:hover { transform: none; }
+    }
 
     /* Cabeçalho e botões alinhados ao site oficial. */
     .topbar { padding: .55rem 1rem; border-bottom: 1px solid rgba(183,155,105,.18); background: #0B0B0C; color: #CFC7B4; font-size: .72rem; letter-spacing: .14em; text-align: center; text-transform: uppercase; }
@@ -322,10 +368,10 @@
     .nav-links a, .site-header.is-scrolled .nav-links a { padding: .3rem 0; color: #D8D2C4; font-size: .72rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
     .nav-links a::after { bottom: 0; height: 1px; }
     .nav-links a:hover, .site-header.is-scrolled .nav-links a:hover { color: var(--gold-hi); }
-    .nav-cta, .mobile-nav .nav-cta, .hero-cta { border: 1px solid transparent; border-radius: 2px; background: var(--gold); box-shadow: 0 8px 22px -12px rgba(140,115,71,.35); color: #14100A; font-family: var(--sans); font-size: .82rem; font-weight: 600; letter-spacing: .14em; line-height: 1.5; text-transform: uppercase; transition: background .25s ease, transform .25s ease, box-shadow .25s ease; }
+    .nav-cta, .mobile-nav .nav-cta, .hero-cta { border: 1px solid transparent; border-radius: 2px; background: var(--gold); box-shadow: 0 8px 22px -12px rgba(140,115,71,.35); color: #14100A; font-family: var(--sans); font-size: .82rem; font-weight: 600; letter-spacing: .045em; line-height: 1.5; text-transform: uppercase; transition: background .25s ease, transform .25s ease, box-shadow .25s ease; }
     .nav-cta:hover, .mobile-nav .nav-cta:hover, .hero-cta:hover { background: var(--gold-hi); transform: translateY(-2px); box-shadow: 0 12px 26px -12px rgba(140,115,71,.45); }
     .nav-cta { min-height: 44px; padding: .8rem 1.5rem; font-size: .72rem; white-space: nowrap; }
-    .hero-cta { min-height: 54px; padding: 1rem 1.5rem; }
+    .hero-cta { min-height: 56px; padding: .65rem 1.2rem; font-size: .86rem; }
     .nav-toggle { border-radius: 2px; }
     .site-header.is-scrolled .nav-toggle span { background: var(--gold-hi); }
     .nav-overlay { display: none; }
@@ -346,6 +392,13 @@
     .footer-logo { max-width: 230px; height: auto; }
     .footer-col p { color: rgba(251,249,244,.6); font-size: 13px; line-height: 1.6; }
     .form-privacy a { color: var(--gold); text-decoration: underline; }
+    @media (min-width: 1025px) and (max-width: 1200px) {
+      .nav-wrap, .site-header.is-scrolled .nav-wrap { gap: 16px; }
+      .brand img, .site-header.is-scrolled .brand img { max-width: 190px; }
+      .nav-links { gap: 12px; }
+      .nav-links a, .site-header.is-scrolled .nav-links a { font-size: .68rem; letter-spacing: .07em; }
+      .nav-cta { padding-inline: 1rem; }
+    }
     @media (max-width: 1024px) {
       .nav-links, .nav-wrap > .nav-cta { display: none; }
       .nav-toggle { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
@@ -405,7 +458,6 @@
             <p class="hero-eyebrow">Consulta online · campanha para residentes nos EUA</p>
             <h1 id="hero-title">Mora nos EUA? Planeje sua cirurgia no Brasil com o <em>Dr. Felipe Villaça.</em></h1>
             <p class="hero-sub">Comece com uma consulta online com o próprio Dr. Felipe Villaça, cirurgião plástico com foco em contorno corporal e mais de 15 mil cirurgias realizadas.</p>
-            <p class="hero-copyline">Converse sobre o que você deseja melhorar e entenda as possibilidades para o seu caso antes de organizar sua viagem a Belo Horizonte. Conheça os próximos passos da avaliação, do planejamento cirúrgico e da recuperação.</p>
             <ul class="hero-credentials" aria-label="Credenciais do Dr. Felipe Villaça">
               <li>+15.000 cirurgias realizadas</li>
               <li>Membro da SBCP</li>
@@ -415,38 +467,28 @@
               Agende agora sua consulta online
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
+            <p class="hero-copyline">Converse sobre o que você deseja melhorar e entenda as possibilidades para o seu caso antes de organizar sua viagem a Belo Horizonte. Conheça os próximos passos da avaliação, do planejamento cirúrgico e da recuperação.</p>
             <p class="hero-note">Consulta particular com o Dr. Felipe Villaça</p>
           </div>
         </div>
       </div>
     </section>
     <section class="section problem" id="conversa" aria-labelledby="problem-title">
-      <div class="problem-head">
+      <div class="problem-head" data-motion="soft">
         <p class="section-eyebrow">Seu próximo passo</p>
         <h2 id="problem-title">Você já sabe o que quer mudar no seu corpo. <em>Agora, converse com quem pode realizar sua cirurgia.</em></h2>
         <p class="problem-lead"><strong>Abdômen, cintura, contorno corporal ou mamas:</strong> apresente seus objetivos diretamente ao <strong>Dr. Felipe Villaça.</strong></p>
       </div>
       <div class="problem-body">
-        <ul class="problem-copy">
+        <ul class="problem-copy" data-motion="soft">
           <li>Você olha para o seu corpo e <strong>sabe o que gostaria de melhorar.</strong> Já pesquisou procedimentos, acompanhou resultados e continua pensando na sua cirurgia.</li>
           <li>O próximo passo não é continuar apenas olhando fotos. É <strong>conversar com o Dr. Felipe Villaça sobre o seu caso.</strong></li>
           <li>Na consulta online, você explica o que deseja, esclarece suas dúvidas e entende <strong>quais possibilidades podem fazer sentido</strong> para realizar sua cirurgia com ele no Brasil.</li>
         </ul>
-        <div class="problem-art" aria-hidden="true"><img src="/assets/social/Retrato%20de%20cirurgi%C3%A3o%20em%20azul-marinho.png" alt=""><div class="problem-art-label"><b>Dr. Felipe Villaça</b>Cirurgia Plástica · Belo Horizonte</div></div>
+        <div class="problem-art" data-motion="fade"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=789,fit=crop/A0xVxN8yeVtL78n1/felipe_formulario-dJo4lK2a5aS7wEqk.png" alt="Dr. Felipe Villaça em seu consultório" width="768" height="789" loading="lazy" decoding="async"><div class="problem-art-label"><b>Dr. Felipe Villaça</b>Cirurgia Plástica · Belo Horizonte</div></div>
       </div>
       <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero me consultar com o Dr. Felipe <span aria-hidden="true">→</span></a></div>
-      <div class="results" id="resultados">
-        <div class="results-heading">
-          <h3>Resultados reais, avaliados individualmente</h3>
-          <p>Arraste o marcador para comparar as imagens. Cada resultado é individual e não representa garantia de resultado para outras pessoas.</p>
-        </div>
-        <div class="result-grid">
-          <article class="result-card"><div class="result-pair" style="--pos:50%"><img class="before" src="/assets/img/resultados/lipedema-antes.webp" alt="Antes de cirurgia para lipedema" loading="lazy"><img class="after" src="/assets/img/resultados/lipedema-depois.webp" alt="Depois de cirurgia para lipedema" loading="lazy"><span class="result-tag before-label">Antes</span><span class="result-tag after-label">Depois</span><span class="result-divider"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar resultado de lipedema"></div><div class="result-meta"><h4>Lipedema</h4><span>Contorno corporal</span></div></article>
-          <article class="result-card"><div class="result-pair" style="--pos:50%"><img class="before" src="/assets/img/resultados/abdominoplastia-antes.webp" alt="Antes de abdominoplastia" loading="lazy"><img class="after" src="/assets/img/resultados/abdominoplastia-depois.webp" alt="Depois de abdominoplastia" loading="lazy"><span class="result-tag before-label">Antes</span><span class="result-tag after-label">Depois</span><span class="result-divider"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar resultado de abdominoplastia"></div><div class="result-meta"><h4>Abdominoplastia</h4><span>Contorno corporal</span></div></article>
-          <article class="result-card"><div class="result-pair" style="--pos:50%"><img class="before" src="/assets/img/resultados/mamoplastia-antes.webp" alt="Antes de cirurgia das mamas" loading="lazy"><img class="after" src="/assets/img/resultados/mamoplastia-depois.webp" alt="Depois de cirurgia das mamas" loading="lazy"><span class="result-tag before-label">Antes</span><span class="result-tag after-label">Depois</span><span class="result-divider"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar resultado de mamoplastia"></div><div class="result-meta"><h4>Mamoplastia</h4><span>Mamas</span></div></article>
-        </div>
-        <p class="results-note">Imagens de pacientes reais. Resultados variam conforme características individuais, indicação, procedimento e recuperação. As imagens não permitem prever o resultado de outra pessoa; a indicação depende de avaliação médica.</p>
-      </div>
+
     </section>
     <section class="section section3" id="procedimentos" aria-labelledby="procedimentos-title">
       <div class="section3-head">
@@ -455,7 +497,7 @@
         <p class="section3-lead">A escolha do procedimento começa pelos seus objetivos e pela <strong>avaliação do médico.</strong></p>
       </div>
       <div class="procedure-grid" role="region" aria-label="Áreas de interesse" tabindex="0">
-        <article class="procedure-card">
+        <article class="procedure-card" data-motion="card" style="--motion-delay:210ms" data-motion="card" style="--motion-delay:140ms" data-motion="card" style="--motion-delay:70ms" data-motion="card" style="--motion-delay:0ms">
           <span class="card-index">01</span>
           <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
             <path d="M43 13c-5 12-17 17-20 31-4 15 5 33 10 55m44-86c5 12 17 17 20 31 4 15-5 33-10 55M43 13c10 5 24 5 34 0M33 99c15 7 39 7 54 0"/>
@@ -498,6 +540,53 @@
       </div>
       <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero avaliar meu caso com ele <span aria-hidden="true">→</span></a></div>
     </section>
+    <section class="section authority" id="resultados" aria-labelledby="authority-title">
+      <div class="authority-grid">
+        <div class="authority-copy">
+          <h2 id="authority-title">Mais de 15 mil cirurgias realizadas. Sua consulta é com o próprio <em>Dr. Felipe Villaça.</em></h2>
+          <p class="authority-lead">Conheça o médico por trás dos resultados e converse diretamente com ele sobre a cirurgia que você deseja.</p>
+          <div class="authority-body">
+            <p>Dr. Felipe Villaça é cirurgião plástico, membro da SBCP e atua em procedimentos de contorno corporal e mamas.</p>
+            <p>Sua trajetória reúne mais de 20 anos de experiência e mais de 15 mil cirurgias realizadas, conforme os dados institucionais fornecidos.</p>
+            <p>Agora, o próximo passo é falar sobre você: seus objetivos, suas dúvidas e as possibilidades para o seu caso.</p>
+          </div>
+          <div class="consultation-connection" data-motion="connection" aria-hidden="true">
+            <div class="connection-labels"><span>EUA</span><span>Consulta online</span><span>Belo Horizonte</span></div>
+            <div class="connection-track"><span class="connection-line"></span><span class="connection-pulse"></span></div>
+          </div>
+        </div>
+        <figure class="authority-portrait" data-motion="fade">
+          <img class="authority-doctor" src="/assets/social/Retrato%20de%20cirurgi%C3%A3o%20em%20azul-marinho.png" alt="Dr. Felipe Villaça, cirurgião plástico" width="1156" height="1364" loading="lazy" decoding="async">
+          <figcaption><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,fit=crop,q=95/A0xVxN8yeVtL78n1/felipe_villaca_completa_textura-dWxbxbZn4lUeVO2L.png" alt="Dr. Felipe Villaça — FVG" width="230" loading="lazy" decoding="async"></figcaption>
+        </figure>
+      </div>
+      <div class="results">
+        <div class="results-heading">
+          <h3>Resultados reais, avaliados individualmente</h3>
+          <p>Arraste o marcador para comparar as imagens. Cada resultado é individual e não representa garantia de resultado para outras pessoas.</p>
+        </div>
+        <div class="result-grid">
+          <article class="result-card"><div class="result-pair" style="--pos:50%"><img class="before" src="/assets/img/resultados/lipedema-antes.webp" alt="Antes de cirurgia para lipedema" loading="lazy"><img class="after" src="/assets/img/resultados/lipedema-depois.webp" alt="Depois de cirurgia para lipedema" loading="lazy"><span class="result-tag before-label">Antes</span><span class="result-tag after-label">Depois</span><span class="result-divider" aria-hidden="true"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar resultado de lipedema"></div><div class="result-meta"><h4>Lipedema</h4><span>Contorno corporal</span></div></article>
+          <article class="result-card"><div class="result-pair" style="--pos:50%"><img class="before" src="/assets/img/resultados/abdominoplastia-antes.webp" alt="Antes de abdominoplastia" loading="lazy"><img class="after" src="/assets/img/resultados/abdominoplastia-depois.webp" alt="Depois de abdominoplastia" loading="lazy"><span class="result-tag before-label">Antes</span><span class="result-tag after-label">Depois</span><span class="result-divider" aria-hidden="true"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar resultado de abdominoplastia"></div><div class="result-meta"><h4>Abdominoplastia</h4><span>Contorno corporal</span></div></article>
+          <article class="result-card"><div class="result-pair" style="--pos:50%"><img class="before" src="/assets/img/resultados/mamoplastia-antes.webp" alt="Antes de cirurgia das mamas" loading="lazy"><img class="after" src="/assets/img/resultados/mamoplastia-depois.webp" alt="Depois de cirurgia das mamas" loading="lazy"><span class="result-tag before-label">Antes</span><span class="result-tag after-label">Depois</span><span class="result-divider" aria-hidden="true"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar resultado de mamoplastia"></div><div class="result-meta"><h4>Mamoplastia</h4><span>Mamas</span></div></article>
+        </div>
+        <p class="results-note">Imagens de pacientes reais. Resultados variam conforme características individuais, indicação, procedimento e recuperação. As imagens não permitem prever o resultado de outra pessoa; a indicação depende de avaliação médica.</p>
+      </div>
+      <div class="problem-cta"><a class="hero-cta" href="#formulario">Agende agora sua consulta online <span aria-hidden="true">→</span></a></div>
+    </section>
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="problem-head"><p class="section-eyebrow">Dúvidas sobre o agendamento</p><h2 class="faq-title" id="faq-title">Pronto para conversar com o Dr. Felipe Villaça?</h2><p class="faq-intro">Confira como solicitar sua consulta e dar o próximo passo.</p></div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>A consulta será com o próprio Dr. Felipe Villaça?</summary><p>Sim. A consulta anunciada nesta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o primeiro contato e organiza o agendamento.</p></details>
+        <details class="faq-item"><summary>Como solicito minha consulta online?</summary><p>Preencha o formulário de qualificação. A equipe entrará em contato pelo WhatsApp para confirmar as condições de atendimento e organizar o agendamento.</p></details>
+        <details class="faq-item"><summary>Qual é o valor da consulta online?</summary><p>O valor informado nesta campanha é R$ 950,00. A equipe confirmará as condições de atendimento antes do agendamento.</p></details>
+        <details class="faq-item"><summary>Preciso saber qual cirurgia quero fazer?</summary><p>Não. Na consulta, explique o que deseja melhorar. O Dr. Felipe Villaça conversará sobre possibilidades, limitações e próximos passos para o seu caso.</p></details>
+        <details class="faq-item"><summary>A consulta online confirma que posso fazer a cirurgia?</summary><p>Não. A consulta online permite iniciar a conversa e esclarecer sua decisão, mas não é uma aprovação cirúrgica nem substitui todas as avaliações presenciais necessárias.</p></details>
+        <details class="faq-item"><summary>Onde será realizada uma possível cirurgia?</summary><p>O atendimento cirúrgico apresentado nesta campanha é em Belo Horizonte. A possibilidade de operar e o planejamento são definidos após avaliação individual.</p></details>
+        <details class="faq-item"><summary>Quando saberei sobre viagem e recuperação?</summary><p>Na consulta, você poderá conhecer os próximos passos da avaliação, do planejamento cirúrgico e da recuperação. Orientações específicas dependem do seu caso.</p></details>
+      </div>
+      <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero agendar com o Dr. Felipe <span aria-hidden="true">→</span></a></div>
+    </section>
     <section class="section booking" id="formulario" aria-labelledby="form-title">
       <div class="booking-grid">
         <div><p class="hero-eyebrow">Agendamento · residentes nos EUA</p><h2 id="form-title">Converse com o <em>Dr. Felipe Villaça</em> sobre o seu caso.</h2><p class="booking-copy">Preencha seus dados para que a equipe entre em contato, confirme as condições de atendimento e organize o agendamento da consulta online.</p></div>
@@ -518,19 +607,6 @@
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
-    </section>
-    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
-      <div class="problem-head"><p class="section-eyebrow">Dúvidas sobre o agendamento</p><h2 class="faq-title" id="faq-title">Pronto para conversar com o Dr. Felipe Villaça?</h2><p class="faq-intro">Confira como solicitar sua consulta e dar o próximo passo.</p></div>
-      <div class="faq-list">
-        <details class="faq-item"><summary>A consulta será com o próprio Dr. Felipe Villaça?</summary><p>Sim. A consulta anunciada nesta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o primeiro contato e organiza o agendamento.</p></details>
-        <details class="faq-item"><summary>Como solicito minha consulta online?</summary><p>Preencha o formulário de qualificação. A equipe entrará em contato pelo WhatsApp para confirmar as condições de atendimento e organizar o agendamento.</p></details>
-        <details class="faq-item"><summary>Qual é o valor da consulta online?</summary><p>O valor informado nesta campanha é R$ 950,00. A equipe confirmará as condições de atendimento antes do agendamento.</p></details>
-        <details class="faq-item"><summary>Preciso saber qual cirurgia quero fazer?</summary><p>Não. Na consulta, explique o que deseja melhorar. O Dr. Felipe Villaça conversará sobre possibilidades, limitações e próximos passos para o seu caso.</p></details>
-        <details class="faq-item"><summary>A consulta online confirma que posso fazer a cirurgia?</summary><p>Não. A consulta online permite iniciar a conversa e esclarecer sua decisão, mas não é uma aprovação cirúrgica nem substitui todas as avaliações presenciais necessárias.</p></details>
-        <details class="faq-item"><summary>Onde será realizada uma possível cirurgia?</summary><p>O atendimento cirúrgico apresentado nesta campanha é em Belo Horizonte. A possibilidade de operar e o planejamento são definidos após avaliação individual.</p></details>
-        <details class="faq-item"><summary>Quando saberei sobre viagem e recuperação?</summary><p>Na consulta, você poderá conhecer os próximos passos da avaliação, do planejamento cirúrgico e da recuperação. Orientações específicas dependem do seu caso.</p></details>
-      </div>
-      <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero agendar com o Dr. Felipe <span aria-hidden="true">→</span></a></div>
     </section>
   </main>
   <footer class="footer">
@@ -647,19 +723,15 @@
     document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') { setMenu(false); menuButton.focus(); } });
     document.querySelectorAll('.faq-item').forEach(function (item) { item.addEventListener('toggle', function () { if (!item.open) return; document.querySelectorAll('.faq-item[open]').forEach(function (other) { if (other !== item) other.open = false; }); }); });
     if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var revealItems = document.querySelectorAll('.problem-head, .problem-body, .results-heading, .result-card, .section3-head, .procedure-card, .section3-copy, .booking-grid, .faq-section .problem-head, .faq-item');
-      var revealObserver = new IntersectionObserver(function (entries) {
+      var motionItems = document.querySelectorAll('[data-motion]');
+      var motionObserver = new IntersectionObserver(function (entries, observer) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            revealObserver.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
         });
-      }, { threshold: .08, rootMargin: '0px 0px -30px 0px' });
-      revealItems.forEach(function (item) {
-        item.classList.add('reveal-pending');
-        revealObserver.observe(item);
-      });
+      }, { threshold: .08 });
+      motionItems.forEach(function (item) { motionObserver.observe(item); });
     }
   </script>
 </body>

@@ -8,7 +8,6 @@
     gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
     try { if (localStorage.getItem('fv-consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }) } catch (e) { }
     window.__fvConsentInit = true;
-    document.documentElement.classList.add('js-motion');
   </script>
   <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PGQZNSJS');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,11 +47,18 @@
     a { color: inherit; text-decoration: none; }
     .wrap { width: min(1180px, 92%); margin: 0 auto; }
     section[id] { scroll-margin-top: 5rem; }
-    .js-motion .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
-    .js-motion .reveal.in { opacity: 1; transform: none; }
-    .js-motion .hero-photo { animation: campaign-enter .7s ease both; }
-    .js-motion .hero-copy { animation: campaign-enter .7s .12s ease both; }
-    @keyframes campaign-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    /* Content stays visible without JavaScript; the observer only starts entrances. */
+    .motion-soft.in { animation: motion-soft .55s ease both; }
+    .motion-fade.in { animation: motion-fade .6s ease both; }
+    .motion-card.in { animation: motion-card .56s ease both; animation-delay: var(--motion-delay, 0ms); }
+    .hero-photo { animation: hero-photo-enter .7s ease both; }
+    .hero-copy { animation: hero-copy-enter .65s .08s ease backwards; }
+    @keyframes motion-soft { from { opacity: .25; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @keyframes motion-fade { from { opacity: .25; } to { opacity: 1; } }
+    @keyframes motion-card { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @keyframes hero-photo-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @keyframes hero-copy-enter { from { opacity: .65; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 
     .campaign-hero {
       position: relative;
@@ -76,8 +82,7 @@
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(183, 155, 105, .16);
     }
-    .campaign-nav { display: flex; align-items: center; gap: 1.6rem; }
-    .campaign-header .wrap { display: flex; align-items: center; justify-content: space-between; }
+    .campaign-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; }
     .brand-signature { display: block; flex: none; width: min(230px, 27vw); }
     .brand-signature img { width: 100%; height: auto; }
     .campaign-links { display: flex; align-items: center; gap: clamp(.8rem, 2vw, 1.7rem); }
@@ -132,6 +137,7 @@
       border: 1px solid var(--line);
       border-radius: 2px;
       pointer-events: none;
+      transition: border-color .25s ease;
     }
     .hero-photo > img {
       width: 100%;
@@ -197,7 +203,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: .6rem 1.15rem;
-      margin: 0 0 2.2rem;
+      margin: 0;
       padding: 0;
       list-style: none;
     }
@@ -220,18 +226,18 @@
     }
     .hero-cta {
       display: inline-flex;
-      min-height: 54px;
+      min-height: 56px;
       align-items: center;
       justify-content: center;
-      padding: 1rem 1.5rem;
+      padding: .45rem 1rem;
       border: 1px solid var(--gold);
       border-radius: 2px;
       background: var(--gold);
       box-shadow: 0 8px 22px -12px rgba(140, 115, 71, .35);
       color: #14100A;
-      font-size: .76rem;
+      font-size: .86rem;
       font-weight: 600;
-      letter-spacing: .1em;
+      letter-spacing: .035em;
       line-height: 1.5;
       text-align: center;
       text-transform: uppercase;
@@ -240,6 +246,8 @@
     .hero-cta:hover { border-color: var(--gold-soft); background: var(--gold-soft); }
     .hero-cta:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 4px; }
 
+    .hero-copy > .hero-cta { margin-bottom: 1.6rem; }
+    .header-cta { min-height: 44px; padding: .65rem 1rem; font-size: .74rem; white-space: nowrap; }
     .problem-section {
       padding: clamp(4rem, 8vw, 6.5rem) 0;
       background: var(--black);
@@ -276,7 +284,9 @@
     .problem-copy-text strong { color: var(--gold-soft); font-weight: 600; }
     .problem-cta-wrap { display: grid; justify-items: start; gap: .65rem; }
     .problem-cta-wrap small { color: #B7B0A2; font-size: .78rem; }
-    .problem-showcase { min-width: 0; }
+    .problem-portrait { min-width: 0; }
+    .problem-portrait img { width: 100%; height: auto; border-radius: 2px; }
+    .results-comparison { width: min(100%, 660px); margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); }
     .case-comparison {
       position: relative;
       overflow: hidden;
@@ -308,8 +318,8 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 34px;
-      height: 34px;
+      width: 44px;
+      height: 44px;
       transform: translate(-50%, -50%);
       border: 1px solid var(--gold-soft);
       border-radius: 50%;
@@ -343,6 +353,7 @@
       margin: 0;
       opacity: 0;
       cursor: ew-resize;
+      touch-action: pan-y;
     }
     .case-comparison:focus-within { outline: 2px solid var(--gold-soft); outline-offset: 4px; }
     .case-caption {
@@ -409,10 +420,13 @@
       content: "";
       pointer-events: none;
     }
-    .region-card:hover {
-      transform: translateY(-10px);
-      border-color: rgba(140, 115, 71, .55);
-      box-shadow: 0 32px 60px -30px rgba(31, 25, 17, .36);
+    @media (hover: hover) and (pointer: fine) {
+      .hero-photo:hover .frame { border-color: var(--gold); }
+      .region-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(140, 115, 71, .55);
+        box-shadow: 0 24px 48px -32px rgba(31, 25, 17, .36);
+      }
     }
     .region-card .card-index {
       color: var(--gold-deep);
@@ -472,7 +486,7 @@
       border: 1px solid rgba(183, 155, 105, .3);
       background: #0B0B0C;
     }
-    .result-photo-card img { width: 100%; height: auto; aspect-ratio: 1.46; object-fit: cover; }
+    .result-photo-card img { width: 100%; height: auto; aspect-ratio: 1.46; object-fit: cover; transition: transform .35s ease; }
     .result-photo-card figcaption {
       padding: .8rem 1rem;
       color: #D0C9BB;
@@ -497,6 +511,12 @@
       color: var(--ink);
       box-shadow: 0 25px 55px -40px rgba(0, 0, 0, .8);
     }
+    @media (hover: hover) and (pointer: fine) {
+      .result-photo-card:hover img { transform: scale(1.015); }
+      .testimonial-card:hover { border-color: var(--gold); }
+      .choice-group label:hover span { border-color: var(--gold-deep); }
+    }
+    .testimonial-card { transition: border-color .25s ease; }
     .testimonial-stars { color: var(--gold-deep); font-size: .85rem; letter-spacing: .16em; }
     .testimonial-card blockquote {
       flex: 1;
@@ -553,6 +573,8 @@
       font-size: 1.5rem;
       font-weight: 300;
     }
+    .faq-item[open] summary { color: var(--gold-deep); }
+    .faq-item[open] p { animation: motion-fade .16s ease; }
     .faq-item[open] summary::after { content: '−'; }
     .faq-item summary:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
     .faq-item p { max-width: 800px; margin: 0; padding: 0 2rem 1.5rem 0; color: #5F584E; font-size: .94rem; line-height: 1.8; }
@@ -566,18 +588,18 @@
     .form-panel form { display: grid; gap: 1.3rem; }
     .form-field { display: grid; gap: .55rem; }
     .form-field label, .form-field legend { color: var(--ink); font-size: .78rem; font-weight: 600; line-height: 1.5; }
-    .form-field input { width: 100%; min-height: 50px; padding: .8rem 1rem; border: 1px solid #CFC7B8; border-radius: 2px; background: #fff; color: var(--ink); font: .9rem var(--sans); }
+    .form-field input { width: 100%; min-height: 50px; padding: .8rem 1rem; border: 1px solid #CFC7B8; border-radius: 2px; background: #fff; color: var(--ink); font: 1rem var(--sans); }
     .form-field input:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
-    .form-field fieldset { margin: 0; padding: 0; border: 0; }
+    .form-field fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
     .form-field legend { margin-bottom: .7rem; }
     .choice-group { display: flex; flex-wrap: wrap; gap: .55rem; }
     .choice-group label { position: relative; cursor: pointer; }
-    .choice-group input { position: absolute; width: 1px; height: 1px; opacity: 0; }
-    .choice-group span { display: inline-flex; min-height: 42px; align-items: center; padding: .55rem .85rem; border: 1px solid #CFC7B8; border-radius: 2px; background: #fff; color: #514B43; font-size: .72rem; line-height: 1.3; }
+    .choice-group input { position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; opacity: 0; }
+    .choice-group span { display: inline-flex; min-height: 44px; align-items: center; padding: .55rem .85rem; border: 1px solid #CFC7B8; border-radius: 2px; background: #fff; color: #514B43; font-size: .72rem; line-height: 1.3; }
     .choice-group input:checked + span { border-color: var(--gold-deep); background: #F4EBDD; color: var(--ink); }
     .choice-group input:focus-visible + span { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
     .form-panel .hero-cta { width: 100%; cursor: pointer; }
-    .form-panel .hero-cta:disabled { opacity: .65; cursor: wait; }
+    .form-panel .hero-cta:disabled { opacity: .65; cursor: wait; background: var(--gold); border-color: var(--gold); }
     .form-status { min-height: 1.2em; margin: 0; color: #9E342C; font-size: .8rem; line-height: 1.5; }
 
     .campaign-footer { padding: 4.5rem 0 2rem; border-top: 1px solid rgba(183, 155, 105, .16); background: var(--black); color: #A8A192; }
@@ -595,7 +617,7 @@
     @media (max-width: 1024px) {
       .campaign-header .wrap { flex-wrap: wrap; }
       .brand-signature { width: min(210px, 58vw); }
-      .campaign-links { display: none; }
+      .campaign-links, .campaign-header > .wrap > .header-cta { display: none; }
       .menu-toggle { display: block; margin-left: auto; }
       .mobile-links.open {
         display: grid;
@@ -611,6 +633,7 @@
         letter-spacing: .1em;
         text-transform: uppercase;
       }
+      .mobile-links .header-cta { margin-top: .5rem; padding: .75rem 1rem; color: var(--black); border: 1px solid var(--gold); letter-spacing: .035em; }
       .testimonial-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .result-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .result-photo-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - .5rem); justify-self: center; }
@@ -619,19 +642,20 @@
     }
     @media (max-width: 760px) {
       .campaign-header { padding: .85rem 0; }
-      .hero-grid { grid-template-columns: 1fr; gap: 2.4rem; padding-top: 2.4rem; }
-      .hero-photo { width: min(460px, 88%); margin: 0 auto; }
+      .hero-grid { grid-template-columns: 1fr; gap: 2.4rem; padding-top: 1.6rem; }
+      .hero-copy { grid-row: 1; }
+      .hero-photo { grid-row: 2; width: min(460px, 88%); margin: 0 auto; }
       .hero-photo .frame { inset: -10px 10px 10px -10px; }
       .hero-photo .badge { right: -9px; bottom: 18px; }
-      .hero-copy h1 { font-size: clamp(2.45rem, 10vw, 3.5rem); }
-      .hero-sub { font-size: .98rem; }
-      .cred { gap: .7rem 1rem; margin-bottom: 1.7rem; }
+      .hero-copy h1 { font-size: clamp(2.15rem, 9.3vw, 3.5rem); }
+      .hero-sub { font-size: .95rem; line-height: 1.6; }
+      .cred { gap: .7rem 1rem; margin-bottom: 0; }
       .cred li { font-size: .66rem; }
-      .hero-cta { width: 100%; }
+      .hero-cta { width: 100%; padding-inline: .7rem; font-size: .84rem; }
       .problem-grid { grid-template-columns: 1fr; gap: 2.4rem; }
       .problem-copy h2 { font-size: clamp(2.45rem, 9vw, 3.4rem); }
       .problem-cta-wrap { justify-items: stretch; }
-      .region-grid, .result-photo-grid, .testimonial-grid {
+      .region-grid, .testimonial-grid {
         display: flex;
         gap: 1rem;
         overflow-x: auto;
@@ -642,13 +666,15 @@
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
       }
-      .region-grid::-webkit-scrollbar, .result-photo-grid::-webkit-scrollbar, .testimonial-grid::-webkit-scrollbar { display: none; }
-      .region-card, .result-photo-card, .testimonial-card {
+      .region-grid::-webkit-scrollbar, .testimonial-grid::-webkit-scrollbar { display: none; }
+      .region-card, .testimonial-card {
         flex: 0 0 min(80vw, 390px);
         scroll-snap-align: start;
       }
-      .result-photo-card:last-child:nth-child(odd) { grid-column: auto; width: auto; }
+      .result-photo-grid { grid-template-columns: 1fr; }
+      .result-photo-card:last-child:nth-child(odd) { grid-column: auto; width: 100%; }
       .final-grid { grid-template-columns: 1fr; }
+      .form-panel { grid-row: 1; padding: 1.25rem; }
       .final-doctor { min-height: 0; aspect-ratio: 4 / 4.2; }
       .final-cta-wrap .hero-cta { width: 100%; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -659,11 +685,9 @@
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-      .js-motion .reveal { opacity: 1; transform: none; }
-    }
-    @media (hover: none) {
-      .region-card:hover { transform: none; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .motion-soft, .motion-fade, .motion-card, .hero-copy, .hero-photo { opacity: 1 !important; transform: none !important; }
+      .region-card:hover, .result-photo-card:hover img { transform: none; }
     }
   </style>
 </head>
@@ -683,6 +707,7 @@
           <a href="#resultados">Resultados</a>
           <a href="#duvidas">Dúvidas</a>
         </nav>
+        <a class="hero-cta header-cta" href="#formulario">Agendar consulta</a>
         <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-links">☰</button>
         <nav class="mobile-links" id="mobile-links" aria-label="Navegação da campanha em dispositivos móveis">
           <a href="#inicio">Início</a>
@@ -690,6 +715,7 @@
           <a href="#possibilidades">Possibilidades</a>
           <a href="#resultados">Resultados</a>
           <a href="#duvidas">Dúvidas</a>
+          <a class="hero-cta header-cta" href="#formulario">Agendar consulta</a>
         </nav>
       </div>
     </header>
@@ -708,6 +734,7 @@
         <div class="hero-copy">
           <h1 id="hero-title">Emagreceu com Mounjaro ou após a bariátrica e ficou com <span class="gold-text">excesso de pele?</span></h1>
           <p class="hero-sub">Converse com o Dr. Felipe Villaça sobre as possibilidades para tratar a flacidez e melhorar o contorno corporal. Agende sua consulta online ou presencial em Belo Horizonte</p>
+          <a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a>
           <div class="hero-copy-text">
             <p>O peso diminuiu, mas a pele no abdômen, nas mamas ou em outras regiões ainda incomoda?</p>
             <p><strong>Dê o próximo passo para avaliar sua cirurgia com o Dr. Felipe Villaça.</strong> Converse diretamente com ele sobre o que você deseja melhorar e esclareça suas dúvidas.</p>
@@ -717,14 +744,13 @@
             <li>+20 anos de experiência</li>
             <li>Membro da SBCP</li>
           </ul>
-          <a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a>
         </div>
       </div>
     </section>
 
     <section class="problem-section" id="problema" aria-labelledby="problem-title">
       <div class="wrap problem-grid">
-        <div class="problem-copy reveal">
+        <div class="problem-copy motion-soft">
           <h2 id="problem-title">Você perdeu peso, mas ainda escolhe a roupa pensando em <span class="gold-text">esconder a pele que sobrou?</span></h2>
           <p class="problem-sub">A barriga flácida, a pele acumulada ou a mudança no formato das mamas podem continuar incomodando mesmo depois do emagrecimento.</p>
           <div class="problem-copy-text">
@@ -737,29 +763,22 @@
             <small>Consulta online ou presencial em Belo Horizonte.</small>
           </div>
         </div>
-        <div class="problem-showcase reveal">
-          <div class="case-comparison" style="--split:50%">
-            <picture><source srcset="assets/img/resultados/abdominoplastia-depois.webp" type="image/webp"><img src="assets/img/resultados/abdominoplastia-depois.jpg" alt="Depois — caso real de abdominoplastia" loading="lazy" decoding="async"></picture>
-            <picture><source srcset="assets/img/resultados/abdominoplastia-antes.webp" type="image/webp"><img class="case-before" src="assets/img/resultados/abdominoplastia-antes.jpg" alt="Antes — caso real de abdominoplastia" loading="lazy" decoding="async"></picture>
-            <span class="case-tag before">Antes</span><span class="case-tag after">Depois</span>
-            <span class="case-divider" aria-hidden="true"></span>
-            <input type="range" min="0" max="100" value="50" autocomplete="off" aria-label="Comparar antes e depois — caso real de abdominoplastia">
-          </div>
-          <p class="case-caption">Abdominoplastia · Caso real</p>
+        <div class="problem-portrait motion-fade">
+            <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=789,fit=crop/A0xVxN8yeVtL78n1/felipe_formulario-dJo4lK2a5aS7wEqk.png" alt="Dr. Felipe Villaça em seu consultório" width="768" height="789" loading="lazy" decoding="async">
         </div>
       </div>
     </section>
 
     <section class="solution-section" id="possibilidades" aria-labelledby="solution-title">
       <div class="wrap">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <h2 id="solution-title">Conheça as possibilidades de cirurgia para tratar o <span class="gold-text">excesso de pele após emagrecer.</span></h2>
           <p>A consulta com o Dr. Felipe Villaça é o momento de entender o que pode ser feito no seu caso.</p>
         </div>
-        <p class="solution-intro reveal">Cirurgias de contorno corporal podem remover excesso de pele e melhorar o formato das regiões tratadas, conforme a indicação individual.</p>
+        <p class="solution-intro">Cirurgias de contorno corporal podem remover excesso de pele e melhorar o formato das regiões tratadas, conforme a indicação individual.</p>
 
-        <div class="region-grid reveal" role="region" aria-label="Regiões que podem ser avaliadas" tabindex="0">
-          <article class="region-card">
+        <div class="region-grid" role="region" aria-label="Regiões que podem ser avaliadas" tabindex="0">
+          <article class="region-card motion-card" style="--motion-delay:0ms">
             <span class="card-index">01</span>
             <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
               <path d="M39 13c-3 12-9 19-11 34-2 17 6 26 7 43m46-77c3 12 9 19 11 34 2 17-6 26-7 43M39 13c13 6 29 6 42 0M35 90c13 9 37 9 50 0"/>
@@ -768,7 +787,7 @@
             </svg>
             <h3>Abdômen</h3>
           </article>
-          <article class="region-card">
+          <article class="region-card motion-card" style="--motion-delay:70ms">
             <span class="card-index">02</span>
             <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
               <path d="M22 35c13-4 21-10 24-20m52 20c-13-4-21-10-24-20M46 15c8 5 20 5 28 0M22 35c5 17 5 38 9 64m67-64c-5 17-5 38-9 64"/>
@@ -777,7 +796,7 @@
             </svg>
             <h3>Mamas</h3>
           </article>
-          <article class="region-card">
+          <article class="region-card motion-card" style="--motion-delay:140ms">
             <span class="card-index">03</span>
             <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
               <path d="M46 12c-9 10-21 11-26 27l11 9 6-7 4 25-7 39m40-93c9 10 21 11 26 27l-11 9-6-7-4 25 7 39M46 12c8 5 20 5 28 0M41 66c10 5 28 5 38 0M34 105h52"/>
@@ -787,40 +806,51 @@
           </article>
         </div>
 
-        <div class="solution-close reveal">
+        <div class="solution-close">
           <p><strong>Você não precisa escolher sozinha uma técnica.</strong></p>
           <p>Explique o que deseja melhorar e converse com o Dr. Felipe sobre as possibilidades, as cicatrizes, a recuperação e os limites de cada procedimento</p>
         </div>
-        <a class="hero-cta reveal" href="#formulario">Quero avaliar meu caso com o Dr. Felipe</a>
+        <a class="hero-cta" href="#formulario">Quero avaliar meu caso com o Dr. Felipe</a>
         <p class="cta-note">Escolha entre consulta online e presencial.</p>
       </div>
     </section>
 
     <section class="results-section" id="resultados" aria-labelledby="results-title">
       <div class="wrap">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <h2 id="results-title">Veja resultados e ouça quem já fez a cirurgia com o <span class="gold-text">Dr. Felipe Villaça.</span></h2>
           <p>Conheça experiências reais de pacientes e entenda melhor o trabalho do médico que você está considerando escolher.</p>
         </div>
-        <p class="results-lead reveal">Veja os resultados apresentados e acompanhe relatos sobre a consulta, a recuperação e a experiência com a cirurgia.</p>
+        <p class="results-lead">Veja os resultados apresentados e acompanhe relatos sobre a consulta, a recuperação e a experiência com a cirurgia.</p>
 
-        <div class="result-photo-grid reveal" role="region" aria-label="Resultados de cirurgias do Dr. Felipe Villaça" tabindex="0">
-          <figure class="result-photo-card">
+        <div class="results-comparison">
+          <div class="case-comparison" style="--split:50%">
+            <picture><source srcset="assets/img/resultados/abdominoplastia-depois.webp" type="image/webp"><img src="assets/img/resultados/abdominoplastia-depois.jpg" alt="Depois — caso real de abdominoplastia" loading="lazy" decoding="async"></picture>
+            <picture><source srcset="assets/img/resultados/abdominoplastia-antes.webp" type="image/webp"><img class="case-before" src="assets/img/resultados/abdominoplastia-antes.jpg" alt="Antes — caso real de abdominoplastia" loading="lazy" decoding="async"></picture>
+            <span class="case-tag before">Antes</span><span class="case-tag after">Depois</span>
+            <span class="case-divider" aria-hidden="true"></span>
+            <input type="range" min="0" max="100" value="50" autocomplete="off" aria-label="Comparar antes e depois — caso real de abdominoplastia">
+          </div>
+          <p class="case-caption">Abdominoplastia · Caso real</p>
+        </div>
+
+        <div class="result-photo-grid" role="region" aria-label="Resultados de cirurgias do Dr. Felipe Villaça" tabindex="0">
+          <figure class="result-photo-card motion-card" style="--motion-delay:0ms">
             <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/A0xVxN8yeVtL78n1/lipo_07-Yan1X9Nozoty857L.png" alt="Antes e depois de cirurgia de contorno abdominal, vista lateral" loading="lazy" decoding="async">
             <figcaption>Antes e depois · Abdômen</figcaption>
           </figure>
-          <figure class="result-photo-card">
+          <figure class="result-photo-card motion-card" style="--motion-delay:70ms">
             <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/A0xVxN8yeVtL78n1/abdomino_06-Awv9rD6R7Xt9Z0Z8.png" alt="Antes e depois de abdominoplastia com excesso de pele no abdômen" loading="lazy" decoding="async">
             <figcaption>Antes e depois · Abdômen</figcaption>
           </figure>
-          <figure class="result-photo-card">
+          <figure class="result-photo-card motion-card" style="--motion-delay:140ms">
             <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/A0xVxN8yeVtL78n1/abdomino_04-YbNJayQPQEiV0EJ8.png" alt="Antes e depois de abdominoplastia, vista frontal" loading="lazy" decoding="async">
             <figcaption>Antes e depois · Abdômen</figcaption>
           </figure>
         </div>
 
-        <div class="testimonial-grid reveal" role="region" aria-label="Depoimentos de pacientes" tabindex="0">
-          <article class="testimonial-card">
+        <div class="testimonial-grid" role="region" aria-label="Depoimentos de pacientes" tabindex="0">
+          <article class="testimonial-card motion-card" style="--motion-delay:0ms">
             <span class="testimonial-stars" aria-label="Cinco estrelas">★★★★★</span>
             <blockquote>"O Felipe chega num ponto de excelência tão bom, é tão perfeito o que ele faz, que a sua manutenção é mínima. A autoestima e a confiança que você ganha após o procedimento é absurdo!"</blockquote>
             <div class="testimonial-person">
@@ -828,7 +858,7 @@
               <div><b>Isabela Simões</b><small>Paciente FVG</small></div>
             </div>
           </article>
-          <article class="testimonial-card">
+          <article class="testimonial-card motion-card" style="--motion-delay:70ms">
             <span class="testimonial-stars" aria-label="Cinco estrelas">★★★★★</span>
             <blockquote>"De todo o processo — antes, durante e depois — eu vi a importância de confiar nele, e isso não tem preço. Tudo isso é válido quando se trata do seu corpo e da sua vida."</blockquote>
             <div class="testimonial-person">
@@ -836,7 +866,7 @@
               <div><b>Deborah Zandonna</b><small>Paciente FVG</small></div>
             </div>
           </article>
-          <article class="testimonial-card">
+          <article class="testimonial-card motion-card" style="--motion-delay:140ms">
             <span class="testimonial-stars" aria-label="Cinco estrelas">★★★★★</span>
             <blockquote>"Sem dúvidas eu escolheria o Dr. Felipe Villaça para fazer outra cirurgia. Tive uma experiência maravilhosa, tanto no resultado quanto no cuidado, zelo e capricho, dele e da equipe."</blockquote>
             <div class="testimonial-person">
@@ -846,20 +876,20 @@
           </article>
         </div>
 
-        <div class="results-close reveal">
+        <div class="results-close">
           <p><strong>Depois, converse com o Dr. Felipe sobre o seu próprio caso.</strong> O resultado de outra paciente não substitui sua avaliação nem representa uma garantia de resultado para você.</p>
         </div>
-        <a class="hero-cta reveal" href="#formulario">Agende agora uma consulta online ou presencial</a>
+        <a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a>
       </div>
     </section>
     <section class="final-section" id="duvidas" aria-labelledby="final-title">
       <div class="wrap">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <h2 id="final-title">Seu próximo passo é conversar com o <span class="gold-text">Dr. Felipe Villaça.</span></h2>
           <p>Escolha entre consulta online ou presencial e esclareça suas dúvidas sobre a cirurgia.</p>
         </div>
 
-        <div class="faq-list reveal">
+        <div class="faq-list">
           <details class="faq-item">
             <summary>A consulta é com o próprio Dr. Felipe Villaça?</summary>
             <p>Sim. A consulta desta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o contato inicial e organiza o agendamento.</p>
@@ -878,14 +908,14 @@
           </details>
         </div>
 
-        <div class="final-cta-wrap reveal"><a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a></div>
+        <div class="final-cta-wrap"><a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a></div>
 
         <div class="final-grid" id="formulario">
-          <div class="final-doctor reveal">
+          <div class="final-doctor">
             <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=789,fit=crop/A0xVxN8yeVtL78n1/felipe_formulario-dJo4lK2a5aS7wEqk.png" alt="Dr. Felipe Villaça em seu consultório" loading="lazy" decoding="async">
             <img class="final-signature" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,fit=crop,q=95/A0xVxN8yeVtL78n1/felipe_villaca_completa_textura-dWxbxbZn4lUeVO2L.png" alt="Dr. Felipe Villaça | FVG" loading="lazy" decoding="async">
           </div>
-          <div class="form-panel reveal">
+          <div class="form-panel">
             <form id="campaign-form">
               <div class="form-field"><label for="campaign-nome">Nome</label><input id="campaign-nome" name="nome" type="text" autocomplete="name" maxlength="120" required></div>
               <div class="form-field"><label for="campaign-zap">WhatsApp</label><input id="campaign-zap" name="zap" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" required></div>
@@ -915,7 +945,7 @@
   </main>
   <footer class="campaign-footer">
     <div class="wrap">
-      <div class="footer-grid reveal">
+      <div class="footer-grid">
         <div>
           <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,fit=crop,q=95/A0xVxN8yeVtL78n1/felipe_villaca_completa_textura-dWxbxbZn4lUeVO2L.png" alt="Dr. Felipe Villaça | FVG" loading="lazy" decoding="async">
           <p>FVG Cirurgia Plástica — Contorno Corporal de Alta Performance. Fundador do Hospital São Rafael, Belo Horizonte.</p>
@@ -979,18 +1009,19 @@
         menuToggle.textContent = '☰';
       }));
 
-      const revealItems = document.querySelectorAll('.reveal');
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-        revealItems.forEach((item) => item.classList.add('in'));
-      } else {
-        const revealObserver = new IntersectionObserver((entries, observer) => {
+      const motionItems = document.querySelectorAll('.motion-soft, .motion-fade, .motion-card');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const motionObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add('in');
             observer.unobserve(entry.target);
           });
-        }, { threshold: .08, rootMargin: '0px 0px -5% 0px' });
-        revealItems.forEach((item) => revealObserver.observe(item));
+        }, { threshold: .08 });
+        motionItems.forEach((item) => {
+          item.addEventListener('animationend', () => item.classList.remove('in'), { once: true });
+          motionObserver.observe(item);
+        });
       }
 
       document.querySelectorAll('a[href="#formulario"]').forEach((link) => {
