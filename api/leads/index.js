@@ -114,7 +114,7 @@ module.exports = async function (context, req) {
         campanhaEua && `Modalidade da consulta: Online`,
         campanhaEua && `Quando deseja realizar a cirurgia: ${ROTULOS_PRAZO_EUA[dados.prazoCirurgia]}`,
         campanhaEua && `Investimento em reais: ${ROTULOS_INVESTIMENTO_EUA[dados.investimentoEua]}`,
-        campanhaEua && `Disposta a pagar R$ 950 pela consulta online: ${dados.disposicaoConsulta === 'sim' ? 'Sim' : 'Não'}`,
+        campanhaEua && `Valor de R$ 950 da consulta online faz sentido: ${dados.disposicaoConsulta === 'sim' ? 'Sim' : 'Não'}`,
         campanhaPosEmagrecimento && `Modalidade da consulta: ${dados.modalidade}`,
         campanhaPosEmagrecimento && `Disposta a pagar R$950,00 pela consulta: ${dados.disposicaoConsulta}`,
         campanhaPosEmagrecimento && `Quando pretende fazer a consulta: ${dados.prazoConsulta}`,
