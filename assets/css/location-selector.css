@@ -1,0 +1,122 @@
+.location-field { min-width: 0; }
+.location-field [hidden] { display: none !important; }
+.location-field select,
+.location-field .location-input {
+  width: 100%;
+  min-height: 50px;
+  padding: .8rem 2.7rem .8rem 1rem;
+  border: 1px solid var(--location-border);
+  border-radius: 2px;
+  background: var(--location-surface);
+  color: var(--location-text);
+  font: 1rem var(--sans);
+  transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.location-field select { appearance: none; cursor: pointer; }
+.location-field select:disabled,
+.location-field .location-input:disabled { cursor: not-allowed; opacity: .6; }
+.location-field select:focus-visible,
+.location-field .location-input:focus-visible {
+  outline: 2px solid var(--location-focus);
+  outline-offset: 2px;
+  border-color: var(--location-focus);
+}
+.location-field [aria-invalid="true"] { border-color: var(--location-error); }
+.location-select-wrap,
+.location-input-wrap { position: relative; min-width: 0; }
+.location-select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  width: .55rem;
+  height: .55rem;
+  border-right: 1.5px solid var(--location-accent);
+  border-bottom: 1.5px solid var(--location-accent);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.location-input-wrap::after {
+  content: '⌕';
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--location-accent);
+  font-size: 1.4rem;
+  pointer-events: none;
+}
+.location-field.is-manual .location-input-wrap::after,
+.location-field.is-loading .location-input-wrap::after,
+.location-field.is-disabled .location-input-wrap::after { content: ''; }
+.location-field.is-loading .location-input-wrap::after {
+  width: 15px;
+  height: 15px;
+  right: 1.1rem;
+  border: 2px solid var(--location-border);
+  border-top-color: var(--location-accent);
+  border-radius: 50%;
+  animation: location-spin .7s linear infinite;
+}
+@keyframes location-spin { to { transform: translateY(-50%) rotate(360deg); } }
+.location-list {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: min(240px, 38vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--location-border);
+  border-radius: 2px;
+  background: var(--location-surface);
+  box-shadow: 0 15px 35px -20px rgba(0,0,0,.4);
+  opacity: 0;
+  transform: translateY(-4px);
+  visibility: hidden;
+  transition: opacity .17s ease, transform .17s ease, visibility .17s;
+  -webkit-overflow-scrolling: touch;
+}
+.location-field.is-open .location-list { opacity: 1; transform: none; visibility: visible; }
+.location-field.is-up .location-list { top: auto; bottom: calc(100% + 4px); transform: translateY(4px); }
+.location-field.is-up.is-open .location-list { transform: none; }
+.location-option {
+  display: flex;
+  width: 100%;
+  min-height: 46px;
+  align-items: center;
+  padding: .65rem 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--location-divider);
+  background: transparent;
+  color: var(--location-text);
+  font: .92rem var(--sans);
+  text-align: left;
+  cursor: pointer;
+}
+.location-option:last-child { border-bottom: 0; }
+.location-option.is-active,
+.location-option:hover { background: var(--location-hover); }
+.location-option[aria-selected="true"] { color: var(--location-accent); font-weight: 600; }
+.location-empty { padding: .85rem 1rem; color: var(--location-muted); font-size: .82rem; }
+.location-message { min-height: 0; margin: .45rem 0 0; color: var(--location-muted); font-size: .75rem; line-height: 1.5; }
+.location-message:empty { display: none; }
+.location-message.is-error { color: var(--location-error); }
+.location-manual {
+  display: inline-block;
+  min-height: 44px;
+  margin-top: .25rem;
+  padding: .45rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--location-accent);
+  font: 600 .75rem var(--sans);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.location-manual:focus-visible { outline: 2px solid var(--location-focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .location-field *, .location-field *::after { animation: none !important; transition: none !important; }
+}

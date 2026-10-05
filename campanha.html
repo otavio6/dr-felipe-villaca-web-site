@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="/assets/js/analytics.js" charset="utf-8" defer></script>
+  <link rel="stylesheet" href="/assets/css/location-selector.css">
   <style>
     :root {
       --black: #0B0B0C;
@@ -585,11 +586,16 @@
     .final-doctor::after { position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(11, 11, 12, .9)); content: ''; pointer-events: none; }
     .final-signature { position: absolute; z-index: 1; bottom: 1.6rem; left: 1.6rem; width: min(255px, 70%); }
     .form-panel { padding: clamp(1.5rem, 3.5vw, 3rem); border: 1px solid rgba(140, 115, 71, .25); background: #FFFEFB; box-shadow: 0 24px 65px -45px rgba(31, 25, 17, .28); }
-    .form-panel form { display: grid; gap: 1.3rem; }
+    .form-panel { --location-border: #CFC7B8; --location-surface: #fff; --location-text: var(--ink); --location-focus: var(--gold-deep); --location-accent: var(--gold-deep); --location-hover: #F4EBDD; --location-divider: #ECE7DD; --location-muted: #6E675C; --location-error: #9E342C; }
+    .form-panel form { display: grid; gap: 1.2rem; }
     .form-field { display: grid; gap: .55rem; }
     .form-field label, .form-field legend { color: var(--ink); font-size: .78rem; font-weight: 600; line-height: 1.5; }
     .form-field input { width: 100%; min-height: 50px; padding: .8rem 1rem; border: 1px solid #CFC7B8; border-radius: 2px; background: #fff; color: var(--ink); font: 1rem var(--sans); }
     .form-field input:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
+    .form-field input:hover { border-color: var(--gold-deep); }
+    .form-panel .location-field select, .form-panel .location-field .location-input { min-height: 50px; }
+    .form-panel .location-field .location-input::placeholder { color: #777066; }
+    .form-panel .location-field:focus-within > label { color: var(--gold-deep); }
     .form-field fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
     .form-field legend { margin-bottom: .7rem; }
     .choice-group { display: flex; flex-wrap: wrap; gap: .55rem; }
@@ -919,7 +925,37 @@
             <form id="campaign-form">
               <div class="form-field"><label for="campaign-nome">Nome</label><input id="campaign-nome" name="nome" type="text" autocomplete="name" maxlength="120" required></div>
               <div class="form-field"><label for="campaign-zap">WhatsApp</label><input id="campaign-zap" name="zap" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" required></div>
-              <div class="form-field"><label for="campaign-cidade">Cidade/UF</label><input id="campaign-cidade" name="cidade" type="text" autocomplete="address-level2" maxlength="120" required></div>
+              <div class="form-field location-field"><label for="campaign-estado">Estado</label><div class="location-select-wrap"><select id="campaign-estado" autocomplete="address-level1" required>
+                  <option value="">Selecione seu estado</option>
+                  <option value="AC" data-id="12">Acre</option>
+                  <option value="AL" data-id="27">Alagoas</option>
+                  <option value="AP" data-id="16">Amapá</option>
+                  <option value="AM" data-id="13">Amazonas</option>
+                  <option value="BA" data-id="29">Bahia</option>
+                  <option value="CE" data-id="23">Ceará</option>
+                  <option value="DF" data-id="53">Distrito Federal</option>
+                  <option value="ES" data-id="32">Espírito Santo</option>
+                  <option value="GO" data-id="52">Goiás</option>
+                  <option value="MA" data-id="21">Maranhão</option>
+                  <option value="MT" data-id="51">Mato Grosso</option>
+                  <option value="MS" data-id="50">Mato Grosso do Sul</option>
+                  <option value="MG" data-id="31">Minas Gerais</option>
+                  <option value="PA" data-id="15">Pará</option>
+                  <option value="PB" data-id="25">Paraíba</option>
+                  <option value="PR" data-id="41">Paraná</option>
+                  <option value="PE" data-id="26">Pernambuco</option>
+                  <option value="PI" data-id="22">Piauí</option>
+                  <option value="RJ" data-id="33">Rio de Janeiro</option>
+                  <option value="RN" data-id="24">Rio Grande do Norte</option>
+                  <option value="RS" data-id="43">Rio Grande do Sul</option>
+                  <option value="RO" data-id="11">Rondônia</option>
+                  <option value="RR" data-id="14">Roraima</option>
+                  <option value="SC" data-id="42">Santa Catarina</option>
+                  <option value="SP" data-id="35">São Paulo</option>
+                  <option value="SE" data-id="28">Sergipe</option>
+                  <option value="TO" data-id="17">Tocantins</option>
+                </select></div></div>
+              <div class="form-field location-field is-disabled"><label for="campaign-cidade">Cidade</label><div class="location-input-wrap"><input id="campaign-cidade" class="location-input" name="cidade" type="text" autocomplete="address-level2" maxlength="120" placeholder="Escolha primeiro um estado" aria-describedby="campaign-cidade-message" required></div><p class="location-message" id="campaign-cidade-message" aria-live="polite"></p><button class="location-manual" type="button" hidden>Digitar minha cidade manualmente</button></div>
               <div class="form-field"><fieldset><legend>Como prefere fazer sua consulta</legend><div class="choice-group">
                 <label><input type="radio" name="modalidade" value="Presencial em BH" required><span>Presencial em BH</span></label>
                 <label><input type="radio" name="modalidade" value="Online"><span>Online</span></label>
@@ -986,6 +1022,7 @@
       </div>
     </div>
   </footer>
+  <script src="/assets/js/location-selector.js"></script>
   <script>
     (() => {
       document.getElementById('year').textContent = new Date().getFullYear();
@@ -1034,12 +1071,14 @@
       });
 
       const campaignForm = document.getElementById('campaign-form');
+      const campaignLocation = window.FVGLocation?.initLocationSelector({ country: 'BR', form: '#campaign-form', state: '#campaign-estado', city: '#campaign-cidade' });
       const formStatus = document.getElementById('campaign-form-status');
       const submitButton = campaignForm.querySelector('button[type="submit"]');
       campaignForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         if (!campaignForm.reportValidity()) return;
         const dados = Object.fromEntries(new FormData(campaignForm).entries());
+        dados.cidade = campaignLocation ? campaignLocation.serializeLegacy() : String(dados.cidade || '').trim() + ' - ' + document.getElementById('campaign-estado').value;
         dados.campanha = 'pos-emagrecimento';
         dados.pagina = location.href;
         const parametros = new URLSearchParams(location.search);

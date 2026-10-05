@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="/assets/js/analytics.js" charset="utf-8" defer></script>
+  <link rel="stylesheet" href="/assets/css/location-selector.css">
   <style>
     :root {
       --green: #0B0B0C;
@@ -253,6 +254,11 @@
     .booking-form .field input { width: 100%; min-height: 50px; padding: 15px 16px; border: 1.5px solid rgba(26,26,28,.13); border-radius: 10px; background: var(--cream); color: #1A1A1C; font: 16px var(--sans); transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
     .booking-form .field input:focus { outline: none; border-color: var(--gold); background: #fff; box-shadow: 0 0 0 4px rgba(183,155,105,.18); }
     .booking-form .field input::placeholder { color: rgba(61,56,38,.4); }
+    .booking-form { --location-border: #CFC7B8; --location-surface: #FBF9F4; --location-text: #1A1A1C; --location-focus: #8C7347; --location-accent: #8C7347; --location-hover: #F4EBDD; --location-divider: #ECE7DD; --location-muted: #6E675C; --location-error: #9E342C; }
+    .booking-form .location-field select, .booking-form .location-field .location-input { min-height: 50px; border: 1px solid var(--location-border); border-radius: 2px; background: var(--location-surface); color: var(--location-text); font: 16px var(--sans); }
+    .booking-form .location-field select:focus-visible, .booking-form .location-field .location-input:focus-visible { outline: 2px solid var(--location-focus); outline-offset: 2px; }
+    .booking-form .location-field .location-input::placeholder { color: #777066; }
+    .booking-form .location-field:focus-within > label { color: #8C7347; }
     .booking-form fieldset { min-width: 0; margin: 0 0 16px; padding: 0; border: 0; }
     .booking-form .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 13px; }
     .booking-form .choices label { display: flex; min-height: 44px; align-items: flex-start; gap: 8px; margin: 0; padding: 11px 12px; border: 1px solid rgba(26,26,28,.13); border-radius: 10px; background: var(--cream); font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 1.45; cursor: pointer; }
@@ -261,7 +267,7 @@
     .booking-form .choices label:has(input:checked) { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 2px rgba(183,155,105,.12); }
     .booking-form .choices input { width: 16px; min-height: 16px; height: 16px; margin: 0; flex: 0 0 16px; accent-color: #0B0B0C; }
     .booking-form .hero-cta { width: 100%; margin-top: 10px; border-radius: 12px; font-size: 15px; }
-    .form-status { margin-top: 8px; color: #8C7347; font-size: 11px; line-height: 1.5; text-align: center; }
+    .form-status { margin-top: 8px; color: #9E342C; font-size: 12px; line-height: 1.5; text-align: center; }
     .form-privacy { margin-top: 12px; color: #6E675C; font-size: 10px; line-height: 1.55; text-align: center; }
     .faq-section { position: relative; isolation: isolate; overflow: hidden; background: #FBF9F4; color: #1A1A1C; }
     .faq-section::before { content: ""; position: absolute; z-index: -1; bottom: -250px; left: -220px; width: 570px; height: 570px; border: 1px solid rgba(140,115,71,.19); border-radius: 50%; box-shadow: 0 0 0 52px rgba(183,155,105,.035); pointer-events: none; }
@@ -574,19 +580,6 @@
       </div>
       <div class="problem-cta"><a class="hero-cta" href="#formulario">Agende agora sua consulta online <span aria-hidden="true">→</span></a></div>
     </section>
-    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
-      <div class="problem-head"><p class="section-eyebrow">Dúvidas sobre o agendamento</p><h2 class="faq-title" id="faq-title">Pronto para conversar com o Dr. Felipe Villaça?</h2><p class="faq-intro">Confira como solicitar sua consulta e dar o próximo passo.</p></div>
-      <div class="faq-list">
-        <details class="faq-item"><summary>A consulta será com o próprio Dr. Felipe Villaça?</summary><p>Sim. A consulta anunciada nesta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o primeiro contato e organiza o agendamento.</p></details>
-        <details class="faq-item"><summary>Como solicito minha consulta online?</summary><p>Preencha o formulário de qualificação. A equipe entrará em contato pelo WhatsApp para confirmar as condições de atendimento e organizar o agendamento.</p></details>
-        <details class="faq-item"><summary>Qual é o valor da consulta online?</summary><p>O valor informado nesta campanha é R$ 950,00. A equipe confirmará as condições de atendimento antes do agendamento.</p></details>
-        <details class="faq-item"><summary>Preciso saber qual cirurgia quero fazer?</summary><p>Não. Na consulta, explique o que deseja melhorar. O Dr. Felipe Villaça conversará sobre possibilidades, limitações e próximos passos para o seu caso.</p></details>
-        <details class="faq-item"><summary>A consulta online confirma que posso fazer a cirurgia?</summary><p>Não. A consulta online permite iniciar a conversa e esclarecer sua decisão, mas não é uma aprovação cirúrgica nem substitui todas as avaliações presenciais necessárias.</p></details>
-        <details class="faq-item"><summary>Onde será realizada uma possível cirurgia?</summary><p>O atendimento cirúrgico apresentado nesta campanha é em Belo Horizonte. A possibilidade de operar e o planejamento são definidos após avaliação individual.</p></details>
-        <details class="faq-item"><summary>Quando saberei sobre viagem e recuperação?</summary><p>Na consulta, você poderá conhecer os próximos passos da avaliação, do planejamento cirúrgico e da recuperação. Orientações específicas dependem do seu caso.</p></details>
-      </div>
-      <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero agendar com o Dr. Felipe <span aria-hidden="true">→</span></a></div>
-    </section>
     <section class="section booking" id="formulario" aria-labelledby="form-title">
       <div class="booking-grid">
         <div><p class="hero-eyebrow">Agendamento · residentes nos EUA</p><h2 id="form-title">Converse com o <em>Dr. Felipe Villaça</em> sobre o seu caso.</h2><p class="booking-copy">Preencha seus dados para que a equipe entre em contato, confirme as condições de atendimento e organize o agendamento da consulta online.</p></div>
@@ -594,7 +587,61 @@
           <div class="booking-form-head"><h3>Solicitar <em>consulta online</em></h3><p>Conte à equipe onde você mora e quando pensa em realizar a cirurgia.</p></div>
           <div class="field"><label for="nome">Nome completo</label><input id="nome" name="nome" autocomplete="name" required></div>
           <div class="field"><label for="whatsapp">WhatsApp com código do país</label><input id="whatsapp" name="zap" type="tel" placeholder="+1 (código de área)" autocomplete="tel" required></div>
-          <div class="field"><label for="localidade">Em qual cidade e estado dos EUA você está?</label><input id="localidade" name="cidade" autocomplete="address-level2" required></div>
+          <div class="field location-field"><label for="estado-eua">Estado nos EUA</label><div class="location-select-wrap"><select id="estado-eua" autocomplete="address-level1" required>
+            <option value="">Selecione seu estado</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+          </select></div></div>
+          <div class="field location-field is-disabled"><label for="localidade">Cidade</label><div class="location-input-wrap"><input id="localidade" class="location-input" name="cidade" autocomplete="address-level2" maxlength="120" placeholder="Escolha primeiro um estado" aria-describedby="localidade-message" required></div><p class="location-message" id="localidade-message" aria-live="polite"></p><button class="location-manual" type="button" hidden>Digitar minha cidade manualmente</button></div>
           <fieldset><legend>Quando você gostaria de realizar a cirurgia?</legend><div class="choices">
             <label><input type="radio" name="prazoCirurgia" value="imediatamente" required>Imediatamente</label><label><input type="radio" name="prazoCirurgia" value="3-6-meses">Entre 3 a 6 meses</label><label><input type="radio" name="prazoCirurgia" value="6-12-meses">6 meses a 12 meses</label><label><input type="radio" name="prazoCirurgia" value="acima-12-meses">Acima de 12 meses</label>
           </div></fieldset>
@@ -607,6 +654,19 @@
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
+    </section>
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="problem-head"><p class="section-eyebrow">Dúvidas sobre o agendamento</p><h2 class="faq-title" id="faq-title">Pronto para conversar com o Dr. Felipe Villaça?</h2><p class="faq-intro">Confira como solicitar sua consulta e dar o próximo passo.</p></div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>A consulta será com o próprio Dr. Felipe Villaça?</summary><p>Sim. A consulta anunciada nesta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o primeiro contato e organiza o agendamento.</p></details>
+        <details class="faq-item"><summary>Como solicito minha consulta online?</summary><p>Preencha o formulário de qualificação. A equipe entrará em contato pelo WhatsApp para confirmar as condições de atendimento e organizar o agendamento.</p></details>
+        <details class="faq-item"><summary>Qual é o valor da consulta online?</summary><p>O valor informado nesta campanha é R$ 950,00. A equipe confirmará as condições de atendimento antes do agendamento.</p></details>
+        <details class="faq-item"><summary>Preciso saber qual cirurgia quero fazer?</summary><p>Não. Na consulta, explique o que deseja melhorar. O Dr. Felipe Villaça conversará sobre possibilidades, limitações e próximos passos para o seu caso.</p></details>
+        <details class="faq-item"><summary>A consulta online confirma que posso fazer a cirurgia?</summary><p>Não. A consulta online permite iniciar a conversa e esclarecer sua decisão, mas não é uma aprovação cirúrgica nem substitui todas as avaliações presenciais necessárias.</p></details>
+        <details class="faq-item"><summary>Onde será realizada uma possível cirurgia?</summary><p>O atendimento cirúrgico apresentado nesta campanha é em Belo Horizonte. A possibilidade de operar e o planejamento são definidos após avaliação individual.</p></details>
+        <details class="faq-item"><summary>Quando saberei sobre viagem e recuperação?</summary><p>Na consulta, você poderá conhecer os próximos passos da avaliação, do planejamento cirúrgico e da recuperação. Orientações específicas dependem do seu caso.</p></details>
+      </div>
+      <div class="problem-cta"><a class="hero-cta" href="#formulario">Quero agendar com o Dr. Felipe <span aria-hidden="true">→</span></a></div>
     </section>
   </main>
   <footer class="footer">
@@ -640,6 +700,7 @@
       </div>
     </div>
   </footer>
+  <script src="/assets/js/location-selector.js"></script>
   <script>
     document.querySelectorAll('.result-pair input').forEach(function (slider) {
       var mobileSlider = slider.cloneNode();
@@ -654,6 +715,7 @@
       });
     });
     var leadForm = document.getElementById('lead-form');
+    var usLocation = window.FVGLocation?.initLocationSelector({ country: 'US', form: '#lead-form', state: '#estado-eua', city: '#localidade' });
     var formStatus = document.getElementById('form-status');
     leadForm.addEventListener('submit', async function (event) {
       event.preventDefault();
@@ -673,7 +735,7 @@
         campanha: 'consulta-eua',
         nome: String(dados.get('nome') || '').trim(),
         zap: String(dados.get('zap') || '').trim(),
-        cidade: String(dados.get('cidade') || '').trim(),
+        cidade: usLocation ? usLocation.serializeLegacy() : String(dados.get('cidade') || '').trim() + ' - ' + document.getElementById('estado-eua').value,
         prazoCirurgia: String(dados.get('prazoCirurgia') || ''),
         investimentoEua: String(dados.get('investimentoEua') || ''),
         disposicaoConsulta: String(dados.get('disposicaoConsulta') || ''),
