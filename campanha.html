@@ -455,6 +455,12 @@
       font-weight: 600;
       line-height: 1.1;
     }
+    .region-card p { position: relative; z-index: 1; margin: .85rem 0 0; color: #5F584E; font-size: .86rem; line-height: 1.65; }
+    .consultation-value { margin: 2.2rem 0; padding-top: 1.8rem; border-top: 1px solid var(--line); }
+    .consultation-value h3, .faq-list h2 { margin: 0 0 1.5rem; font: 600 clamp(1.9rem, 3vw, 2.5rem)/1.15 var(--serif); }
+    .consultation-topics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; margin: 0; }
+    .consultation-topics dt { margin-bottom: .6rem; color: var(--gold-deep); font-size: .8rem; font-weight: 600; line-height: 1.5; }
+    .consultation-topics dd { margin: 0; color: #5F584E; font-size: .86rem; line-height: 1.65; }
     .solution-close { max-width: 780px; margin-bottom: 1.8rem; }
     .solution-close p { margin: 0 0 .85rem; color: #3F3A34; font-size: .97rem; line-height: 1.8; }
     .solution-close p:last-child { margin-bottom: 0; }
@@ -518,7 +524,6 @@
       .choice-group label:hover span { border-color: var(--gold-deep); }
     }
     .testimonial-card { transition: border-color .25s ease; }
-    .testimonial-stars { color: var(--gold-deep); font-size: .85rem; letter-spacing: .16em; }
     .testimonial-card blockquote {
       flex: 1;
       margin: 1.2rem 0 1.7rem;
@@ -550,6 +555,11 @@
     .final-section { padding: clamp(4.5rem, 9vw, 7rem) 0; background: var(--cream); }
     .final-section .section-heading { margin-bottom: clamp(2rem, 4vw, 3rem); }
     .faq-list { max-width: 940px; margin: 0 auto; border-top: 1px solid rgba(140, 115, 71, .25); }
+    .faq-list h2 { padding-top: 1.8rem; }
+    .faq-contact { margin-top: 1.8rem; color: #5F584E; font-size: .86rem; line-height: 1.7; }
+    .faq-contact p { margin: 0; }
+    .faq-contact a { display: inline-flex; align-items: center; min-height: 44px; color: var(--gold-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+    .form-next-step { margin: 0; color: #5F584E; font-size: .8rem; line-height: 1.65; }
     .faq-item { border-bottom: 1px solid rgba(140, 115, 71, .25); }
     .faq-item summary {
       position: relative;
@@ -621,6 +631,7 @@
     .footer-bottom a { color: var(--gold-soft); text-decoration: underline; }
 
     @media (max-width: 1024px) {
+      .consultation-topics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .campaign-header .wrap { flex-wrap: wrap; }
       .brand-signature { width: min(210px, 58vw); }
       .campaign-links, .campaign-header > .wrap > .header-cta { display: none; }
@@ -689,6 +700,9 @@
       .testimonial-card { min-height: 0; }
       .testimonial-card:last-child:nth-child(odd) { grid-column: auto; width: auto; }
     }
+    @media (max-width: 430px) {
+      .consultation-topics { grid-template-columns: 1fr; gap: 1.2rem; }
+    }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -739,11 +753,11 @@
 
         <div class="hero-copy">
           <h1 id="hero-title">Emagreceu com Mounjaro ou após a bariátrica e ficou com <span class="gold-text">excesso de pele?</span></h1>
-          <p class="hero-sub">Converse com o Dr. Felipe Villaça sobre as possibilidades para tratar a flacidez e melhorar o contorno corporal. Agende sua consulta online ou presencial em Belo Horizonte</p>
-          <a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a>
+          <p class="hero-sub">Converse com o Dr. Felipe Villaça sobre as possibilidades para tratar a flacidez e melhorar o contorno corporal. Agende sua consulta online ou presencial em Belo Horizonte.</p>
+          <a class="hero-cta" href="#formulario">Agendar minha consulta</a>
           <div class="hero-copy-text">
             <p>O peso diminuiu, mas a pele no abdômen, nas mamas ou em outras regiões ainda incomoda?</p>
-            <p><strong>Dê o próximo passo para avaliar sua cirurgia com o Dr. Felipe Villaça.</strong> Converse diretamente com ele sobre o que você deseja melhorar e esclareça suas dúvidas.</p>
+            <p><strong>Uma avaliação individual com o Dr. Felipe Villaça.</strong> Apresente seus incômodos e objetivos, mesmo que ainda não saiba qual procedimento considerar.</p>
           </div>
           <ul class="cred" aria-label="Credibilidade">
             <li>+15.000 cirurgias realizadas</li>
@@ -761,11 +775,11 @@
           <p class="problem-sub">A barriga flácida, a pele acumulada ou a mudança no formato das mamas podem continuar incomodando mesmo depois do emagrecimento.</p>
           <div class="problem-copy-text">
             <p>Você veste uma roupa mais ajustada, coloca um biquíni ou se olha no espelho e percebe que o incômodo agora está na pele que sobrou.</p>
-            <p>Depois de uma grande perda de peso, a pele pode não se ajustar completamente à redução do volume corporal</p>
-            <p><strong>Na consulta com o Dr. Felipe Villaça, você conversa sobre o que incomoda e entende se uma cirurgia pode ser indicada para o seu caso</strong></p>
+            <p>Depois de uma grande perda de peso, a pele pode não se ajustar completamente à redução do volume corporal.</p>
+            <p><strong>Seu incômodo merece uma avaliação individual, que considere seus objetivos e suas condições de saúde.</strong></p>
           </div>
           <div class="problem-cta-wrap">
-            <a class="hero-cta" href="#formulario">Quero me consultar com o Dr. Felipe</a>
+            <a class="hero-cta" href="#formulario">Quero avaliar meu caso</a>
             <small>Consulta online ou presencial em Belo Horizonte.</small>
           </div>
         </div>
@@ -792,6 +806,7 @@
               <circle cx="60" cy="72" r="22" stroke-dasharray="3 5"/>
             </svg>
             <h3>Abdômen</h3>
+            <p>Avaliação do excesso de pele, da flacidez e das alterações no contorno abdominal após o emagrecimento.</p>
           </article>
           <article class="region-card motion-card" style="--motion-delay:70ms">
             <span class="card-index">02</span>
@@ -801,6 +816,7 @@
               <path d="M60 53v34M43 94c10-4 24-4 34 0" stroke-dasharray="3 4"/>
             </svg>
             <h3>Mamas</h3>
+            <p>Avaliação das mudanças de pele, volume e formato que podem acontecer após uma grande perda de peso.</p>
           </article>
           <article class="region-card motion-card" style="--motion-delay:140ms">
             <span class="card-index">03</span>
@@ -809,14 +825,24 @@
               <circle cx="28" cy="52" r="9" stroke-dasharray="3 4"/><circle cx="92" cy="52" r="9" stroke-dasharray="3 4"/><circle cx="60" cy="87" r="12" stroke-dasharray="3 4"/>
             </svg>
             <h3>Outras regiões</h3>
+            <p>Braços, coxas e outras regiões também podem ser avaliados quanto ao excesso de pele após o emagrecimento.</p>
           </article>
         </div>
 
         <div class="solution-close">
           <p><strong>Você não precisa escolher sozinha uma técnica.</strong></p>
-          <p>Explique o que deseja melhorar e converse com o Dr. Felipe sobre as possibilidades, as cicatrizes, a recuperação e os limites de cada procedimento</p>
+          <p>Na consulta, você apresenta o que incomoda e avalia com o Dr. Felipe quais possibilidades podem fazer sentido para seu caso. Uma eventual indicação depende dessa avaliação.</p>
         </div>
-        <a class="hero-cta" href="#formulario">Quero avaliar meu caso com o Dr. Felipe</a>
+        <section class="consultation-value motion-soft" aria-labelledby="consultation-title">
+          <h3 id="consultation-title">O que você poderá esclarecer na consulta</h3>
+          <dl class="consultation-topics">
+            <div><dt>Seu caso</dt><dd>Entender seus incômodos após o emagrecimento e discutir seus objetivos.</dd></div>
+            <div><dt>Possibilidades</dt><dd>Avaliar caminhos que podem ser considerados e os limites de cada opção.</dd></div>
+            <div><dt>Cicatrizes e recuperação</dt><dd>Conversar sobre cuidados, riscos e implicações para sua rotina antes de decidir.</dd></div>
+            <div><dt>Momento da cirurgia</dt><dd>Discutir se este é o momento adequado para considerar uma possível cirurgia.</dd></div>
+          </dl>
+        </section>
+        <a class="hero-cta" href="#formulario">Quero entender minhas possibilidades</a>
         <p class="cta-note">Escolha entre consulta online e presencial.</p>
       </div>
     </section>
@@ -827,7 +853,7 @@
           <h2 id="results-title">Veja resultados e ouça quem já fez a cirurgia com o <span class="gold-text">Dr. Felipe Villaça.</span></h2>
           <p>Conheça experiências reais de pacientes e entenda melhor o trabalho do médico que você está considerando escolher.</p>
         </div>
-        <p class="results-lead">Veja os resultados apresentados e acompanhe relatos sobre a consulta, a recuperação e a experiência com a cirurgia.</p>
+        <p class="results-lead">As imagens apresentam exemplos de casos individuais. Resultados variam de pessoa para pessoa, e as imagens não substituem uma consulta.</p>
 
         <div class="results-comparison">
           <div class="case-comparison" style="--split:50%">
@@ -857,7 +883,6 @@
 
         <div class="testimonial-grid" role="region" aria-label="Depoimentos de pacientes" tabindex="0">
           <article class="testimonial-card motion-card" style="--motion-delay:0ms">
-            <span class="testimonial-stars" aria-label="Cinco estrelas">★★★★★</span>
             <blockquote>"O Felipe chega num ponto de excelência tão bom, é tão perfeito o que ele faz, que a sua manutenção é mínima. A autoestima e a confiança que você ganha após o procedimento é absurdo!"</blockquote>
             <div class="testimonial-person">
               <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=364,fit=crop/A0xVxN8yeVtL78n1/bella_simoes-mePn3DV1a6hbX4WO.jpg" alt="Isabela Simões" loading="lazy" decoding="async">
@@ -865,7 +890,6 @@
             </div>
           </article>
           <article class="testimonial-card motion-card" style="--motion-delay:70ms">
-            <span class="testimonial-stars" aria-label="Cinco estrelas">★★★★★</span>
             <blockquote>"De todo o processo — antes, durante e depois — eu vi a importância de confiar nele, e isso não tem preço. Tudo isso é válido quando se trata do seu corpo e da sua vida."</blockquote>
             <div class="testimonial-person">
               <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=375,fit=crop/A0xVxN8yeVtL78n1/deborah_zandonna-YD04jPK8MkiQ6ggX.jpg" alt="Deborah Zandonna" loading="lazy" decoding="async">
@@ -873,7 +897,6 @@
             </div>
           </article>
           <article class="testimonial-card motion-card" style="--motion-delay:140ms">
-            <span class="testimonial-stars" aria-label="Cinco estrelas">★★★★★</span>
             <blockquote>"Sem dúvidas eu escolheria o Dr. Felipe Villaça para fazer outra cirurgia. Tive uma experiência maravilhosa, tanto no resultado quanto no cuidado, zelo e capricho, dele e da equipe."</blockquote>
             <div class="testimonial-person">
               <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,h=375,fit=crop/A0xVxN8yeVtL78n1/sharon-YX4bZqp1oBTX4Qjv.jpg" alt="Sharon Morais" loading="lazy" decoding="async">
@@ -883,16 +906,57 @@
         </div>
 
         <div class="results-close">
-          <p><strong>Depois, converse com o Dr. Felipe sobre o seu próprio caso.</strong> O resultado de outra paciente não substitui sua avaliação nem representa uma garantia de resultado para você.</p>
+          <p><strong>O resultado de outra paciente não representa garantia de resultado para você.</strong> Suas possibilidades precisam ser discutidas em uma avaliação individual.</p>
         </div>
-        <a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a>
+        <a class="hero-cta" href="#formulario">Quero conversar sobre o meu caso</a>
       </div>
     </section>
     <section class="final-section" aria-labelledby="final-title">
       <div class="wrap">
+        <section class="faq-list" id="duvidas" aria-labelledby="faq-title">
+          <h2 id="faq-title">Dúvidas antes de agendar</h2>
+          <details class="faq-item">
+            <summary>A consulta é com o próprio Dr. Felipe Villaça?</summary>
+            <p>Sim. A consulta desta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o contato inicial e organiza o agendamento.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Posso escolher entre consulta online e presencial?</summary>
+            <p>Sim. Informe sua preferência no formulário. A consulta presencial é em Belo Horizonte; para a online, a equipe enviará as orientações de acesso. Avaliações presenciais complementares poderão ser necessárias antes de definir uma cirurgia.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Ainda estou emagrecendo. Posso marcar uma consulta?</summary>
+            <p>Você pode solicitar uma consulta para discutir seu caso e o momento adequado para uma possível cirurgia. A estabilidade do peso e as condições de saúde são fatores importantes nessa decisão; emagrecer, por si só, não significa estar pronta para operar.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Qual é o valor da consulta?</summary>
+            <p>A consulta desta campanha tem o valor de R$950,00. Você pode escolher atendimento online ou presencial em Belo Horizonte. Após o envio do formulário, a equipe entra em contato para apresentar os horários disponíveis e confirmar o agendamento.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Na consulta vou entender como podem ser as cicatrizes?</summary>
+            <p>As possibilidades de cicatrizes fazem parte da avaliação e podem ser discutidas com o Dr. Felipe. Elas variam conforme o procedimento e as características de cada caso.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Como funciona a recuperação?</summary>
+            <p>A recuperação varia conforme a cirurgia, sua extensão e as condições individuais. Na consulta, você pode discutir cuidados, limitações e como sua rotina pode ser considerada no planejamento.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Quando vou saber o valor da cirurgia?</summary>
+            <p>O valor de uma eventual cirurgia depende da avaliação, dos procedimentos envolvidos e do planejamento individual. Caso haja indicação, o orçamento poderá ser apresentado a partir desse planejamento.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Toda pessoa que perdeu muito peso precisa operar?</summary>
+            <p>Não. A indicação depende de avaliação individual, considerando os incômodos, as condições clínicas, os objetivos e as possibilidades de cada pessoa. A consulta é um espaço para discutir se uma cirurgia faz sentido para seu caso.</p>
+          </details>
+          <div class="faq-contact">
+            <p>Ainda ficou com alguma dúvida antes de solicitar sua consulta?</p>
+            <a href="https://wa.me/5531997714488" target="_blank" rel="noopener noreferrer">Falar com a equipe no WhatsApp</a>
+          </div>
+          <div class="final-cta-wrap"><a class="hero-cta" href="#formulario">Solicitar meu agendamento</a></div>
+        </section>
+
         <div class="section-heading">
-          <h2 id="final-title">Seu próximo passo é conversar com o <span class="gold-text">Dr. Felipe Villaça.</span></h2>
-          <p>Escolha entre consulta online ou presencial e esclareça suas dúvidas sobre a cirurgia.</p>
+          <h2 id="final-title">Solicite sua consulta com o <span class="gold-text">Dr. Felipe Villaça.</span></h2>
+          <p>Consulta de R$950,00, online ou presencial em Belo Horizonte. Preencha seus dados para a equipe organizar o agendamento.</p>
         </div>
 
         <div class="final-grid" id="formulario">
@@ -939,7 +1003,7 @@
                 <label><input type="radio" name="modalidade" value="Presencial em BH" required><span>Presencial em BH</span></label>
                 <label><input type="radio" name="modalidade" value="Online"><span>Online</span></label>
               </div></fieldset></div>
-              <div class="form-field"><fieldset><legend>Está disposta a pagar R$950,00 em consulta com o melhor cirurgião plástico especialista em contorno corporal?</legend><div class="choice-group">
+              <div class="form-field"><fieldset><legend>Está de acordo com o valor de R$950,00 da consulta com o Dr. Felipe Villaça?</legend><div class="choice-group">
                 <label><input type="radio" name="disposicaoConsulta" value="Sim" required><span>Sim</span></label>
                 <label><input type="radio" name="disposicaoConsulta" value="Não"><span>Não</span></label>
                 <label><input type="radio" name="disposicaoConsulta" value="Talvez"><span>Talvez</span></label>
@@ -950,33 +1014,12 @@
                 <label><input type="radio" name="prazoConsulta" value="4 a 10 semanas"><span>4 a 10 semanas</span></label>
                 <label><input type="radio" name="prazoConsulta" value="Acima de 10 semanas"><span>Acima de 10 semanas</span></label>
               </div></fieldset></div>
-              <button class="hero-cta" type="submit">Agende agora uma consulta online ou presencial</button>
+              <button class="hero-cta" type="submit">Solicitar meu agendamento</button>
+              <p class="form-next-step">Após enviar, a equipe entra em contato pelo WhatsApp para confirmar sua modalidade de consulta e apresentar os horários disponíveis.</p>
               <p class="form-status" id="campaign-form-status" role="status" aria-live="polite"></p>
             </form>
           </div>
         </div>
-
-        <div class="final-cta-wrap"><a class="hero-cta" href="#formulario">Agende agora uma consulta online ou presencial</a></div>
-
-        <div class="faq-list" id="duvidas" aria-label="Dúvidas frequentes">
-          <details class="faq-item">
-            <summary>A consulta é com o próprio Dr. Felipe Villaça?</summary>
-            <p>Sim. A consulta desta campanha é com o próprio Dr. Felipe Villaça. A equipe realiza o contato inicial e organiza o agendamento.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Posso escolher entre consulta online e presencial?</summary>
-            <p>Sim. Informe sua preferência no formulário. A consulta presencial é em Belo Horizonte; para a online, a equipe enviará as orientações de acesso. Avaliações presenciais complementares poderão ser necessárias antes de definir uma cirurgia.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Ainda estou emagrecendo. Posso marcar uma consulta?</summary>
-            <p>Você pode solicitar uma consulta para discutir seu caso e o momento adequado para uma possível cirurgia. A estabilidade do peso e as condições de saúde são fatores importantes nessa decisão; emagrecer, por si só, não significa estar pronta para operar.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Qual é o valor da consulta?</summary>
-            <p>A equipe apresentará o valor, os horários disponíveis e as condições antes de confirmar seu agendamento.</p>
-          </details>
-        </div>
-
       </div>
     </section>
   </main>
