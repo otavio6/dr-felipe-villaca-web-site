@@ -1,6 +1,6 @@
 ---
 titulo: Correção de Diástase Abdominal | Dr. Felipe Villaça
-data: 2026-10-20T10:00:00.000Z
+data: 2026-10-21T10:00:00.000Z
 resumo: Descubra como a cirurgia de plicatura muscular corrige a diástase abdominal, elimina a barriga projetada e devolve a sustentação da sua postura.
 capa: /assets/blog/correcao-de-diastase-abdominal-dr-felipe-villaca-mv8crr5g.png
 instagram: https://www.instagram.com/drfelipevillaca/
