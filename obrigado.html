@@ -9,19 +9,7 @@
     window.__fvConsentInit = true;
   </script>
   <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PGQZNSJS');</script>
-  <script>
-    const origem = new URLSearchParams(location.search).get('origem');
-    if (origem === 'campanha' || origem === 'campanha-eua') {
-      try {
-        const pendente = sessionStorage.getItem('fvg-campanha-lead-pendente');
-        if (pendente) {
-          sessionStorage.removeItem('fvg-campanha-lead-pendente');
-          const dados = JSON.parse(pendente);
-          window.dataLayer.push({ event: 'submit_lead', campanha: origem === 'campanha-eua' ? 'consulta-eua' : 'pos-emagrecimento', modalidade: dados.modalidade, pagina: dados.pagina });
-        }
-      } catch (erro) { /* A página de obrigado permanece disponível sem armazenamento. */ }
-    }
-  </script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="theme-color" content="#111113">
@@ -44,9 +32,28 @@
     <div class="eyebrow">Solicitação recebida</div>
     <h1>Obrigado pelo seu contato.</h1>
     <p>Recebemos suas informações. Nossa equipe entrará em contato pelo WhatsApp para agendar sua avaliação.</p>
-    <a id="return-link" href="/lp.html">Voltar para a página</a>
+    <p id="source-label"></p>
+    <a id="return-link" href="/">Voltar para a página</a>
   </main>
-  <script>if (origem === 'campanha') document.getElementById('return-link').href = '/campanha-excessodepele'; if (origem === 'campanha-eua') document.getElementById('return-link').href = '/campanha';</script>
-  <script src="/assets/js/analytics.js" charset="utf-8" defer></script>
+  <script src="/assets/js/analytics.js" charset="utf-8"></script>
+  <script src="/assets/js/lead-tracking.js"></script>
+  <script>
+    var confirmedSource = window.FVGLeadTracking && window.FVGLeadTracking.presentation();
+    if (!confirmedSource) {
+      // Presentation only: query parameters never authorize a conversion.
+      var querySources = {
+        home: { label: 'Página inicial', path: '/' },
+        lp: { label: 'Página de avaliação', path: '/lp' },
+        campanha: { label: 'Campanha pós-emagrecimento', path: '/campanha-excessodepele' },
+        'campanha-eua': { label: 'Consulta online nos EUA', path: '/campanha' }
+      };
+      var querySource = new URLSearchParams(location.search).get('origem');
+      if (Object.prototype.hasOwnProperty.call(querySources, querySource)) confirmedSource = querySources[querySource];
+    }
+    if (confirmedSource) {
+      document.getElementById('source-label').textContent = 'Origem: ' + confirmedSource.label;
+      document.getElementById('return-link').href = confirmedSource.path;
+    }
+  </script>
 </body>
 </html>

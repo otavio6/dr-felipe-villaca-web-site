@@ -113,8 +113,8 @@
      mesmo sem aceite do banner: nao ha dado pessoal nem leitura de cookie. Se
      a orientacao juridica mudar, condicionar a lido() === 'granted' aqui.
 
-     Uma vez por sessao: o mesmo visitante costuma clicar em mais de um CTA, e
-     tres cliques nao sao tres consultas. */
+     Cliques no WhatsApp: uma vez por sessao. Formularios confirmados usam o
+     ID do recibo e nao compartilham essa trava. */
   var CONVERSAO_URL = '/api/conversao';
   var MARCA_SESSAO = 'fv-conversao-enviada';
 
@@ -128,8 +128,8 @@
     });
   }
 
-  function registrarConversao() {
-    try {
+  function registrarConversao(confirmedId, sourcePath) {
+    if (!confirmedId) try {
       if (sessionStorage.getItem(MARCA_SESSAO) === '1') return;
       sessionStorage.setItem(MARCA_SESSAO, '1');
     } catch (e) { /* aba anonima sem storage: segue e envia */ }
@@ -138,8 +138,8 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          id: idDeEvento(),
-          pagina: location.pathname,
+          id: confirmedId || idDeEvento(),
+          pagina: sourcePath || location.pathname,
           oppref: leCookie(OPPREF) || undefined
         }),
         // O clique leva a pagina embora para o WhatsApp. Sem keepalive a
@@ -148,6 +148,8 @@
       }).catch(function () {});
     } catch (e) {}
   }
+
+  window.fvgConfirmedLead = function (id, path) { registrarConversao(id, path); };
 
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="wa.me"]');
@@ -160,24 +162,6 @@
   }, true);
 
   document.addEventListener('DOMContentLoaded', function () {
-    var form = document.getElementById('leadForm');
-    if (form) {
-      form.addEventListener('submit', function () {
-        var investimento = document.getElementById('investimento');
-        var prazo = document.getElementById('prazo');
-        enviar('submit_lead', {
-          investimento: investimento ? investimento.value : '(nao informado)',
-          prazo: prazo ? prazo.value : '(nao informado)',
-          pagina: location.pathname
-        });
-        // Mesma conversao do clique no CTA: o envio do formulario tambem
-        // termina abrindo o WhatsApp. A trava por sessao dentro de
-        // registrarConversao() impede contar duas vezes quem preenche o
-        // formulario e depois ainda clica no botao flutuante.
-        registrarConversao();
-      });
-    }
-
     /* Comparador antes/depois: conta uma vez por card, nao a cada pixel arrastado.
        Exige gesto real antes de contar - no reload o Chrome restaura o valor dos
        input[type=range] e dispara 'input' sozinho, o que inflava a metrica. */
