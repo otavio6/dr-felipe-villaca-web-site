@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <script src="/assets/js/lead-tracking.js" defer></script>
   <script>
     window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) }
     gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
@@ -1149,12 +1150,9 @@
             const resultado = await resposta.json().catch(() => ({}));
             throw new Error(resultado.erro || 'Não foi possível enviar. Tente novamente.');
           }
-          try {
-            sessionStorage.setItem('fvg-campanha-lead-pendente', JSON.stringify({ modalidade: dados.modalidade, pagina: location.pathname }));
-          } catch (erro) {
-            window.dataLayer.push({ event: 'submit_lead', campanha: 'pos-emagrecimento', modalidade: dados.modalidade, pagina: location.pathname });
-          }
-          location.assign('/obrigado?origem=campanha');
+          if ((await resposta.json()).recebido !== true) throw new Error('Não foi possível enviar. Tente novamente.');
+          if (window.FVGLeadTracking) window.FVGLeadTracking.confirmed('campanha');
+          else window.location.assign('/obrigado?origem=campanha');
         } catch (erro) {
           formStatus.textContent = erro.message || 'Não foi possível enviar. Tente novamente.';
           submitButton.disabled = false;

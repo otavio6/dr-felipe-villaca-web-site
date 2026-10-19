@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <script src="/assets/js/lead-tracking.js" defer></script>
 
   <!-- Consentimento ANTES de qualquer tag. O GTM e o GA4 leem o mesmo dataLayer,
      entao negar aqui vale para os dois. Se este bloco vier depois do GTM, tags
@@ -1907,15 +1908,12 @@
       button.textContent = 'Enviando...';
       try {
         const dados = Object.fromEntries(new FormData(form).entries());
+        dados.pagina = location.pathname;
         const resposta = await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) });
-        if (!resposta.ok) throw new Error('Falha ao enviar o formulário');
-        window.location.assign('/obrigado');
+        if (!resposta.ok || (await resposta.json()).recebido !== true) throw new Error('Falha ao enviar o formulário');
+        if (window.FVGLeadTracking) window.FVGLeadTracking.confirmed('lp');
+        else window.location.assign('/obrigado?origem=lp');
       } catch (error) {
-        const local = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-        if (local) {
-          window.location.assign('/obrigado.html?preview=local');
-          return;
-        }
         button.disabled = false;
         button.textContent = original;
         alert('Não foi possível enviar seus dados agora. Tente novamente ou fale conosco pelo WhatsApp.');

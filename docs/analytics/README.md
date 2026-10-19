@@ -1,7 +1,7 @@
 # Medição — GA4, GTM e consentimento (LGPD)
 
-O site mede audiência com **GA4** instalado direto no código e tem o **Google Tag
-Manager** disponível para tags futuras. Tudo sob Consent Mode v2.
+O site mede audiência com **GA4 pelo Google Tag Manager**. O código envia eventos
+ao `dataLayer`; o container configura os destinos. Tudo sob Consent Mode v2.
 
 | | |
 |---|---|
@@ -32,13 +32,13 @@ Se o GTM subir primeiro, ele dispara tags antes de a pessoa aceitar e o banner d
 LGPD vira enfeite — o site passaria a gravar cookie sem base legal.
 
 Verificado no navegador: a sequência real do `dataLayer` é
-`consent:default → GTM.start → gtag:js → gtag:config`.
+`consent:default → GTM.start`; o GA4 é configurado no container.
 
 ### Por que existe um bloco inline e um arquivo externo
 
 O `analytics.js` é carregado com `defer`, ou seja, roda depois do HTML. Tarde demais
 para o GTM. Por isso o Consent Mode ficou inline no `<head>`, e o `analytics.js`
-cuida do resto: banner, eventos e configuração do GA4.
+cuida do banner e dos eventos.
 
 O bloco inline marca `window.__fvConsentInit = true`. O `analytics.js` só declara o
 padrão se essa marca não existir — redeclarar depois de um `update` **apagaria um
@@ -72,13 +72,13 @@ lugar nenhum.**
 | Evento | Parâmetros | Responde |
 |---|---|---|
 | `click_whatsapp` | `origem`, `pagina` | qual CTA converte — hero, card, barra fixa, flutuante, rodapé |
-| `submit_lead` | `procedimento`, `pagina` | quem preenche o formulário e o que busca |
+| `submit_lead` | `event_id`, `origem`, `pagina`, `campanha` | formulário confirmado pelo CRM, sem respostas clínicas |
 | `usa_comparador` | `procedimento` | se a galeria antes/depois engaja |
 | `filtro_resultados` | `categoria` | qual cirurgia desperta mais curiosidade |
 | `consentimento` | `escolha` | taxa de aceite do banner |
 
-A conversão deste site é um clique que leva o visitante **para fora**, para o
-WhatsApp. Sem rastreio explícito, só a visita seria registrada e nenhuma conversão.
+Formulário confirmado e clique no WhatsApp são ações distintas. Um clique não
+comprova recebimento do formulário pelo CRM.
 
 ### Formato importa
 
@@ -120,3 +120,88 @@ dados caem na propriedade certa.
       é configuração, não código
 - [ ] Conferir o Realtime do GA4 para provar que os dados chegam na propriedade
 - [ ] Campos `[A CONFIRMAR]` da política de privacidade, aguardando o jurídico
+
+
+## Formulários confirmados e atribuição de origem
+
+Os quatro formulários só chamam `FVGLeadTracking.confirmed` depois de HTTP de
+sucesso **e** corpo JSON com `recebido: true` de `/api/leads`.
+
+| Chave `origem` | Rótulo | `pagina` e destino de retorno | `campanha` |
+|---|---|---|---|
+| `home` | Página inicial | `/` | `institucional` |
+| `lp` | Página de avaliação | `/lp` | `institucional` |
+| `campanha` | Campanha pós-emagrecimento | `/campanha-excessodepele` | `pos-emagrecimento` |
+| `campanha-eua` | Consulta online nos EUA | `/campanha` | `consulta-eua` |
+
+O recibo `fvg-lead-receipt-v1` no sessionStorage guarda somente versão, UUIDv4,
+origem allowlisted e timestamp. É removido antes da validação e consumido uma vez
+em `/obrigado`. Validade: 30 minutos; datas futuras, schema extra ou inválido e
+origens desconhecidas são descartados. Não leva nome, telefone, respostas do
+formulário, parâmetros de URL ou identificadores de anúncio. O evento contém
+somente `event: submit_lead`, `event_id`, `origem`, `pagina` e `campanha`.
+
+Sem storage, o evento sai na página de origem; `eventCallback` do GTM ou timeout
+de 1,5 segundo liberam a navegação uma única vez. Falhas de tracking não devem
+alterar o sucesso do CRM. `?origem=` serve apenas para rótulo e retorno, nunca
+para autorizar conversão; um recibo válido tem precedência. Acesso direto e
+refresh sem recibo não convertem. Preview local não cria recibo nem evento.
+Nenhum redirecionamento automático ao WhatsApp foi encontrado ou adicionado.
+
+O hook `fvgConfirmedLead` em analytics.js envia a conversão de formulário ao
+ChatGPT Ads com o mesmo ID e caminho; não usa a trava por sessão dos cliques no
+WhatsApp. Cliques continuam independentes. Meta é enviado somente pelo GTM.
+
+### Migração coordenada do GTM — pendente
+
+O container público observado atribui Meta Lead e cinco ações de conversão do
+Google Ads a cliques no WhatsApp. **Esta mudança de código não corrige, sozinha,
+os relatórios de formulário nas plataformas.**
+
+- Configurar acionador de Evento Personalizado `submit_lead` para conversões de
+  formulário confirmado; mapear `event_id`, `origem`, `pagina` e `campanha`.
+- Migrar a tag Meta Lead para formulário confirmado. No Google Ads, o gestor
+  deve selecionar a(s) ação(ões) apropriada(s) por campanha entre as cinco ações
+  observadas; não ligar todas incondicionalmente ao mesmo evento. Confirmar IDs,
+  labels e objetivos de campanha, impedindo múltiplas conversões primárias para
+  um único formulário. Se houver ações adicionais para observação, classificá-las
+  como secundárias e excluí-las dos objetivos de otimização quando apropriado.
+- Usar Evento Personalizado com nome exato `submit_lead` e condição de igualdade
+  exata na variável de camada de dados `origem`, conforme a campanha:
+
+  | Formulário | Condição do acionador |
+  |---|---|
+  | Home | `event = submit_lead` E `origem = home` |
+  | LP padrão | `event = submit_lead` E `origem = lp` |
+  | Pós-emagrecimento | `event = submit_lead` E `origem = campanha` |
+  | EUA | `event = submit_lead` E `origem = campanha-eua` |
+
+  Não usar correspondência parcial de `campanha`, que incluiria `campanha-eua`.
+  Vincular cada tag somente às origens selecionadas pelo gestor; não inferir
+  labels nem criar um segundo remetente Meta no código.
+- Manter `click_whatsapp` classificado separadamente como clique, com ações
+  específicas quando desejadas; não tratá-lo como formulário confirmado.
+- Pixel público **observado**: `631982350987104`. A propriedade e configuração
+  ainda **não foram confirmadas pelo gestor**.
+- Antes de publicação autorizada, validar no GTM Preview: tentativa rejeitada não
+  dispara, sucesso dispara uma vez, refresh não dispara, e as quatro origens são
+  preservadas. Validar também Meta Test Events e diagnóstico de conversões do
+  Google Ads com o responsável; não produzir leads reais neste trabalho.
+
+Nenhuma publicação do GTM, push, merge ou deploy faz parte desta implementação.
+Verificação local sem rede: `node tools/test-lead-tracking.cjs`,
+`node --check assets/js/lead-tracking.js`, `node --check assets/js/analytics.js`
+e `git diff --check`.
+
+### Verificação desta implementação (2026-10-19)
+
+- Suite Node aprovada: recibos, schemas inválidos, expiração, preview, storage
+  bloqueado, callback/timeout, tracking bloqueado, privacidade e os quatro
+  handlers reais com requests simulados, rejeição, erro de rede e retry.
+- JavaScript e scripts inline válidos; `git diff --check` aprovado.
+- Chrome headless com todas as requisições interceptadas: quatro origens em
+  390 e 1440 px, rótulos/retornos corretos, sem overflow, evento único com
+  recibo, nenhum evento por query isolada ou refresh. Capturas locais em
+  `/tmp/fvg-thank-you-{origem}-{largura}.png`.
+- GTM Preview e validação nas plataformas continuam pendentes de acesso e
+  autorização da configuração. Nenhum lead real foi criado.

@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <script src="/assets/js/lead-tracking.js" defer></script>
   <script>
     window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) }
     gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
@@ -760,10 +761,9 @@
           var resultado = await resposta.json().catch(function () { return {}; });
           throw new Error(resultado.erro || 'Não foi possível enviar. Tente novamente.');
         }
-        try {
-          sessionStorage.setItem('fvg-campanha-lead-pendente', JSON.stringify({ modalidade: 'Online', pagina: location.pathname }));
-        } catch (erro) {}
-        location.assign('/obrigado?origem=campanha-eua');
+        if ((await resposta.json()).recebido !== true) throw new Error('Não foi possível enviar. Tente novamente.');
+        if (window.FVGLeadTracking) window.FVGLeadTracking.confirmed('campanha-eua');
+        else window.location.assign('/obrigado?origem=campanha-eua');
       } catch (erro) {
         formStatus.textContent = erro.message || 'Não foi possível enviar. Tente novamente.';
         submitButton.disabled = false;
